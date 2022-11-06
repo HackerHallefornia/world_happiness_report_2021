@@ -1,7 +1,11 @@
+
 module Displaydata exposing (..)
 import Browser
 import Html exposing (Html, text, pre)
 import Http
+
+import Csv.Decode exposing (..)
+import Csv exposing (..)
 
 -- MAIN
 main =
@@ -24,16 +28,16 @@ type Model
 type alias Country_2021 =
     { country_name : String
     , regional_indicator : String
-    , ladder_score : Maybe Float
-    , se_ladder : Maybe Float
-    , u_whisker : Maybe Float
-    , l_whisker : Maybe Float
-    , lg_gdp_pc : Maybe Float
-    , social_support : Maybe Float
-    , life_expectancy : Maybe Float
-    , freedom_lc : Maybe Float
-    , generosity : Maybe Float
-    , pc_corruption : Maybe Float
+    , ladder_score :  Float
+    , se_ladder :  Float
+    , u_whisker :  Float
+    , l_whisker :  Float
+    , lg_gdp_pc :  Float
+    , social_support :  Float
+    , life_expectancy :  Float
+    , freedom_lc :  Float
+    , generosity :  Float
+    , pc_corruption :  Float
     }
 
 
@@ -41,40 +45,40 @@ init : () -> (Model, Cmd Msg)
 init _ =
   ( Loading , 
   Http.get
-  { url = "https://raw.githubusercontent.com/HackerHallefornia/world_happiness_report_2021/main/data/world-happiness-report-2021.csv"
+  { url = "https://raw.githubusercontent.com/HackerHallefornia/world_happiness_report_2021/main/data/world-happiness-report-2021_simple.csv"
   , expect = Http.expectString GotText
-  }
-  )
+  })
 
 
-csvString_to_data : String -> List NBA_Data
+csvString_to_data : String -> List Country_2021
 csvString_to_data csvRaw =
     Csv.parse csvRaw
-        |> Csv.Decode.decodeCsv decodeCsvNBAdata
+        |> Csv.Decode.decodeCsv decodeCsvCountry
         |> Result.toMaybe
         |> Maybe.withDefault []
 
 
-decodeCsvNBAdata : Csv.Decode.Decoder (NBA_Data -> a ) a 
-decodeCsvNBAdata =
-    Csv.Decode.map NBA_Data
-        (Csv.Decode.field "Country name" Ok
-              |> Csv.Decode.andMap (Csv.Decode.field "Country name" Ok)
-              |> Csv.Decode.andMap (Csv.Decode.field "Age"(String.toInt >> Result.fromMaybe "error parsing string"))
-              |> Csv.Decode.andMap (Csv.Decode.field "Tm" Ok)
-              |> Csv.Decode.andMap (Csv.Decode.field "X3P" (String.toFloat >> Result.fromMaybe "error parsing string"))
-              |> Csv.Decode.andMap (Csv.Decode.field "X2P" (String.toFloat >> Result.fromMaybe "error parsing string"))
-              |> Csv.Decode.andMap (Csv.Decode.field "TRB" (String.toFloat >> Result.fromMaybe "error parsing string"))
-              |> Csv.Decode.andMap (Csv.Decode.field "AST" (String.toFloat >> Result.fromMaybe "error parsing string"))
-              |> Csv.Decode.andMap (Csv.Decode.field "STL" (String.toFloat >> Result.fromMaybe "error parsing string"))
-              |> Csv.Decode.andMap (Csv.Decode.field "BLK" (String.toFloat >> Result.fromMaybe "error parsing string"))
-              |> Csv.Decode.andMap (Csv.Decode.field "TOV" (String.toFloat >> Result.fromMaybe "error parsing string"))
-              |> Csv.Decode.andMap (Csv.Decode.field "PTS" (String.toFloat >> Result.fromMaybe "error parsing string"))
-              |> Csv.Decode.andMap (Csv.Decode.field "PER" (String.toFloat >> Result.fromMaybe "error parsing string"))
-              |> Csv.Decode.andMap (Csv.Decode.field "OWS" (String.toFloat >> Result.fromMaybe "error parsing string"))
-              |> Csv.Decode.andMap (Csv.Decode.field "DWS" (String.toFloat >> Result.fromMaybe "error parsing string"))
-              |> Csv.Decode.andMap (Csv.Decode.field "WS" (String.toFloat >> Result.fromMaybe "error parsing string"))
-              |> Csv.Decode.andMap (Csv.Decode.field "VORP" (String.toFloat >> Result.fromMaybe "error parsing string"))
+decodeCsvCountry : Csv.Decode.Decoder (Country_2021 -> a ) a 
+decodeCsvCountry =
+    Csv.Decode.map Country_2021
+         (Csv.Decode.field "Country name" Ok
+              |> Csv.Decode.andMap (Csv.Decode.field "Regional indicator" Ok)
+              |> Csv.Decode.andMap (Csv.Decode.field "Ladder score"(String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Standard error of ladder score" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "upperwhisker" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "lowerwhisker" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Logged GDP per capita" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Social support" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Healthy life expectancy" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Freedom to make life choices" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Generosity" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Perceptions of corruption" (String.toFloat >> Result.fromMaybe "error parsing string"))
+        )
+        
+datListe :List String -> List Country_2021
+datListe country_list =
+    List.map(\x -> csvString_to_data x) country_list
+        |> List.concat
 
 
 -- UPDATE
@@ -108,4 +112,11 @@ view model =
       text "Loading..."
 
     Success fullText ->
-      pre [] [ text fullText ]
+      pre [] [ text  (String.fromInt (List.length (datListe [fullText])))]
+      
+      
+      
+      
+      
+      
+      

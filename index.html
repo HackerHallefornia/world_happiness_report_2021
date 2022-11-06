@@ -6137,7 +6137,7 @@ var $author$project$Displaydata$init = function (_v0) {
 		$elm$http$Http$get(
 			{
 				expect: $elm$http$Http$expectString($author$project$Displaydata$GotText),
-				url: 'https://raw.githubusercontent.com/HackerHallefornia/world_happiness_report_2021/main/data/world-happiness-report-2021.csv'
+				url: 'https://raw.githubusercontent.com/HackerHallefornia/world_happiness_report_2021/main/data/world-happiness-report-2021_simple.csv'
 			}));
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
@@ -6163,6 +6163,553 @@ var $author$project$Displaydata$update = F2(
 			return _Utils_Tuple2($author$project$Displaydata$Failure, $elm$core$Platform$Cmd$none);
 		}
 	});
+var $elm$core$List$append = F2(
+	function (xs, ys) {
+		if (!ys.b) {
+			return xs;
+		} else {
+			return A3($elm$core$List$foldr, $elm$core$List$cons, ys, xs);
+		}
+	});
+var $elm$core$List$concat = function (lists) {
+	return A3($elm$core$List$foldr, $elm$core$List$append, _List_Nil, lists);
+};
+var $ericgj$elm_csv_decode$Csv$Decode$DecodeErrors = function (a) {
+	return {$: 'DecodeErrors', a: a};
+};
+var $elm$core$Result$map = F2(
+	function (func, ra) {
+		if (ra.$ === 'Ok') {
+			var a = ra.a;
+			return $elm$core$Result$Ok(
+				func(a));
+		} else {
+			var e = ra.a;
+			return $elm$core$Result$Err(e);
+		}
+	});
+var $ericgj$elm_csv_decode$Csv$Decode$decodeRecord = F3(
+	function (_v0, headers, record) {
+		var decoder = _v0.a;
+		return A2(
+			$elm$core$Result$map,
+			function ($) {
+				return $.value;
+			},
+			decoder(
+				{
+					unvisited: A3(
+						$elm$core$List$map2,
+						F2(
+							function (a, b) {
+								return _Utils_Tuple2(a, b);
+							}),
+						headers,
+						record),
+					value: $elm$core$Basics$identity,
+					visited: _List_Nil
+				}));
+	});
+var $elm$core$Tuple$second = function (_v0) {
+	var y = _v0.b;
+	return y;
+};
+var $ericgj$elm_csv_decode$Csv$Decode$sequenceResultsAccumErrs = function (list) {
+	var accum = F2(
+		function (nxt, _v1) {
+			var i = _v1.a;
+			var result = _v1.b;
+			var _v0 = _Utils_Tuple2(nxt, result);
+			if (_v0.a.$ === 'Ok') {
+				if (_v0.b.$ === 'Ok') {
+					var b = _v0.a.a;
+					var a = _v0.b.a;
+					return _Utils_Tuple2(
+						i - 1,
+						$elm$core$Result$Ok(
+							A2($elm$core$List$cons, b, a)));
+				} else {
+					var b = _v0.a.a;
+					var a = _v0.b.a;
+					return _Utils_Tuple2(
+						i - 1,
+						$elm$core$Result$Err(a));
+				}
+			} else {
+				if (_v0.b.$ === 'Ok') {
+					var b = _v0.a.a;
+					var a = _v0.b.a;
+					return _Utils_Tuple2(
+						i - 1,
+						$elm$core$Result$Err(
+							_List_fromArray(
+								[
+									_Utils_Tuple2(i, b)
+								])));
+				} else {
+					var b = _v0.a.a;
+					var a = _v0.b.a;
+					return _Utils_Tuple2(
+						i - 1,
+						$elm$core$Result$Err(
+							A2(
+								$elm$core$List$cons,
+								_Utils_Tuple2(i, b),
+								a)));
+				}
+			}
+		});
+	return A3(
+		$elm$core$List$foldr,
+		accum,
+		_Utils_Tuple2(
+			$elm$core$List$length(list) - 1,
+			$elm$core$Result$Ok(_List_Nil)),
+		list).b;
+};
+var $ericgj$elm_csv_decode$Csv$Decode$decodeCsv = F2(
+	function (decoder, _v0) {
+		var headers = _v0.headers;
+		var records = _v0.records;
+		return A2(
+			$elm$core$Result$mapError,
+			$ericgj$elm_csv_decode$Csv$Decode$DecodeErrors,
+			$ericgj$elm_csv_decode$Csv$Decode$sequenceResultsAccumErrs(
+				A2(
+					$elm$core$List$map,
+					A2($ericgj$elm_csv_decode$Csv$Decode$decodeRecord, decoder, headers),
+					records)));
+	});
+var $author$project$Displaydata$Country_2021 = function (country_name) {
+	return function (regional_indicator) {
+		return function (ladder_score) {
+			return function (se_ladder) {
+				return function (u_whisker) {
+					return function (l_whisker) {
+						return function (lg_gdp_pc) {
+							return function (social_support) {
+								return function (life_expectancy) {
+									return function (freedom_lc) {
+										return function (generosity) {
+											return function (pc_corruption) {
+												return {country_name: country_name, freedom_lc: freedom_lc, generosity: generosity, l_whisker: l_whisker, ladder_score: ladder_score, lg_gdp_pc: lg_gdp_pc, life_expectancy: life_expectancy, pc_corruption: pc_corruption, regional_indicator: regional_indicator, se_ladder: se_ladder, social_support: social_support, u_whisker: u_whisker};
+											};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var $ericgj$elm_csv_decode$Csv$Decode$Decoder = function (a) {
+	return {$: 'Decoder', a: a};
+};
+var $elm$core$Result$andThen = F2(
+	function (callback, result) {
+		if (result.$ === 'Ok') {
+			var value = result.a;
+			return callback(value);
+		} else {
+			var msg = result.a;
+			return $elm$core$Result$Err(msg);
+		}
+	});
+var $ericgj$elm_csv_decode$Csv$Decode$andMap = F2(
+	function (_v0, _v1) {
+		var decodeAfter = _v0.a;
+		var decodeBefore = _v1.a;
+		return $ericgj$elm_csv_decode$Csv$Decode$Decoder(
+			function (state) {
+				return A2(
+					$elm$core$Result$andThen,
+					decodeAfter,
+					decodeBefore(state));
+			});
+	});
+var $ericgj$elm_csv_decode$Csv$Decode$State = F3(
+	function (visited, unvisited, value) {
+		return {unvisited: unvisited, value: value, visited: visited};
+	});
+var $ericgj$elm_csv_decode$Csv$Decode$listFind = F2(
+	function (pred, list) {
+		listFind:
+		while (true) {
+			if (!list.b) {
+				return $elm$core$Maybe$Nothing;
+			} else {
+				var first = list.a;
+				var rest = list.b;
+				if (pred(first)) {
+					return $elm$core$Maybe$Just(first);
+				} else {
+					var $temp$pred = pred,
+						$temp$list = rest;
+					pred = $temp$pred;
+					list = $temp$list;
+					continue listFind;
+				}
+			}
+		}
+	});
+var $ericgj$elm_csv_decode$Csv$Decode$field = F2(
+	function (name, fn) {
+		return $ericgj$elm_csv_decode$Csv$Decode$Decoder(
+			function (_v0) {
+				var visited = _v0.visited;
+				var unvisited = _v0.unvisited;
+				var value = _v0.value;
+				var _v1 = A2(
+					$ericgj$elm_csv_decode$Csv$Decode$listFind,
+					function (_v2) {
+						var name_ = _v2.a;
+						return _Utils_eq(name_, name);
+					},
+					unvisited);
+				if (_v1.$ === 'Nothing') {
+					return $elm$core$Result$Err('No field named \'' + (name + '\' found'));
+				} else {
+					var _v3 = _v1.a;
+					var rawField = _v3.a;
+					var rawValue = _v3.b;
+					var _v4 = fn(rawValue);
+					if (_v4.$ === 'Ok') {
+						var nextValue = _v4.a;
+						return $elm$core$Result$Ok(
+							A3(
+								$ericgj$elm_csv_decode$Csv$Decode$State,
+								visited,
+								unvisited,
+								value(nextValue)));
+					} else {
+						var msg = _v4.a;
+						return $elm$core$Result$Err(msg);
+					}
+				}
+			});
+	});
+var $elm$core$Result$fromMaybe = F2(
+	function (err, maybe) {
+		if (maybe.$ === 'Just') {
+			var v = maybe.a;
+			return $elm$core$Result$Ok(v);
+		} else {
+			return $elm$core$Result$Err(err);
+		}
+	});
+var $ericgj$elm_csv_decode$Csv$Decode$mapHelp = F2(
+	function (fn, _v0) {
+		var visited = _v0.visited;
+		var unvisited = _v0.unvisited;
+		var value = _v0.value;
+		return {
+			unvisited: unvisited,
+			value: fn(value),
+			visited: visited
+		};
+	});
+var $ericgj$elm_csv_decode$Csv$Decode$map = F2(
+	function (subValue, _v0) {
+		var decoder = _v0.a;
+		return $ericgj$elm_csv_decode$Csv$Decode$Decoder(
+			function (_v1) {
+				var visited = _v1.visited;
+				var unvisited = _v1.unvisited;
+				var value = _v1.value;
+				return A2(
+					$elm$core$Result$map,
+					$ericgj$elm_csv_decode$Csv$Decode$mapHelp(value),
+					decoder(
+						{unvisited: unvisited, value: subValue, visited: visited}));
+			});
+	});
+var $elm$core$String$toFloat = _String_toFloat;
+var $author$project$Displaydata$decodeCsvCountry = A2(
+	$ericgj$elm_csv_decode$Csv$Decode$map,
+	$author$project$Displaydata$Country_2021,
+	A2(
+		$ericgj$elm_csv_decode$Csv$Decode$andMap,
+		A2(
+			$ericgj$elm_csv_decode$Csv$Decode$field,
+			'Perceptions of corruption',
+			A2(
+				$elm$core$Basics$composeR,
+				$elm$core$String$toFloat,
+				$elm$core$Result$fromMaybe('error parsing string'))),
+		A2(
+			$ericgj$elm_csv_decode$Csv$Decode$andMap,
+			A2(
+				$ericgj$elm_csv_decode$Csv$Decode$field,
+				'Generosity',
+				A2(
+					$elm$core$Basics$composeR,
+					$elm$core$String$toFloat,
+					$elm$core$Result$fromMaybe('error parsing string'))),
+			A2(
+				$ericgj$elm_csv_decode$Csv$Decode$andMap,
+				A2(
+					$ericgj$elm_csv_decode$Csv$Decode$field,
+					'Freedom to make life choices',
+					A2(
+						$elm$core$Basics$composeR,
+						$elm$core$String$toFloat,
+						$elm$core$Result$fromMaybe('error parsing string'))),
+				A2(
+					$ericgj$elm_csv_decode$Csv$Decode$andMap,
+					A2(
+						$ericgj$elm_csv_decode$Csv$Decode$field,
+						'Healthy life expectancy',
+						A2(
+							$elm$core$Basics$composeR,
+							$elm$core$String$toFloat,
+							$elm$core$Result$fromMaybe('error parsing string'))),
+					A2(
+						$ericgj$elm_csv_decode$Csv$Decode$andMap,
+						A2(
+							$ericgj$elm_csv_decode$Csv$Decode$field,
+							'Social support',
+							A2(
+								$elm$core$Basics$composeR,
+								$elm$core$String$toFloat,
+								$elm$core$Result$fromMaybe('error parsing string'))),
+						A2(
+							$ericgj$elm_csv_decode$Csv$Decode$andMap,
+							A2(
+								$ericgj$elm_csv_decode$Csv$Decode$field,
+								'Logged GDP per capita',
+								A2(
+									$elm$core$Basics$composeR,
+									$elm$core$String$toFloat,
+									$elm$core$Result$fromMaybe('error parsing string'))),
+							A2(
+								$ericgj$elm_csv_decode$Csv$Decode$andMap,
+								A2(
+									$ericgj$elm_csv_decode$Csv$Decode$field,
+									'lowerwhisker',
+									A2(
+										$elm$core$Basics$composeR,
+										$elm$core$String$toFloat,
+										$elm$core$Result$fromMaybe('error parsing string'))),
+								A2(
+									$ericgj$elm_csv_decode$Csv$Decode$andMap,
+									A2(
+										$ericgj$elm_csv_decode$Csv$Decode$field,
+										'upperwhisker',
+										A2(
+											$elm$core$Basics$composeR,
+											$elm$core$String$toFloat,
+											$elm$core$Result$fromMaybe('error parsing string'))),
+									A2(
+										$ericgj$elm_csv_decode$Csv$Decode$andMap,
+										A2(
+											$ericgj$elm_csv_decode$Csv$Decode$field,
+											'Standard error of ladder score',
+											A2(
+												$elm$core$Basics$composeR,
+												$elm$core$String$toFloat,
+												$elm$core$Result$fromMaybe('error parsing string'))),
+										A2(
+											$ericgj$elm_csv_decode$Csv$Decode$andMap,
+											A2(
+												$ericgj$elm_csv_decode$Csv$Decode$field,
+												'Ladder score',
+												A2(
+													$elm$core$Basics$composeR,
+													$elm$core$String$toFloat,
+													$elm$core$Result$fromMaybe('error parsing string'))),
+											A2(
+												$ericgj$elm_csv_decode$Csv$Decode$andMap,
+												A2($ericgj$elm_csv_decode$Csv$Decode$field, 'Regional indicator', $elm$core$Result$Ok),
+												A2($ericgj$elm_csv_decode$Csv$Decode$field, 'Country name', $elm$core$Result$Ok)))))))))))));
+var $elm$core$List$drop = F2(
+	function (n, list) {
+		drop:
+		while (true) {
+			if (n <= 0) {
+				return list;
+			} else {
+				if (!list.b) {
+					return list;
+				} else {
+					var x = list.a;
+					var xs = list.b;
+					var $temp$n = n - 1,
+						$temp$list = xs;
+					n = $temp$n;
+					list = $temp$list;
+					continue drop;
+				}
+			}
+		}
+	});
+var $elm$core$List$head = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(x);
+	} else {
+		return $elm$core$Maybe$Nothing;
+	}
+};
+var $elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
+var $elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			$elm$core$List$foldr,
+			F2(
+				function (x, xs) {
+					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
+				}),
+			_List_Nil,
+			list);
+	});
+var $elm$core$String$lines = _String_lines;
+var $elm$core$Basics$not = _Basics_not;
+var $elm$core$Basics$neq = _Utils_notEqual;
+var $elm$core$List$tail = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(xs);
+	} else {
+		return $elm$core$Maybe$Nothing;
+	}
+};
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
+var $lovasoa$elm_csv$Helper$parseRemaining = F5(
+	function (separator, quoted, startOfLine, remaining, result) {
+		parseRemaining:
+		while (true) {
+			if (remaining === '') {
+				return result;
+			} else {
+				if ((separator !== '') && ((!quoted) && A2($elm$core$String$startsWith, separator, remaining))) {
+					var nextChars = A2(
+						$elm$core$String$dropLeft,
+						$elm$core$String$length(separator),
+						remaining);
+					var newResult = startOfLine ? _List_fromArray(
+						['', '']) : A2($elm$core$List$cons, '', result);
+					var newQuoted = false;
+					var $temp$separator = separator,
+						$temp$quoted = false,
+						$temp$startOfLine = false,
+						$temp$remaining = nextChars,
+						$temp$result = newResult;
+					separator = $temp$separator;
+					quoted = $temp$quoted;
+					startOfLine = $temp$startOfLine;
+					remaining = $temp$remaining;
+					result = $temp$result;
+					continue parseRemaining;
+				} else {
+					var others = A2(
+						$elm$core$Maybe$withDefault,
+						_List_Nil,
+						$elm$core$List$tail(result));
+					var nextNextChar = A3($elm$core$String$slice, 1, 2, remaining);
+					var nextChar = A3($elm$core$String$slice, 0, 1, remaining);
+					var isEscapedQuote = (!quoted) && (((nextChar === '\\') || (nextChar === '\"')) && (nextNextChar === '\"'));
+					var nextChars = A2(
+						$elm$core$String$dropLeft,
+						isEscapedQuote ? 2 : 1,
+						remaining);
+					var endQuote = quoted && ((nextChar === '\"') && (!isEscapedQuote));
+					var current = A2(
+						$elm$core$Maybe$withDefault,
+						'',
+						$elm$core$List$head(result));
+					var startQuote = (nextChar === '\"') && ((nextNextChar !== '\"') && (current === ''));
+					var newChar = isEscapedQuote ? '\"' : ((startQuote || endQuote) ? '' : nextChar);
+					var newDone = A2(
+						$elm$core$List$cons,
+						_Utils_ap(current, newChar),
+						others);
+					var newQuoted = (quoted && (!endQuote)) || startQuote;
+					var $temp$separator = separator,
+						$temp$quoted = newQuoted,
+						$temp$startOfLine = false,
+						$temp$remaining = nextChars,
+						$temp$result = newDone;
+					separator = $temp$separator;
+					quoted = $temp$quoted;
+					startOfLine = $temp$startOfLine;
+					remaining = $temp$remaining;
+					result = $temp$result;
+					continue parseRemaining;
+				}
+			}
+		}
+	});
+var $lovasoa$elm_csv$Helper$splitLineWith = F2(
+	function (separator, line) {
+		return $elm$core$List$reverse(
+			A5($lovasoa$elm_csv$Helper$parseRemaining, separator, false, true, line, _List_Nil));
+	});
+var $lovasoa$elm_csv$Csv$splitWith = F2(
+	function (separator, lines) {
+		var values = A2(
+			$elm$core$List$filter,
+			A2($elm$core$Basics$composeL, $elm$core$Basics$not, $elm$core$String$isEmpty),
+			$elm$core$String$lines(lines));
+		return A2(
+			$elm$core$List$map,
+			$lovasoa$elm_csv$Helper$splitLineWith(separator),
+			values);
+	});
+var $lovasoa$elm_csv$Csv$parseWith = F2(
+	function (separator, lines) {
+		var values = A2($lovasoa$elm_csv$Csv$splitWith, separator, lines);
+		var records = A2($elm$core$List$drop, 1, values);
+		var headers = A2(
+			$elm$core$Maybe$withDefault,
+			_List_Nil,
+			$elm$core$List$head(values));
+		return {headers: headers, records: records};
+	});
+var $lovasoa$elm_csv$Csv$parse = $lovasoa$elm_csv$Csv$parseWith(',');
+var $elm$core$Result$toMaybe = function (result) {
+	if (result.$ === 'Ok') {
+		var v = result.a;
+		return $elm$core$Maybe$Just(v);
+	} else {
+		return $elm$core$Maybe$Nothing;
+	}
+};
+var $author$project$Displaydata$csvString_to_data = function (csvRaw) {
+	return A2(
+		$elm$core$Maybe$withDefault,
+		_List_Nil,
+		$elm$core$Result$toMaybe(
+			A2(
+				$ericgj$elm_csv_decode$Csv$Decode$decodeCsv,
+				$author$project$Displaydata$decodeCsvCountry,
+				$lovasoa$elm_csv$Csv$parse(csvRaw))));
+};
+var $author$project$Displaydata$datListe = function (country_list) {
+	return $elm$core$List$concat(
+		A2(
+			$elm$core$List$map,
+			function (x) {
+				return $author$project$Displaydata$csvString_to_data(x);
+			},
+			country_list));
+};
 var $elm$html$Html$pre = _VirtualDom_node('pre');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
@@ -6179,7 +6726,12 @@ var $author$project$Displaydata$view = function (model) {
 				_List_Nil,
 				_List_fromArray(
 					[
-						$elm$html$Html$text(fullText)
+						$elm$html$Html$text(
+						$elm$core$String$fromInt(
+							$elm$core$List$length(
+								$author$project$Displaydata$datListe(
+									_List_fromArray(
+										[fullText])))))
 					]));
 	}
 };
