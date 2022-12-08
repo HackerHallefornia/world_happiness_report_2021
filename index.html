@@ -6709,26 +6709,115 @@ var $author$project$Displaydata$csvString_to_data = function (csvRaw) {
 				$author$project$Displaydata$decodeCsvCountry,
 				$lovasoa$elm_csv$Csv$parse(csvRaw))));
 };
+var $author$project$Main$idToAxis = function (id) {
+	switch (id) {
+		case 1:
+			return 'ladder_score';
+		case 2:
+			return 'se_ladder';
+		case 3:
+			return 'u_whisker';
+		case 4:
+			return 'l_whisker';
+		case 5:
+			return 'lg_gdp_pc';
+		case 6:
+			return 'social_support';
+		case 7:
+			return 'life_expectancy';
+		case 8:
+			return 'freedom_lc';
+		case 9:
+			return 'generosity';
+		case 10:
+			return 'pc_corruption';
+		default:
+			return ' ';
+	}
+};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$update = F2(
 	function (msg, model) {
-		var result = msg.a;
-		if (result.$ === 'Ok') {
-			var data = result.a;
-			return _Utils_Tuple2(
-				$author$project$Main$Success(
-					{
-						data: $author$project$Displaydata$csvString_to_data(data)
-					}),
-				$elm$core$Platform$Cmd$none);
-		} else {
-			return _Utils_Tuple2($author$project$Main$Failure, $elm$core$Platform$Cmd$none);
+		switch (msg.$) {
+			case 'GotText':
+				var result = msg.a;
+				if (result.$ === 'Ok') {
+					var data = result.a;
+					return _Utils_Tuple2(
+						$author$project$Main$Success(
+							{
+								data: $author$project$Displaydata$csvString_to_data(data),
+								x_axis: 'life_expectancy',
+								y_axis: 'ladder_score'
+							}),
+						$elm$core$Platform$Cmd$none);
+				} else {
+					return _Utils_Tuple2($author$project$Main$Failure, $elm$core$Platform$Cmd$none);
+				}
+			case 'Scatterplot_yaxis':
+				var id = msg.a;
+				if (model.$ === 'Success') {
+					var d = model.a;
+					return _Utils_Tuple2(
+						$author$project$Main$Success(
+							_Utils_update(
+								d,
+								{
+									y_axis: $author$project$Main$idToAxis(id)
+								})),
+						$elm$core$Platform$Cmd$none);
+				} else {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				}
+			default:
+				var id = msg.a;
+				if (model.$ === 'Success') {
+					var d = model.a;
+					return _Utils_Tuple2(
+						$author$project$Main$Success(
+							_Utils_update(
+								d,
+								{
+									x_axis: $author$project$Main$idToAxis(id)
+								})),
+						$elm$core$Platform$Cmd$none);
+				} else {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				}
 		}
 	});
-var $surprisetalk$elm_bulma$Bulma$Elements$H2 = {$: 'H2'};
-var $surprisetalk$elm_bulma$Bulma$Modifiers$Small = {$: 'Small'};
-var $surprisetalk$elm_bulma$Bulma$Modifiers$White = {$: 'White'};
+var $author$project$Main$Scatterplot_xaxis = function (a) {
+	return {$: 'Scatterplot_xaxis', a: a};
+};
+var $author$project$Main$axislist = _List_fromArray(
+	['ladder_score', 'se_ladder', 'u_whisker', 'l_whisker', 'lg_gdp_pc', 'social_support', 'life_expectancy', 'freedom_lc', 'generosity', 'pc_corruption']);
+var $author$project$Main$axisname_to_id = function (name) {
+	switch (name) {
+		case 'ladder_score':
+			return '1';
+		case 'se_ladder':
+			return '2';
+		case 'u_whisker':
+			return '3';
+		case 'l_whisker':
+			return '4';
+		case 'lg_gdp_pc':
+			return '5';
+		case 'social_support':
+			return '6';
+		case 'life_expectancy':
+			return '7';
+		case 'freedom_lc':
+			return '8';
+		case 'generosity':
+			return '9';
+		case 'pc_corruption':
+			return '10';
+		default:
+			return ' ';
+	}
+};
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -6756,6 +6845,126 @@ var $surprisetalk$elm_bulma$Bulma$Layout$container = A2(
 	'div',
 	_List_fromArray(
 		[$surprisetalk$elm_bulma$Bulma$Classes$container]));
+var $elm$virtual_dom$VirtualDom$Normal = function (a) {
+	return {$: 'Normal', a: a};
+};
+var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
+var $elm$html$Html$Events$on = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$Normal(decoder));
+	});
+var $elm$html$Html$option = _VirtualDom_node('option');
+var $elm$html$Html$select = _VirtualDom_node('select');
+var $elm$json$Json$Decode$andThen = _Json_andThen;
+var $elm$json$Json$Decode$fail = _Json_fail;
+var $elm_community$html_extra$Html$Events$Extra$customDecoder = F2(
+	function (d, f) {
+		var resultDecoder = function (x) {
+			if (x.$ === 'Ok') {
+				var a = x.a;
+				return $elm$json$Json$Decode$succeed(a);
+			} else {
+				var e = x.a;
+				return $elm$json$Json$Decode$fail(e);
+			}
+		};
+		return A2(
+			$elm$json$Json$Decode$andThen,
+			resultDecoder,
+			A2($elm$json$Json$Decode$map, f, d));
+	});
+var $elm_community$html_extra$Html$Events$Extra$maybeStringToResult = $elm$core$Result$fromMaybe('could not convert string');
+var $elm$json$Json$Decode$field = _Json_decodeField;
+var $elm$json$Json$Decode$at = F2(
+	function (fields, decoder) {
+		return A3($elm$core$List$foldr, $elm$json$Json$Decode$field, decoder, fields);
+	});
+var $elm$json$Json$Decode$string = _Json_decodeString;
+var $elm$html$Html$Events$targetValue = A2(
+	$elm$json$Json$Decode$at,
+	_List_fromArray(
+		['target', 'value']),
+	$elm$json$Json$Decode$string);
+var $elm_community$html_extra$Html$Events$Extra$targetValueIntParse = A2(
+	$elm_community$html_extra$Html$Events$Extra$customDecoder,
+	$elm$html$Html$Events$targetValue,
+	A2($elm$core$Basics$composeR, $elm$core$String$toInt, $elm_community$html_extra$Html$Events$Extra$maybeStringToResult));
+var $arowM$elm_html_extra_internal$Batchable$Html$Events$Extra$targetValueIntParse = $elm_community$html_extra$Html$Events$Extra$targetValueIntParse;
+var $arowM$html_extra$Html$Events$Extra$targetValueIntParse = $arowM$elm_html_extra_internal$Batchable$Html$Events$Extra$targetValueIntParse;
+var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
+var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
+var $author$project$Main$dropDown_x = A2(
+	$surprisetalk$elm_bulma$Bulma$Layout$container,
+	_List_Nil,
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$select,
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$Events$on,
+					'change',
+					A2($elm$json$Json$Decode$map, $author$project$Main$Scatterplot_xaxis, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
+				]),
+			A2(
+				$elm$core$List$map,
+				function (axisname) {
+					return A2(
+						$elm$html$Html$option,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$value(
+								$author$project$Main$axisname_to_id(axisname))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text(axisname)
+							]));
+				},
+				$author$project$Main$axislist))
+		]));
+var $author$project$Main$Scatterplot_yaxis = function (a) {
+	return {$: 'Scatterplot_yaxis', a: a};
+};
+var $author$project$Main$dropDown_y = A2(
+	$surprisetalk$elm_bulma$Bulma$Layout$container,
+	_List_Nil,
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$select,
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$Events$on,
+					'change',
+					A2($elm$json$Json$Decode$map, $author$project$Main$Scatterplot_yaxis, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
+				]),
+			A2(
+				$elm$core$List$map,
+				function (axisname) {
+					return A2(
+						$elm$html$Html$option,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$value(
+								$author$project$Main$axisname_to_id(axisname))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text(axisname)
+							]));
+				},
+				$author$project$Main$axislist))
+		]));
+var $surprisetalk$elm_bulma$Bulma$Elements$H2 = {$: 'H2'};
+var $surprisetalk$elm_bulma$Bulma$Modifiers$Small = {$: 'Small'};
+var $surprisetalk$elm_bulma$Bulma$Modifiers$White = {$: 'White'};
 var $surprisetalk$elm_bulma$Bulma$Classes$hero = $elm$html$Html$Attributes$class('hero');
 var $surprisetalk$elm_bulma$Bulma$Classes$isBlack = $elm$html$Html$Attributes$class('is-black');
 var $surprisetalk$elm_bulma$Bulma$Classes$isBold = $elm$html$Html$Attributes$class('is-bold');
@@ -6837,8 +7046,6 @@ var $surprisetalk$elm_bulma$Bulma$Layout$heroBody = A2(
 		[$surprisetalk$elm_bulma$Bulma$Classes$heroBody]));
 var $surprisetalk$elm_bulma$Bulma$Modifiers$Default = {$: 'Default'};
 var $surprisetalk$elm_bulma$Bulma$Layout$heroModifiers = {bold: false, color: $surprisetalk$elm_bulma$Bulma$Modifiers$Default, size: $surprisetalk$elm_bulma$Bulma$Modifiers$Small};
-var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
-var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $surprisetalk$elm_bulma$Bulma$Classes$is1 = $elm$html$Html$Attributes$class('is-1');
 var $surprisetalk$elm_bulma$Bulma$Classes$is2 = $elm$html$Html$Attributes$class('is-2');
 var $surprisetalk$elm_bulma$Bulma$Classes$is3 = $elm$html$Html$Attributes$class('is-3');
@@ -8356,18 +8563,18 @@ var $author$project$Main$viewHappiness = function (ls) {
 		df);
 	var x_values = A2(
 		$elm$core$List$map,
-		$author$project$Displaydata$get_float_att('ladder_score'),
+		$author$project$Displaydata$get_float_att(ls.x_axis),
 		df);
 	var y_values = A2(
 		$elm$core$List$map,
-		$author$project$Displaydata$get_float_att('life_expectancy'),
+		$author$project$Displaydata$get_float_att(ls.y_axis),
 		df);
 	return A2(
 		$surprisetalk$elm_bulma$Bulma$Layout$container,
 		_List_Nil,
 		_List_fromArray(
 			[
-				A5($author$project$Displaydata$scatterplot, scat_desc, x_values, y_values, 'Ladder Score', 'Life expectancy')
+				A5($author$project$Displaydata$scatterplot, scat_desc, x_values, y_values, ls.x_axis, ls.y_axis)
 			]));
 };
 var $author$project$Main$view = function (model) {
@@ -8387,6 +8594,8 @@ var $author$project$Main$view = function (model) {
 						$author$project$Main$fontAwesomeCDN,
 						$author$project$Main$exampleNavbar,
 						$author$project$Main$exampleHero,
+						$author$project$Main$dropDown_x,
+						$author$project$Main$dropDown_y,
 						$author$project$Main$viewHappiness(fullText),
 						$author$project$Main$myfooter
 					]));

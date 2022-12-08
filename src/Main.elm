@@ -10,10 +10,11 @@ import Bulma.Components exposing (..)
 import Bulma.Columns as Columns exposing (..)
 import Bulma.Layout exposing (..)
 import Http
-import Html exposing ( Html, Attribute, main_,  span, a, p, img ,br, text, strong, option, small, input, i )
-import Html.Attributes exposing ( attribute, style, src, placeholder, type_, href, rel, class )
-import Html.Events exposing (onClick)
-import Json.decode
+import Html exposing ( Html, Attribute, main_,  span, a, p, img ,br, text, strong, option, small, input, i , select)
+import Html.Attributes exposing ( attribute, style, src, placeholder, type_, href, rel, class , value)
+import Html.Events exposing (onClick, on)
+import Html.Events.Extra exposing (targetValueIntParse)
+import Json.Decode as Json
 -- VIEW
 view : Model -> Html Msg
 view model =
@@ -29,13 +30,10 @@ view model =
       [ stylesheet
         , fontAwesomeCDN
         , exampleNavbar
-        -- , myFluidContainer
         , exampleHero
-        -- , dropDown
+        , dropDown_x
+        , dropDown_y
         , (viewHappiness fullText)
-        -- , exampleTiles
-        -- , exampleLevel
-        --, exampleElementsAndComponents
         , myfooter
         ]
         
@@ -46,17 +44,16 @@ viewHappiness ls =
     lengt = String.fromInt (List.length ls.data)
     frst_elment = Maybe.withDefault emptyCountry (List.head ls.data)
     x_values : List Float
-    x_values = List.map (get_float_att "ladder_score") df
+    x_values = List.map (get_float_att ls.x_axis) df
     y_values : List Float
-    y_values = List.map (get_float_att "life_expectancy") df
-
+    y_values = List.map (get_float_att ls.y_axis) df
     scat_desc : List String
     scat_desc = List.map (get_str_att "country_name") df
   in     
     container []
         [ --p [] [text lengt], 
           --p [] [text (get_str_att "country_name" frst_elment)], 
-          scatterplot scat_desc x_values y_values "Ladder Score" "Life expectancy"]
+          scatterplot scat_desc x_values y_values ls.x_axis ls.y_axis]
 
 
 main : Program () Model Msg
@@ -81,16 +78,29 @@ update msg model =
     GotText result ->
       case result of
         Ok data ->
-          (Success <| {data = (csvString_to_data data)}, Cmd.none)
+          (Success <| {data = (csvString_to_data data), y_axis = "ladder_score", x_axis ="life_expectancy"}, Cmd.none)
 
         Err _ ->
           (Failure, Cmd.none)
     -- Changetext ->
     --     (Success <| { data = "Here is some text"}, Cmd.none)   
+    Scatterplot_yaxis id ->
+      case model of
+        Success d -> 
+            (Success <| { d | y_axis = idToAxis id}, Cmd.none)
+        _ -> 
+            (model, Cmd.none)
+    Scatterplot_xaxis id ->
+      case model of
+        Success d -> 
+            (Success <| { d | x_axis = idToAxis id}, Cmd.none)
+        _ -> 
+            (model, Cmd.none)
 
 type alias WorldHappData = 
-    { data : List Country_2021
-    -- , configscatter
+    { data : List Country_2021,
+      y_axis : String,
+      x_axis : String
     }
 
 type Model 
@@ -100,7 +110,8 @@ type Model
 
 type Msg
   = GotText (Result Http.Error String)
-  -- | Changetext 
+  | Scatterplot_yaxis Int
+  | Scatterplot_xaxis Int
 
 fetchData : Cmd Msg
 fetchData =
@@ -108,6 +119,70 @@ fetchData =
         { url = "https://raw.githubusercontent.com/HackerHallefornia/world_happiness_report_2021/main/data/world-happiness-report-2021_simple.csv"
         , expect = Http.expectString <| GotText
         }
+-- 
+
+--- dropdown function
+dropDown_y : Html Msg
+dropDown_y =
+  container []
+    [ select
+        [ on "change" (Json.map Scatterplot_yaxis targetValueIntParse)
+        ]
+         (List.map(\axisname -> option[value (axisname_to_id axisname)][ Html.text axisname]) axislist)
+    ]
+dropDown_x : Html Msg
+dropDown_x =
+  container []
+    [ select
+        [ on "change" (Json.map Scatterplot_xaxis targetValueIntParse)
+        ]
+         (List.map(\axisname -> option[value (axisname_to_id axisname)][ Html.text axisname]) axislist)
+    ]
+-- , selected (-- == )
+
+axislist: List String
+axislist = [
+        "ladder_score",
+        "se_ladder",
+        "u_whisker",
+        "l_whisker" ,
+        "lg_gdp_pc",
+        "social_support" ,
+        "life_expectancy",
+        "freedom_lc" ,
+        "generosity",
+        "pc_corruption"]
+
+idToAxis : Int -> String
+idToAxis id = 
+      case id of
+       1 -> "ladder_score"
+       2-> "se_ladder"
+       3 -> "u_whisker"
+       4 -> "l_whisker" 
+       5 -> "lg_gdp_pc"
+       6 -> "social_support" 
+       7 -> "life_expectancy"
+       8 -> "freedom_lc" 
+       9 -> "generosity"
+       10 -> "pc_corruption" 
+       _  -> " "
+
+axisname_to_id : String -> String
+axisname_to_id name = 
+    case name of
+        "ladder_score" ->  "1"
+        "se_ladder" -> "2"
+        "u_whisker" -> "3"
+        "l_whisker" -> "4"
+        "lg_gdp_pc" -> "5"
+        "social_support" -> "6" 
+        "life_expectancy" -> "7" 
+        "freedom_lc" -> "8"
+        "generosity" -> "9"
+        "pc_corruption" -> "10" 
+        _ -> " "
+
 
 fontAwesomeCDN
   = Html.node "link"
@@ -115,8 +190,6 @@ fontAwesomeCDN
     , href "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     ]
     []
-
-
         
 exampleNavbar : Html Msg
 exampleNavbar
@@ -164,58 +237,6 @@ exampleHero
         -- , Html.button [ onClick Changetext ] [ text "Click me" ]]
       ]
     ]
-
-exampleColumns : Html msg
-exampleColumns 
-  = section NotSpaced []
-    [ container []
-      [ columns columnsModifiers []
-        [ column columnModifiers [] [ text "First Column" ]
-        , column columnModifiers [] [ text "Second Column" ]
-        , column columnModifiers [] [ text "Third Column" ]
-        ]
-      ]
-    ]
-
-dropDown : Html Msg
-dropDown =  section NotSpaced []
-    [ container []
-          [ dropdown True dropdownModifiers []
-            [ dropdownTrigger []
-              [ button buttonModifiers 
-                [ attribute "aria-haspopup" "true"
-                , attribute "aria-controls" "dropdown-menu"
-                ]
-                [ text "Dropdown button"
-                ]
-              ]
-            , dropdownMenu [] []
-              [ dropdownItem     False [] [ text "Dropdown item"        ]
-              , dropdownItemLink False [] [ text "Other dropdown item"  ]
-              , dropdownItemLink True  [] [ text "Active dropdown item" ]
-              , dropdownItemLink False [] [ text "Other item"           ]
-              , dropdownDivider        [] [                             ]
-              , dropdownItemLink False [] [ text "With a divider"       ]
-              ]
-            ]
-          ] 
-          ]
-
-myColumnModifiers : Width -> Maybe Width -> ColumnModifiers
-myColumnModifiers offset width
-  = let widths : Devices (Maybe Width)
-        widths = columnModifiers.widths
-    in { columnModifiers
-         | offset
-           = offset
-         , widths
-           = { widths
-               | tablet     = width
-               , desktop    = width
-               , widescreen = width
-               , fullHD     = width
-             }
-       }
 
 
 myfooter : Html Msg
