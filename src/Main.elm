@@ -11,7 +11,7 @@ import Bulma.Components exposing (..)
 import Bulma.Columns as Columns exposing (..)
 import Bulma.Layout exposing (..)
 import Http
-import Html exposing ( Html, Attribute, main_,  span, a, p, img ,br, text, strong, option, small, input, i , select)
+import Html exposing ( Html, Attribute, main_,  span, a, p, img ,br, text, strong, option, small, input, i , select, label)
 import Html.Attributes exposing ( attribute, style, src, placeholder, type_, href, rel, class , value)
 import Html.Events exposing (onClick, on)
 import Html.Events.Extra exposing (targetValueIntParse)
@@ -35,6 +35,7 @@ view model =
         , dropDown_x
         , dropDown_y
         , (viewHappiness fullText)
+        , dropDown_polar
         , myfooter
         ]
         
@@ -52,7 +53,7 @@ viewHappiness ls =
     scat_desc = List.map (get_str_att "country_name") df
 
     p_cntry : Country_2021
-    p_cntry = getcountry_by_name "Germany" df
+    p_cntry = getcountry_by_name ls.polar_country df
   in     
     container []
         [ --p [] [text lengt], 
@@ -85,7 +86,7 @@ update msg model =
     GotText result ->
       case result of
         Ok data ->
-          (Success <| {data = (csvString_to_data data), y_axis = "ladder_score", x_axis ="life_expectancy"}, Cmd.none)
+          (Success <| {data = (csvString_to_data data), y_axis = "ladder_score", x_axis ="life_expectancy", polar_country = "Germany"}, Cmd.none)
 
         Err _ ->
           (Failure, Cmd.none)
@@ -103,11 +104,18 @@ update msg model =
             (Success <| { d | x_axis = idToAxis id}, Cmd.none)
         _ -> 
             (model, Cmd.none)
+    Polarplot_country id ->
+      case model of
+        Success d -> 
+            (Success <| { d | polar_country = idToCountryPolar id}, Cmd.none)
+        _ -> 
+            (model, Cmd.none)
 
 type alias WorldHappData = 
     { data : List Country_2021,
       y_axis : String,
-      x_axis : String
+      x_axis : String,
+      polar_country : String
     }
 
 type Model 
@@ -119,6 +127,7 @@ type Msg
   = GotText (Result Http.Error String)
   | Scatterplot_yaxis Int
   | Scatterplot_xaxis Int
+  | Polarplot_country Int
 
 fetchData : Cmd Msg
 fetchData =
@@ -146,6 +155,16 @@ dropDown_x =
          (List.map(\axisname -> option[value (axisname_to_id axisname)][ Html.text axisname]) axislist)
     ]
 -- , selected (-- == )
+dropDown_polar : Html Msg
+dropDown_polar =
+  container []
+    [ select
+        [ on "change" (Json.map Polarplot_country targetValueIntParse)
+        ]
+         (List.map(\ctry -> option[value (countryPolarToid ctry)][ Html.text ctry]) polarlist)
+    ]
+
+
 
 axislist: List String
 axislist = [
