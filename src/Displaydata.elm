@@ -68,6 +68,15 @@ emptyCountry = {
     }
 
 
+matches_countryname : String -> Country_2021 -> Bool
+matches_countryname countrystring country =
+    country.country_name == countrystring
+
+getcountry_by_name : String -> List Country_2021 -> Country_2021
+getcountry_by_name countrystring countrylist = 
+    Maybe.withDefault emptyCountry <| List.head <| List.filter (matches_countryname countrystring) countrylist
+
+            
 get_str_att : String -> Country_2021 -> String
 get_str_att str cntry = 
     case str of

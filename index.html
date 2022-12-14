@@ -7395,79 +7395,12 @@ var $surprisetalk$elm_bulma$Bulma$CDN$stylesheet = A3(
 			$elm$html$Html$Attributes$href('https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css')
 		]),
 	_List_Nil);
-var $author$project$Displaydata$emptyCountry = {country_name: 'String', freedom_lc: 0, generosity: 0, l_whisker: 0, ladder_score: 0, lg_gdp_pc: 0, life_expectancy: 0, pc_corruption: 0, regional_indicator: 'String', se_ladder: 0, social_support: 0, u_whisker: 0};
-var $author$project$Displaydata$get_float_att = F2(
-	function (_float, cntry) {
-		switch (_float) {
-			case 'ladder_score':
-				return function ($) {
-					return $.ladder_score;
-				}(cntry);
-			case 'se_ladder':
-				return function ($) {
-					return $.se_ladder;
-				}(cntry);
-			case 'u_whisker':
-				return function ($) {
-					return $.u_whisker;
-				}(cntry);
-			case 'l_whisker':
-				return function ($) {
-					return $.l_whisker;
-				}(cntry);
-			case 'lg_gdp_pc':
-				return function ($) {
-					return $.lg_gdp_pc;
-				}(cntry);
-			case 'social_support':
-				return function ($) {
-					return $.social_support;
-				}(cntry);
-			case 'life_expectancy':
-				return function ($) {
-					return $.life_expectancy;
-				}(cntry);
-			case 'freedom_lc':
-				return function ($) {
-					return $.freedom_lc;
-				}(cntry);
-			case 'generosity':
-				return function ($) {
-					return $.generosity;
-				}(cntry);
-			case 'pc_corruption':
-				return function ($) {
-					return $.pc_corruption;
-				}(cntry);
-			default:
-				return 0;
-		}
-	});
-var $author$project$Displaydata$get_str_att = F2(
-	function (str, cntry) {
-		switch (str) {
-			case 'country_name':
-				return function ($) {
-					return $.country_name;
-				}(cntry);
-			case 'regional_indicator':
-				return function ($) {
-					return $.regional_indicator;
-				}(cntry);
-			default:
-				return str;
-		}
-	});
-var $elm_community$typed_svg$TypedSvg$Types$Percent = function (a) {
-	return {$: 'Percent', a: a};
-};
-var $elm_community$typed_svg$TypedSvg$Types$Px = function (a) {
-	return {$: 'Px', a: a};
-};
 var $elm_community$typed_svg$TypedSvg$Types$Translate = F2(
 	function (a, b) {
 		return {$: 'Translate', a: a, b: b};
 	});
+var $author$project$Polarplot$anglelist = _List_fromArray(
+	[20, 80, 140, 200, 260, 320]);
 var $elm$virtual_dom$VirtualDom$attribute = F2(
 	function (key, value) {
 		return A2(
@@ -7482,22 +7415,369 @@ var $elm_community$typed_svg$TypedSvg$Attributes$class = function (names) {
 		'class',
 		A2($elm$core$String$join, ' ', names));
 };
+var $author$project$Polarplot$css = '\r\n    .frame {\r\n      fill: none;\r\n      stroke: #000;\r\n    }\r\n\r\n    .axis text {\r\n      font: 10px sans-serif;\r\n    }\r\n\r\n    .axis line{\r\n      stroke: #777;\r\n      stroke-dasharray: 1,2;\r\n    }\r\n    \r\n    .axis circle {\r\n      fill: rgba(58, 139, 211, 1);\r\n    }\r\n    .point circle {\r\n      fill: rgba(58, 139, 211, 1);\r\n      \r\n    }\r\n    .point:hover circle {\r\n      fill: rgba(58, 200, 211, 1);\r\n      stroke: black;\r\n    }\r\n    .point text { display: none;}\r\n    .point:hover text { \r\n        display: inline;\r\n        font: 12px sans-serif;\r\n        }\r\n\r\n\r\n    .axis ellipse {\r\n      fill: none;\r\n      stroke: black;\r\n      stroke-dasharray: 1,2;\r\n      stroke-width: 1px;\r\n    }\r\n    \r\n    .axis :last-of-type ellipse {\r\n      fill: none;\r\n      stroke: black;\r\n      stroke-dasharray: none;\r\n      stroke-width: 2px;\r\n    }\r\n\r\n    .axis :last-of-type circle {\r\n      stroke: #333;\r\n      stroke-dasharray: none;\r\n    }\r\n\r\n    .line {\r\n      fill: none;\r\n      stroke: red;\r\n      stroke-width: 1px;\r\n    }\r\n\r\n    .label {\r\n      font-family:  sans-serif;\r\n    }\r\n  ';
 var $gampleman$elm_visualization$Scale$convert = F2(
 	function (_v0, value) {
 		var scale = _v0.a;
 		return A3(scale.convert, scale.domain, scale.range, value);
 	});
-var $elm_community$typed_svg$TypedSvg$Attributes$fontFamily = function (families) {
-	if (!families.b) {
-		return A2($elm_community$typed_svg$TypedSvg$Core$attribute, 'font-family', 'inherit');
-	} else {
+var $elm$virtual_dom$VirtualDom$nodeNS = F2(
+	function (namespace, tag) {
 		return A2(
-			$elm_community$typed_svg$TypedSvg$Core$attribute,
-			'font-family',
-			A2($elm$core$String$join, ', ', families));
-	}
+			_VirtualDom_nodeNS,
+			namespace,
+			_VirtualDom_noScript(tag));
+	});
+var $elm_community$typed_svg$TypedSvg$Core$node = $elm$virtual_dom$VirtualDom$nodeNS('http://www.w3.org/2000/svg');
+var $elm_community$typed_svg$TypedSvg$ellipse = $elm_community$typed_svg$TypedSvg$Core$node('ellipse');
+var $elm_community$typed_svg$TypedSvg$g = $elm_community$typed_svg$TypedSvg$Core$node('g');
+var $gampleman$elm_visualization$Scale$Scale = function (a) {
+	return {$: 'Scale', a: a};
 };
+var $elm$core$Basics$always = F2(
+	function (a, _v0) {
+		return a;
+	});
+var $elm$core$Basics$isNaN = _Basics_isNaN;
+var $gampleman$elm_visualization$Scale$Continuous$normalize = F2(
+	function (a, b) {
+		var c = b - a;
+		return (!c) ? $elm$core$Basics$always(0.5) : ($elm$core$Basics$isNaN(c) ? $elm$core$Basics$always(0 / 0) : function (x) {
+			return (x - a) / c;
+		});
+	});
+var $gampleman$elm_visualization$Scale$Continuous$bimap = F3(
+	function (_v0, _v1, interpolate) {
+		var d0 = _v0.a;
+		var d1 = _v0.b;
+		var r0 = _v1.a;
+		var r1 = _v1.b;
+		var _v2 = (_Utils_cmp(d1, d0) < 0) ? _Utils_Tuple2(
+			A2($gampleman$elm_visualization$Scale$Continuous$normalize, d1, d0),
+			A2(interpolate, r1, r0)) : _Utils_Tuple2(
+			A2($gampleman$elm_visualization$Scale$Continuous$normalize, d0, d1),
+			A2(interpolate, r0, r1));
+		var de = _v2.a;
+		var re = _v2.b;
+		return A2($elm$core$Basics$composeL, re, de);
+	});
+var $gampleman$elm_visualization$Scale$Continuous$convertTransform = F4(
+	function (transform, interpolate, _v0, range) {
+		var d0 = _v0.a;
+		var d1 = _v0.b;
+		return A2(
+			$elm$core$Basics$composeR,
+			transform,
+			A3(
+				$gampleman$elm_visualization$Scale$Continuous$bimap,
+				_Utils_Tuple2(
+					transform(d0),
+					transform(d1)),
+				range,
+				interpolate));
+	});
+var $gampleman$elm_visualization$Interpolation$float = F2(
+	function (a, to) {
+		var b = to - a;
+		return function (t) {
+			return a + (b * t);
+		};
+	});
+var $gampleman$elm_visualization$Scale$Continuous$invertTransform = F4(
+	function (transform, untransform, _v0, range) {
+		var d0 = _v0.a;
+		var d1 = _v0.b;
+		return A2(
+			$elm$core$Basics$composeR,
+			A3(
+				$gampleman$elm_visualization$Scale$Continuous$bimap,
+				range,
+				_Utils_Tuple2(
+					transform(d0),
+					transform(d1)),
+				$gampleman$elm_visualization$Interpolation$float),
+			untransform);
+	});
+var $elm$core$Basics$ge = _Utils_ge;
+var $gampleman$elm_visualization$Scale$Continuous$fixPoint = F3(
+	function (maxIterations, initialInput, fn) {
+		var helper = F2(
+			function (iters, _v0) {
+				helper:
+				while (true) {
+					var a = _v0.a;
+					var b = _v0.b;
+					if (_Utils_cmp(iters + 1, maxIterations) > -1) {
+						return b;
+					} else {
+						var _v1 = fn(b);
+						var outA = _v1.a;
+						var outB = _v1.b;
+						if (_Utils_eq(outA, a)) {
+							return b;
+						} else {
+							if (!outA) {
+								return b;
+							} else {
+								var $temp$iters = iters + 1,
+									$temp$_v0 = _Utils_Tuple2(outA, outB);
+								iters = $temp$iters;
+								_v0 = $temp$_v0;
+								continue helper;
+							}
+						}
+					}
+				}
+			});
+		return A2(
+			helper,
+			1,
+			fn(initialInput));
+	});
+var $elm$core$Basics$e = _Basics_e;
+var $elm$core$Basics$sqrt = _Basics_sqrt;
+var $gampleman$elm_visualization$Scale$Continuous$e10 = $elm$core$Basics$sqrt(50);
+var $gampleman$elm_visualization$Scale$Continuous$e2 = $elm$core$Basics$sqrt(2);
+var $gampleman$elm_visualization$Scale$Continuous$e5 = $elm$core$Basics$sqrt(10);
+var $gampleman$elm_visualization$Scale$Continuous$ln10 = A2($elm$core$Basics$logBase, $elm$core$Basics$e, 10);
+var $elm$core$Basics$negate = function (n) {
+	return -n;
+};
+var $elm$core$Basics$pow = _Basics_pow;
+var $gampleman$elm_visualization$Scale$Continuous$tickIncrement = F3(
+	function (start, stop, count) {
+		var step = (stop - start) / A2($elm$core$Basics$max, 0, count);
+		var powr = $elm$core$Basics$floor(
+			A2($elm$core$Basics$logBase, $elm$core$Basics$e, step) / $gampleman$elm_visualization$Scale$Continuous$ln10);
+		var error = step / A2($elm$core$Basics$pow, 10, powr);
+		var order = (_Utils_cmp(error, $gampleman$elm_visualization$Scale$Continuous$e10) > -1) ? 10 : ((_Utils_cmp(error, $gampleman$elm_visualization$Scale$Continuous$e5) > -1) ? 5 : ((_Utils_cmp(error, $gampleman$elm_visualization$Scale$Continuous$e2) > -1) ? 2 : 1));
+		return (powr >= 0) ? (order * A2($elm$core$Basics$pow, 10, powr)) : ((-A2($elm$core$Basics$pow, 10, -powr)) / order);
+	});
+var $gampleman$elm_visualization$Scale$Continuous$withNormalizedDomain = F2(
+	function (fn, _v0) {
+		var a = _v0.a;
+		var b = _v0.b;
+		if (_Utils_cmp(a, b) < 0) {
+			return fn(
+				_Utils_Tuple2(a, b));
+		} else {
+			var _v1 = fn(
+				_Utils_Tuple2(b, a));
+			var d = _v1.a;
+			var c = _v1.b;
+			return _Utils_Tuple2(c, d);
+		}
+	});
+var $gampleman$elm_visualization$Scale$Continuous$nice = F2(
+	function (domain, count) {
+		var computation = function (_v0) {
+			var start = _v0.a;
+			var stop = _v0.b;
+			var step = A3($gampleman$elm_visualization$Scale$Continuous$tickIncrement, start, stop, count);
+			return _Utils_Tuple2(
+				step,
+				(step > 0) ? _Utils_Tuple2(
+					$elm$core$Basics$floor(start / step) * step,
+					$elm$core$Basics$ceiling(stop / step) * step) : ((step < 0) ? _Utils_Tuple2(
+					$elm$core$Basics$ceiling(start * step) / step,
+					$elm$core$Basics$floor(stop * step) / step) : _Utils_Tuple2(start, stop)));
+		};
+		return A2(
+			$gampleman$elm_visualization$Scale$Continuous$withNormalizedDomain,
+			function (dmn) {
+				return A3($gampleman$elm_visualization$Scale$Continuous$fixPoint, 10, dmn, computation);
+			},
+			domain);
+	});
+var $elm$core$Basics$abs = function (n) {
+	return (n < 0) ? (-n) : n;
+};
+var $gampleman$elm_visualization$Scale$Continuous$exponent = function (x) {
+	return (!x) ? 0 : ((x < 1) ? (1 + $gampleman$elm_visualization$Scale$Continuous$exponent(x * 10)) : 0);
+};
+var $gampleman$elm_visualization$Scale$Continuous$precisionFixed = function (step) {
+	return A2(
+		$elm$core$Basics$max,
+		0,
+		$gampleman$elm_visualization$Scale$Continuous$exponent(
+			$elm$core$Basics$abs(step)));
+};
+var $gampleman$elm_visualization$Statistics$tickStep = F3(
+	function (start, stop, count) {
+		var step0 = $elm$core$Basics$abs(stop - start) / A2($elm$core$Basics$max, 0, count);
+		var step1 = A2(
+			$elm$core$Basics$pow,
+			10,
+			$elm$core$Basics$floor(
+				A2($elm$core$Basics$logBase, $elm$core$Basics$e, step0) / A2($elm$core$Basics$logBase, $elm$core$Basics$e, 10)));
+		var error = step0 / step1;
+		var step2 = (_Utils_cmp(
+			error,
+			$elm$core$Basics$sqrt(50)) > -1) ? (step1 * 10) : ((_Utils_cmp(
+			error,
+			$elm$core$Basics$sqrt(10)) > -1) ? (step1 * 5) : ((_Utils_cmp(
+			error,
+			$elm$core$Basics$sqrt(2)) > -1) ? (step1 * 2) : step1));
+		return (_Utils_cmp(stop, start) < 0) ? (-step2) : step2;
+	});
 var $elm$core$String$fromFloat = _String_fromNumber;
+var $elm$core$String$cons = _String_cons;
+var $elm$core$String$fromChar = function (_char) {
+	return A2($elm$core$String$cons, _char, '');
+};
+var $elm$core$Bitwise$and = _Bitwise_and;
+var $elm$core$Bitwise$shiftRightBy = _Bitwise_shiftRightBy;
+var $elm$core$String$repeatHelp = F3(
+	function (n, chunk, result) {
+		return (n <= 0) ? result : A3(
+			$elm$core$String$repeatHelp,
+			n >> 1,
+			_Utils_ap(chunk, chunk),
+			(!(n & 1)) ? result : _Utils_ap(result, chunk));
+	});
+var $elm$core$String$repeat = F2(
+	function (n, chunk) {
+		return A3($elm$core$String$repeatHelp, n, chunk, '');
+	});
+var $elm$core$String$padRight = F3(
+	function (n, _char, string) {
+		return _Utils_ap(
+			string,
+			A2(
+				$elm$core$String$repeat,
+				n - $elm$core$String$length(string),
+				$elm$core$String$fromChar(_char)));
+	});
+var $elm$core$Basics$round = _Basics_round;
+var $gampleman$elm_visualization$Scale$Continuous$toFixed = F2(
+	function (precision, value) {
+		var power_ = A2($elm$core$Basics$pow, 10, precision);
+		var pad = function (num) {
+			_v0$2:
+			while (true) {
+				if (num.b) {
+					if (num.b.b) {
+						if (!num.b.b.b) {
+							var x = num.a;
+							var _v1 = num.b;
+							var y = _v1.a;
+							return _List_fromArray(
+								[
+									x,
+									A3(
+									$elm$core$String$padRight,
+									precision,
+									_Utils_chr('0'),
+									y)
+								]);
+						} else {
+							break _v0$2;
+						}
+					} else {
+						var val = num.a;
+						return (precision > 0) ? _List_fromArray(
+							[
+								val,
+								A3(
+								$elm$core$String$padRight,
+								precision,
+								_Utils_chr('0'),
+								'')
+							]) : _List_fromArray(
+							[val]);
+					}
+				} else {
+					break _v0$2;
+				}
+			}
+			var val = num;
+			return val;
+		};
+		return A2(
+			$elm$core$String$join,
+			'.',
+			pad(
+				A2(
+					$elm$core$String$split,
+					'.',
+					$elm$core$String$fromFloat(
+						$elm$core$Basics$round(value * power_) / power_))));
+	});
+var $gampleman$elm_visualization$Scale$Continuous$tickFormat = F2(
+	function (_v0, count) {
+		var start = _v0.a;
+		var stop = _v0.b;
+		return $gampleman$elm_visualization$Scale$Continuous$toFixed(
+			$gampleman$elm_visualization$Scale$Continuous$precisionFixed(
+				A3($gampleman$elm_visualization$Statistics$tickStep, start, stop, count)));
+	});
+var $elm$core$Bitwise$or = _Bitwise_or;
+var $gampleman$elm_visualization$Statistics$range = F3(
+	function (start, stop, step) {
+		var n = A2(
+			$elm$core$Basics$max,
+			0,
+			0 | $elm$core$Basics$ceiling((stop - start) / step));
+		var helper = F2(
+			function (i, list) {
+				return (i >= 0) ? A2(
+					helper,
+					i - 1,
+					A2($elm$core$List$cons, start + (step * i), list)) : list;
+			});
+		return A2(helper, n - 1, _List_Nil);
+	});
+var $gampleman$elm_visualization$Statistics$ticks = F3(
+	function (start, stop, count) {
+		var step = A3($gampleman$elm_visualization$Statistics$tickStep, start, stop, count);
+		var end = ($elm$core$Basics$floor(stop / step) * step) + (step / 2);
+		var beg = $elm$core$Basics$ceiling(start / step) * step;
+		return A3($gampleman$elm_visualization$Statistics$range, beg, end, step);
+	});
+var $gampleman$elm_visualization$Scale$Continuous$ticks = F2(
+	function (_v0, count) {
+		var start = _v0.a;
+		var end = _v0.b;
+		return A3($gampleman$elm_visualization$Statistics$ticks, start, end, count);
+	});
+var $gampleman$elm_visualization$Scale$Continuous$scaleWithTransform = F4(
+	function (transform, untransform, range_, domain_) {
+		return {
+			convert: A2($gampleman$elm_visualization$Scale$Continuous$convertTransform, transform, $gampleman$elm_visualization$Interpolation$float),
+			domain: domain_,
+			invert: A2($gampleman$elm_visualization$Scale$Continuous$invertTransform, transform, untransform),
+			nice: $gampleman$elm_visualization$Scale$Continuous$nice,
+			range: range_,
+			rangeExtent: F2(
+				function (_v0, r) {
+					return r;
+				}),
+			tickFormat: $gampleman$elm_visualization$Scale$Continuous$tickFormat,
+			ticks: $gampleman$elm_visualization$Scale$Continuous$ticks
+		};
+	});
+var $gampleman$elm_visualization$Scale$Continuous$linear = A2($gampleman$elm_visualization$Scale$Continuous$scaleWithTransform, $elm$core$Basics$identity, $elm$core$Basics$identity);
+var $gampleman$elm_visualization$Scale$linear = F2(
+	function (range_, domain_) {
+		return $gampleman$elm_visualization$Scale$Scale(
+			A2($gampleman$elm_visualization$Scale$Continuous$linear, range_, domain_));
+	});
+var $author$project$Polarplot$hp = 450;
+var $elm$core$Basics$min = F2(
+	function (x, y) {
+		return (_Utils_cmp(x, y) < 0) ? x : y;
+	});
+var $author$project$Polarplot$padding = 70;
+var $author$project$Polarplot$wp = 900;
+var $author$project$Polarplot$mainRadius = (A2($elm$core$Basics$min, $author$project$Polarplot$wp, $author$project$Polarplot$hp) / 2) - $author$project$Polarplot$padding;
+var $author$project$Polarplot$radiusScale = A2(
+	$gampleman$elm_visualization$Scale$linear,
+	_Utils_Tuple2(0, $author$project$Polarplot$mainRadius),
+	_Utils_Tuple2(0, 100));
+var $elm_community$typed_svg$TypedSvg$Types$Px = function (a) {
+	return {$: 'Px', a: a};
+};
+var $elm_community$typed_svg$TypedSvg$Types$px = $elm_community$typed_svg$TypedSvg$Types$Px;
 var $elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString = function (length) {
 	switch (length.$) {
 		case 'Cm':
@@ -7535,45 +7815,49 @@ var $elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString = function (
 			return $elm$core$String$fromFloat(x) + 'rem';
 	}
 };
-var $elm_community$typed_svg$TypedSvg$Attributes$fontSize = function (length) {
+var $elm_community$typed_svg$TypedSvg$Attributes$rx = function (length) {
 	return A2(
 		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'font-size',
+		'rx',
 		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
 };
-var $elm$virtual_dom$VirtualDom$nodeNS = F2(
-	function (namespace, tag) {
-		return A2(
-			_VirtualDom_nodeNS,
-			namespace,
-			_VirtualDom_noScript(tag));
-	});
-var $elm_community$typed_svg$TypedSvg$Core$node = $elm$virtual_dom$VirtualDom$nodeNS('http://www.w3.org/2000/svg');
-var $elm_community$typed_svg$TypedSvg$g = $elm_community$typed_svg$TypedSvg$Core$node('g');
-var $author$project$Displaydata$h = 450;
-var $elm_community$typed_svg$TypedSvg$Attributes$height = function (length) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'height',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
-};
-var $elm$core$Basics$negate = function (n) {
-	return -n;
-};
-var $author$project$Displaydata$padding = 60;
-var $elm_community$typed_svg$TypedSvg$Types$AnchorMiddle = {$: 'AnchorMiddle'};
-var $elm_community$typed_svg$TypedSvg$circle = $elm_community$typed_svg$TypedSvg$Core$node('circle');
-var $elm_community$typed_svg$TypedSvg$Attributes$cx = function (length) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'cx',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
-};
-var $elm_community$typed_svg$TypedSvg$Types$px = $elm_community$typed_svg$TypedSvg$Types$Px;
-var $elm_community$typed_svg$TypedSvg$Attributes$InPx$cx = function (value) {
-	return $elm_community$typed_svg$TypedSvg$Attributes$cx(
+var $elm_community$typed_svg$TypedSvg$Attributes$InPx$rx = function (value) {
+	return $elm_community$typed_svg$TypedSvg$Attributes$rx(
 		$elm_community$typed_svg$TypedSvg$Types$px(value));
 };
+var $elm_community$typed_svg$TypedSvg$Attributes$ry = function (length) {
+	return A2(
+		$elm_community$typed_svg$TypedSvg$Core$attribute,
+		'ry',
+		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
+};
+var $elm_community$typed_svg$TypedSvg$Attributes$InPx$ry = function (value) {
+	return $elm_community$typed_svg$TypedSvg$Attributes$ry(
+		$elm_community$typed_svg$TypedSvg$Types$px(value));
+};
+var $author$project$Polarplot$drawPlot = function (radius) {
+	return A2(
+		$elm_community$typed_svg$TypedSvg$g,
+		_List_Nil,
+		_List_fromArray(
+			[
+				A2(
+				$elm_community$typed_svg$TypedSvg$ellipse,
+				_List_fromArray(
+					[
+						$elm_community$typed_svg$TypedSvg$Attributes$InPx$rx(
+						A2($gampleman$elm_visualization$Scale$convert, $author$project$Polarplot$radiusScale, radius)),
+						$elm_community$typed_svg$TypedSvg$Attributes$InPx$ry(
+						A2($gampleman$elm_visualization$Scale$convert, $author$project$Polarplot$radiusScale, radius))
+					]),
+				_List_Nil)
+			]));
+};
+var $elm_community$typed_svg$TypedSvg$Types$Rotate = F3(
+	function (a, b, c) {
+		return {$: 'Rotate', a: a, b: b, c: c};
+	});
+var $elm_community$typed_svg$TypedSvg$circle = $elm_community$typed_svg$TypedSvg$Core$node('circle');
 var $elm_community$typed_svg$TypedSvg$Attributes$cy = function (length) {
 	return A2(
 		$elm_community$typed_svg$TypedSvg$Core$attribute,
@@ -7584,17 +7868,8 @@ var $elm_community$typed_svg$TypedSvg$Attributes$InPx$cy = function (value) {
 	return $elm_community$typed_svg$TypedSvg$Attributes$cy(
 		$elm_community$typed_svg$TypedSvg$Types$px(value));
 };
-var $elm_community$typed_svg$TypedSvg$Attributes$r = function (length) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'r',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$InPx$r = function (value) {
-	return $elm_community$typed_svg$TypedSvg$Attributes$r(
-		$elm_community$typed_svg$TypedSvg$Types$px(value));
-};
-var $author$project$Displaydata$radius = 5.0;
+var $elm_community$typed_svg$TypedSvg$Types$AnchorMiddle = {$: 'AnchorMiddle'};
+var $elm_community$typed_svg$TypedSvg$Core$text = $elm$virtual_dom$VirtualDom$text;
 var $elm_community$typed_svg$TypedSvg$TypesToStrings$anchorAlignmentToString = function (anchorAlignment) {
 	switch (anchorAlignment.$) {
 		case 'AnchorInherit':
@@ -7614,73 +7889,10 @@ var $elm_community$typed_svg$TypedSvg$Attributes$textAnchor = function (anchorAl
 		$elm_community$typed_svg$TypedSvg$TypesToStrings$anchorAlignmentToString(anchorAlignment));
 };
 var $elm_community$typed_svg$TypedSvg$text_ = $elm_community$typed_svg$TypedSvg$Core$node('text');
-var $elm_community$typed_svg$TypedSvg$Attributes$x = function (length) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'x',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
+var $gampleman$elm_visualization$Scale$tickFormat = function (_v0) {
+	var opts = _v0.a;
+	return opts.tickFormat(opts.domain);
 };
-var $elm_community$typed_svg$TypedSvg$Attributes$InPx$x = function (value) {
-	return $elm_community$typed_svg$TypedSvg$Attributes$x(
-		$elm_community$typed_svg$TypedSvg$Types$px(value));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$y = function (length) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'y',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$InPx$y = function (value) {
-	return $elm_community$typed_svg$TypedSvg$Attributes$y(
-		$elm_community$typed_svg$TypedSvg$Types$px(value));
-};
-var $author$project$Displaydata$point = F4(
-	function (scaleX, scaleY, description, xyPoint) {
-		return A2(
-			$elm_community$typed_svg$TypedSvg$g,
-			_List_fromArray(
-				[
-					$elm_community$typed_svg$TypedSvg$Attributes$class(
-					_List_fromArray(
-						['point'])),
-					$elm_community$typed_svg$TypedSvg$Attributes$fontSize(
-					$elm_community$typed_svg$TypedSvg$Types$Px(10.0)),
-					$elm_community$typed_svg$TypedSvg$Attributes$fontFamily(
-					_List_fromArray(
-						['sans-serif']))
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$elm_community$typed_svg$TypedSvg$circle,
-					_List_fromArray(
-						[
-							$elm_community$typed_svg$TypedSvg$Attributes$InPx$cx(
-							A2($gampleman$elm_visualization$Scale$convert, scaleX, xyPoint.a)),
-							$elm_community$typed_svg$TypedSvg$Attributes$InPx$cy(
-							A2($gampleman$elm_visualization$Scale$convert, scaleY, xyPoint.b)),
-							$elm_community$typed_svg$TypedSvg$Attributes$InPx$r($author$project$Displaydata$radius)
-						]),
-					_List_Nil),
-					A2(
-					$elm_community$typed_svg$TypedSvg$text_,
-					_List_fromArray(
-						[
-							$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(
-							A2($gampleman$elm_visualization$Scale$convert, scaleX, xyPoint.a)),
-							$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(
-							A2($gampleman$elm_visualization$Scale$convert, scaleY, xyPoint.b) - ($author$project$Displaydata$radius + 3)),
-							$elm_community$typed_svg$TypedSvg$Attributes$textAnchor($elm_community$typed_svg$TypedSvg$Types$AnchorMiddle)
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text(description)
-						]))
-				]));
-	});
-var $elm_community$typed_svg$TypedSvg$style = $elm_community$typed_svg$TypedSvg$Core$node('style');
-var $elm_community$typed_svg$TypedSvg$svg = $elm_community$typed_svg$TypedSvg$Core$node('svg');
-var $elm_community$typed_svg$TypedSvg$Core$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$core$String$concat = function (strings) {
 	return A2($elm$core$String$join, '', strings);
 };
@@ -7762,6 +7974,251 @@ var $elm_community$typed_svg$TypedSvg$Attributes$transform = function (transform
 			' ',
 			A2($elm$core$List$map, $elm_community$typed_svg$TypedSvg$TypesToStrings$transformToString, transforms)));
 };
+var $elm_community$typed_svg$TypedSvg$Attributes$y = function (length) {
+	return A2(
+		$elm_community$typed_svg$TypedSvg$Core$attribute,
+		'y',
+		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
+};
+var $elm_community$typed_svg$TypedSvg$Attributes$InPx$y = function (value) {
+	return $elm_community$typed_svg$TypedSvg$Attributes$y(
+		$elm_community$typed_svg$TypedSvg$Types$px(value));
+};
+var $author$project$Polarplot$drawTicksforAxis = F3(
+	function (scale, angle, radius) {
+		return A2(
+			$elm_community$typed_svg$TypedSvg$g,
+			_List_Nil,
+			_List_fromArray(
+				[
+					A2(
+					$elm_community$typed_svg$TypedSvg$text_,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(
+							(A2($gampleman$elm_visualization$Scale$convert, scale, radius) * (-1)) + 10),
+							$elm_community$typed_svg$TypedSvg$Attributes$transform(
+							_List_fromArray(
+								[
+									A3($elm_community$typed_svg$TypedSvg$Types$Rotate, angle, 0, 0)
+								])),
+							$elm_community$typed_svg$TypedSvg$Attributes$textAnchor($elm_community$typed_svg$TypedSvg$Types$AnchorMiddle)
+						]),
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Core$text(
+							A3($gampleman$elm_visualization$Scale$tickFormat, scale, 10, radius))
+						]))
+				]));
+	});
+var $elm_community$typed_svg$TypedSvg$Attributes$r = function (length) {
+	return A2(
+		$elm_community$typed_svg$TypedSvg$Core$attribute,
+		'r',
+		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
+};
+var $elm_community$typed_svg$TypedSvg$Attributes$InPx$r = function (value) {
+	return $elm_community$typed_svg$TypedSvg$Attributes$r(
+		$elm_community$typed_svg$TypedSvg$Types$px(value));
+};
+var $gampleman$elm_visualization$Scale$ticks = F2(
+	function (_v0, count) {
+		var scale = _v0.a;
+		return A2(scale.ticks, scale.domain, count);
+	});
+var $author$project$Polarplot$drawPointandTicks = F3(
+	function (radiusscale, value, angle) {
+		return A2(
+			$elm_community$typed_svg$TypedSvg$g,
+			_List_fromArray(
+				[
+					$elm_community$typed_svg$TypedSvg$Attributes$transform(
+					_List_fromArray(
+						[
+							A2($elm_community$typed_svg$TypedSvg$Types$Translate, ($author$project$Polarplot$wp / 2) + $author$project$Polarplot$mainRadius, $author$project$Polarplot$hp / 2)
+						]))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['r', 'axis']))
+						]),
+					A2(
+						$elm$core$List$map,
+						A2($author$project$Polarplot$drawTicksforAxis, radiusscale, angle),
+						A2(
+							$elm$core$List$drop,
+							1,
+							A2($gampleman$elm_visualization$Scale$ticks, radiusscale, 4)))),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$transform(
+							_List_fromArray(
+								[
+									A3($elm_community$typed_svg$TypedSvg$Types$Rotate, angle - 180, 0, 0)
+								])),
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['r', 'point']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$circle,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$cy(
+									A2($gampleman$elm_visualization$Scale$convert, radiusscale, value)),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$r(7)
+								]),
+							_List_Nil),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(
+									A2($gampleman$elm_visualization$Scale$convert, radiusscale, value) - 9),
+									$elm_community$typed_svg$TypedSvg$Attributes$transform(
+									_List_fromArray(
+										[
+											A3(
+											$elm_community$typed_svg$TypedSvg$Types$Rotate,
+											-(angle - 180),
+											0,
+											A2($gampleman$elm_visualization$Scale$convert, radiusscale, value))
+										]))
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text(
+									$elm$core$String$fromFloat(value))
+								]))
+						]))
+				]));
+	});
+var $elm_community$typed_svg$TypedSvg$Attributes$fontSize = function (length) {
+	return A2(
+		$elm_community$typed_svg$TypedSvg$Core$attribute,
+		'font-size',
+		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
+};
+var $elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize = function (value) {
+	return $elm_community$typed_svg$TypedSvg$Attributes$fontSize(
+		$elm_community$typed_svg$TypedSvg$Types$px(value));
+};
+var $elm$core$List$map3 = _List_map3;
+var $author$project$Polarplot$scalesListed = _List_fromArray(
+	[
+		A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2(0, $author$project$Polarplot$mainRadius),
+		_Utils_Tuple2(0, 20)),
+		A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2(0, $author$project$Polarplot$mainRadius),
+		_Utils_Tuple2(0, 1)),
+		A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2(0, $author$project$Polarplot$mainRadius),
+		_Utils_Tuple2(0, 80)),
+		A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2(0, $author$project$Polarplot$mainRadius),
+		_Utils_Tuple2(0, 1)),
+		A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2(0, $author$project$Polarplot$mainRadius),
+		_Utils_Tuple2(-5, 5)),
+		A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2(0, $author$project$Polarplot$mainRadius),
+		_Utils_Tuple2(0, 1))
+	]);
+var $elm_community$typed_svg$TypedSvg$Types$AnchorEnd = {$: 'AnchorEnd'};
+var $elm_community$typed_svg$TypedSvg$Types$AnchorInherit = {$: 'AnchorInherit'};
+var $elm_community$typed_svg$TypedSvg$Attributes$dy = function (length) {
+	return A2(
+		$elm_community$typed_svg$TypedSvg$Core$attribute,
+		'dy',
+		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
+};
+var $elm_community$typed_svg$TypedSvg$Types$Em = function (a) {
+	return {$: 'Em', a: a};
+};
+var $elm_community$typed_svg$TypedSvg$Types$em = $elm_community$typed_svg$TypedSvg$Types$Em;
+var $elm_community$typed_svg$TypedSvg$line = $elm_community$typed_svg$TypedSvg$Core$node('line');
+var $elm_community$typed_svg$TypedSvg$Attributes$x = function (length) {
+	return A2(
+		$elm_community$typed_svg$TypedSvg$Core$attribute,
+		'x',
+		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
+};
+var $elm_community$typed_svg$TypedSvg$Attributes$InPx$x = function (value) {
+	return $elm_community$typed_svg$TypedSvg$Attributes$x(
+		$elm_community$typed_svg$TypedSvg$Types$px(value));
+};
+var $elm_community$typed_svg$TypedSvg$Attributes$x2 = function (position) {
+	return A2(
+		$elm_community$typed_svg$TypedSvg$Core$attribute,
+		'x2',
+		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(position));
+};
+var $elm_community$typed_svg$TypedSvg$Attributes$InPx$x2 = function (value) {
+	return $elm_community$typed_svg$TypedSvg$Attributes$x2(
+		$elm_community$typed_svg$TypedSvg$Types$px(value));
+};
+var $author$project$Polarplot$spoke = F2(
+	function (descript, angle) {
+		var adjustedangle = angle - 70;
+		return A2(
+			$elm_community$typed_svg$TypedSvg$g,
+			_List_fromArray(
+				[
+					$elm_community$typed_svg$TypedSvg$Attributes$transform(
+					_List_fromArray(
+						[
+							A3($elm_community$typed_svg$TypedSvg$Types$Rotate, adjustedangle, 0, 0)
+						]))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm_community$typed_svg$TypedSvg$line,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$InPx$x2($author$project$Polarplot$mainRadius)
+						]),
+					_List_Nil),
+					A2(
+					$elm_community$typed_svg$TypedSvg$text_,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$InPx$x($author$project$Polarplot$mainRadius + 6),
+							$elm_community$typed_svg$TypedSvg$Attributes$dy(
+							$elm_community$typed_svg$TypedSvg$Types$em(0.35)),
+							$elm_community$typed_svg$TypedSvg$Attributes$textAnchor(
+							((adjustedangle < 270) && (adjustedangle > 90)) ? $elm_community$typed_svg$TypedSvg$Types$AnchorEnd : $elm_community$typed_svg$TypedSvg$Types$AnchorInherit),
+							$elm_community$typed_svg$TypedSvg$Attributes$transform(
+							_List_fromArray(
+								[
+									A3($elm_community$typed_svg$TypedSvg$Types$Rotate, -adjustedangle, $author$project$Polarplot$mainRadius + 8, 0)
+								]))
+						]),
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Core$text(descript)
+						]))
+				]));
+	});
+var $elm_community$typed_svg$TypedSvg$style = $elm_community$typed_svg$TypedSvg$Core$node('style');
+var $elm_community$typed_svg$TypedSvg$svg = $elm_community$typed_svg$TypedSvg$Core$node('svg');
 var $elm_community$typed_svg$TypedSvg$Attributes$viewBox = F4(
 	function (minX, minY, vWidth, vHeight) {
 		return A2(
@@ -7775,6 +8232,261 @@ var $elm_community$typed_svg$TypedSvg$Attributes$viewBox = F4(
 					$elm$core$String$fromFloat,
 					_List_fromArray(
 						[minX, minY, vWidth, vHeight]))));
+	});
+var $author$project$Polarplot$drawPolarplot = F3(
+	function (countryname, ladderscore, listofvalues) {
+		return A2(
+			$elm_community$typed_svg$TypedSvg$svg,
+			_List_fromArray(
+				[
+					A4($elm_community$typed_svg$TypedSvg$Attributes$viewBox, 0, 0, $author$project$Polarplot$wp, $author$project$Polarplot$hp)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm_community$typed_svg$TypedSvg$style,
+					_List_Nil,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Core$text($author$project$Polarplot$css)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['label'])),
+							$elm_community$typed_svg$TypedSvg$Attributes$transform(
+							_List_fromArray(
+								[
+									A2($elm_community$typed_svg$TypedSvg$Types$Translate, $author$project$Polarplot$padding * 2, $author$project$Polarplot$hp / 2)
+								]))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(20)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text(countryname)
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(12),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(20)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text(
+									'Ladder rank: ' + $elm$core$String$fromFloat(ladderscore))
+								]))
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$transform(
+							_List_fromArray(
+								[
+									A2($elm_community$typed_svg$TypedSvg$Types$Translate, ($author$project$Polarplot$wp / 2) + $author$project$Polarplot$mainRadius, $author$project$Polarplot$hp / 2)
+								]))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$g,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$class(
+									_List_fromArray(
+										['r', 'axis']))
+								]),
+							A2(
+								$elm$core$List$map,
+								$author$project$Polarplot$drawPlot,
+								_List_fromArray(
+									[20, 40, 60, 80, 100]))),
+							A2(
+							$elm_community$typed_svg$TypedSvg$g,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$class(
+									_List_fromArray(
+										['a', 'axis']))
+								]),
+							A3(
+								$elm$core$List$map2,
+								$author$project$Polarplot$spoke,
+								_List_fromArray(
+									['Log GDP per Capita', 'Social Support', 'Life expectancy', 'Freedom', 'Generosity', 'perceived corruption']),
+								A3($gampleman$elm_visualization$Statistics$range, 0, 360, 60)))
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_Nil,
+					A4($elm$core$List$map3, $author$project$Polarplot$drawPointandTicks, $author$project$Polarplot$scalesListed, listofvalues, $author$project$Polarplot$anglelist))
+				]));
+	});
+var $author$project$Displaydata$emptyCountry = {country_name: 'String', freedom_lc: 0, generosity: 0, l_whisker: 0, ladder_score: 0, lg_gdp_pc: 0, life_expectancy: 0, pc_corruption: 0, regional_indicator: 'String', se_ladder: 0, social_support: 0, u_whisker: 0};
+var $author$project$Displaydata$get_float_att = F2(
+	function (_float, cntry) {
+		switch (_float) {
+			case 'ladder_score':
+				return function ($) {
+					return $.ladder_score;
+				}(cntry);
+			case 'se_ladder':
+				return function ($) {
+					return $.se_ladder;
+				}(cntry);
+			case 'u_whisker':
+				return function ($) {
+					return $.u_whisker;
+				}(cntry);
+			case 'l_whisker':
+				return function ($) {
+					return $.l_whisker;
+				}(cntry);
+			case 'lg_gdp_pc':
+				return function ($) {
+					return $.lg_gdp_pc;
+				}(cntry);
+			case 'social_support':
+				return function ($) {
+					return $.social_support;
+				}(cntry);
+			case 'life_expectancy':
+				return function ($) {
+					return $.life_expectancy;
+				}(cntry);
+			case 'freedom_lc':
+				return function ($) {
+					return $.freedom_lc;
+				}(cntry);
+			case 'generosity':
+				return function ($) {
+					return $.generosity;
+				}(cntry);
+			case 'pc_corruption':
+				return function ($) {
+					return $.pc_corruption;
+				}(cntry);
+			default:
+				return 0;
+		}
+	});
+var $author$project$Displaydata$get_str_att = F2(
+	function (str, cntry) {
+		switch (str) {
+			case 'country_name':
+				return function ($) {
+					return $.country_name;
+				}(cntry);
+			case 'regional_indicator':
+				return function ($) {
+					return $.regional_indicator;
+				}(cntry);
+			default:
+				return str;
+		}
+	});
+var $author$project$Displaydata$matches_countryname = F2(
+	function (countrystring, country) {
+		return _Utils_eq(country.country_name, countrystring);
+	});
+var $author$project$Displaydata$getcountry_by_name = F2(
+	function (countrystring, countrylist) {
+		return A2(
+			$elm$core$Maybe$withDefault,
+			$author$project$Displaydata$emptyCountry,
+			$elm$core$List$head(
+				A2(
+					$elm$core$List$filter,
+					$author$project$Displaydata$matches_countryname(countrystring),
+					countrylist)));
+	});
+var $elm_community$typed_svg$TypedSvg$Types$Percent = function (a) {
+	return {$: 'Percent', a: a};
+};
+var $elm_community$typed_svg$TypedSvg$Attributes$fontFamily = function (families) {
+	if (!families.b) {
+		return A2($elm_community$typed_svg$TypedSvg$Core$attribute, 'font-family', 'inherit');
+	} else {
+		return A2(
+			$elm_community$typed_svg$TypedSvg$Core$attribute,
+			'font-family',
+			A2($elm$core$String$join, ', ', families));
+	}
+};
+var $author$project$Displaydata$h = 450;
+var $elm_community$typed_svg$TypedSvg$Attributes$height = function (length) {
+	return A2(
+		$elm_community$typed_svg$TypedSvg$Core$attribute,
+		'height',
+		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
+};
+var $author$project$Displaydata$padding = 60;
+var $elm_community$typed_svg$TypedSvg$Attributes$cx = function (length) {
+	return A2(
+		$elm_community$typed_svg$TypedSvg$Core$attribute,
+		'cx',
+		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
+};
+var $elm_community$typed_svg$TypedSvg$Attributes$InPx$cx = function (value) {
+	return $elm_community$typed_svg$TypedSvg$Attributes$cx(
+		$elm_community$typed_svg$TypedSvg$Types$px(value));
+};
+var $author$project$Displaydata$radius = 5.0;
+var $author$project$Displaydata$point = F4(
+	function (scaleX, scaleY, description, xyPoint) {
+		return A2(
+			$elm_community$typed_svg$TypedSvg$g,
+			_List_fromArray(
+				[
+					$elm_community$typed_svg$TypedSvg$Attributes$class(
+					_List_fromArray(
+						['point'])),
+					$elm_community$typed_svg$TypedSvg$Attributes$fontSize(
+					$elm_community$typed_svg$TypedSvg$Types$Px(10.0)),
+					$elm_community$typed_svg$TypedSvg$Attributes$fontFamily(
+					_List_fromArray(
+						['sans-serif']))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm_community$typed_svg$TypedSvg$circle,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$InPx$cx(
+							A2($gampleman$elm_visualization$Scale$convert, scaleX, xyPoint.a)),
+							$elm_community$typed_svg$TypedSvg$Attributes$InPx$cy(
+							A2($gampleman$elm_visualization$Scale$convert, scaleY, xyPoint.b)),
+							$elm_community$typed_svg$TypedSvg$Attributes$InPx$r($author$project$Displaydata$radius)
+						]),
+					_List_Nil),
+					A2(
+					$elm_community$typed_svg$TypedSvg$text_,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(
+							A2($gampleman$elm_visualization$Scale$convert, scaleX, xyPoint.a)),
+							$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(
+							A2($gampleman$elm_visualization$Scale$convert, scaleY, xyPoint.b) - ($author$project$Displaydata$radius + 3)),
+							$elm_community$typed_svg$TypedSvg$Attributes$textAnchor($elm_community$typed_svg$TypedSvg$Types$AnchorMiddle)
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text(description)
+						]))
+				]));
 	});
 var $author$project$Displaydata$w = 900;
 var $author$project$Displaydata$defaultExtent = _Utils_Tuple2(0, 100);
@@ -7844,15 +8556,6 @@ var $elm_community$typed_svg$TypedSvg$Attributes$width = function (length) {
 		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
 };
 var $elm$svg$Svg$Attributes$class = _VirtualDom_attribute('class');
-var $gampleman$elm_visualization$Scale$tickFormat = function (_v0) {
-	var opts = _v0.a;
-	return opts.tickFormat(opts.domain);
-};
-var $gampleman$elm_visualization$Scale$ticks = F2(
-	function (_v0, count) {
-		var scale = _v0.a;
-		return A2(scale.ticks, scale.domain, count);
-	});
 var $gampleman$elm_visualization$Axis$computeOptions = F2(
 	function (attrs, scale) {
 		var _v0 = A3(
@@ -8052,333 +8755,6 @@ var $gampleman$elm_visualization$Axis$TickCount = function (a) {
 	return {$: 'TickCount', a: a};
 };
 var $gampleman$elm_visualization$Axis$tickCount = $gampleman$elm_visualization$Axis$TickCount;
-var $gampleman$elm_visualization$Scale$Scale = function (a) {
-	return {$: 'Scale', a: a};
-};
-var $elm$core$Basics$always = F2(
-	function (a, _v0) {
-		return a;
-	});
-var $elm$core$Basics$isNaN = _Basics_isNaN;
-var $gampleman$elm_visualization$Scale$Continuous$normalize = F2(
-	function (a, b) {
-		var c = b - a;
-		return (!c) ? $elm$core$Basics$always(0.5) : ($elm$core$Basics$isNaN(c) ? $elm$core$Basics$always(0 / 0) : function (x) {
-			return (x - a) / c;
-		});
-	});
-var $gampleman$elm_visualization$Scale$Continuous$bimap = F3(
-	function (_v0, _v1, interpolate) {
-		var d0 = _v0.a;
-		var d1 = _v0.b;
-		var r0 = _v1.a;
-		var r1 = _v1.b;
-		var _v2 = (_Utils_cmp(d1, d0) < 0) ? _Utils_Tuple2(
-			A2($gampleman$elm_visualization$Scale$Continuous$normalize, d1, d0),
-			A2(interpolate, r1, r0)) : _Utils_Tuple2(
-			A2($gampleman$elm_visualization$Scale$Continuous$normalize, d0, d1),
-			A2(interpolate, r0, r1));
-		var de = _v2.a;
-		var re = _v2.b;
-		return A2($elm$core$Basics$composeL, re, de);
-	});
-var $gampleman$elm_visualization$Scale$Continuous$convertTransform = F4(
-	function (transform, interpolate, _v0, range) {
-		var d0 = _v0.a;
-		var d1 = _v0.b;
-		return A2(
-			$elm$core$Basics$composeR,
-			transform,
-			A3(
-				$gampleman$elm_visualization$Scale$Continuous$bimap,
-				_Utils_Tuple2(
-					transform(d0),
-					transform(d1)),
-				range,
-				interpolate));
-	});
-var $gampleman$elm_visualization$Interpolation$float = F2(
-	function (a, to) {
-		var b = to - a;
-		return function (t) {
-			return a + (b * t);
-		};
-	});
-var $gampleman$elm_visualization$Scale$Continuous$invertTransform = F4(
-	function (transform, untransform, _v0, range) {
-		var d0 = _v0.a;
-		var d1 = _v0.b;
-		return A2(
-			$elm$core$Basics$composeR,
-			A3(
-				$gampleman$elm_visualization$Scale$Continuous$bimap,
-				range,
-				_Utils_Tuple2(
-					transform(d0),
-					transform(d1)),
-				$gampleman$elm_visualization$Interpolation$float),
-			untransform);
-	});
-var $elm$core$Basics$ge = _Utils_ge;
-var $gampleman$elm_visualization$Scale$Continuous$fixPoint = F3(
-	function (maxIterations, initialInput, fn) {
-		var helper = F2(
-			function (iters, _v0) {
-				helper:
-				while (true) {
-					var a = _v0.a;
-					var b = _v0.b;
-					if (_Utils_cmp(iters + 1, maxIterations) > -1) {
-						return b;
-					} else {
-						var _v1 = fn(b);
-						var outA = _v1.a;
-						var outB = _v1.b;
-						if (_Utils_eq(outA, a)) {
-							return b;
-						} else {
-							if (!outA) {
-								return b;
-							} else {
-								var $temp$iters = iters + 1,
-									$temp$_v0 = _Utils_Tuple2(outA, outB);
-								iters = $temp$iters;
-								_v0 = $temp$_v0;
-								continue helper;
-							}
-						}
-					}
-				}
-			});
-		return A2(
-			helper,
-			1,
-			fn(initialInput));
-	});
-var $elm$core$Basics$e = _Basics_e;
-var $elm$core$Basics$sqrt = _Basics_sqrt;
-var $gampleman$elm_visualization$Scale$Continuous$e10 = $elm$core$Basics$sqrt(50);
-var $gampleman$elm_visualization$Scale$Continuous$e2 = $elm$core$Basics$sqrt(2);
-var $gampleman$elm_visualization$Scale$Continuous$e5 = $elm$core$Basics$sqrt(10);
-var $gampleman$elm_visualization$Scale$Continuous$ln10 = A2($elm$core$Basics$logBase, $elm$core$Basics$e, 10);
-var $elm$core$Basics$pow = _Basics_pow;
-var $gampleman$elm_visualization$Scale$Continuous$tickIncrement = F3(
-	function (start, stop, count) {
-		var step = (stop - start) / A2($elm$core$Basics$max, 0, count);
-		var powr = $elm$core$Basics$floor(
-			A2($elm$core$Basics$logBase, $elm$core$Basics$e, step) / $gampleman$elm_visualization$Scale$Continuous$ln10);
-		var error = step / A2($elm$core$Basics$pow, 10, powr);
-		var order = (_Utils_cmp(error, $gampleman$elm_visualization$Scale$Continuous$e10) > -1) ? 10 : ((_Utils_cmp(error, $gampleman$elm_visualization$Scale$Continuous$e5) > -1) ? 5 : ((_Utils_cmp(error, $gampleman$elm_visualization$Scale$Continuous$e2) > -1) ? 2 : 1));
-		return (powr >= 0) ? (order * A2($elm$core$Basics$pow, 10, powr)) : ((-A2($elm$core$Basics$pow, 10, -powr)) / order);
-	});
-var $gampleman$elm_visualization$Scale$Continuous$withNormalizedDomain = F2(
-	function (fn, _v0) {
-		var a = _v0.a;
-		var b = _v0.b;
-		if (_Utils_cmp(a, b) < 0) {
-			return fn(
-				_Utils_Tuple2(a, b));
-		} else {
-			var _v1 = fn(
-				_Utils_Tuple2(b, a));
-			var d = _v1.a;
-			var c = _v1.b;
-			return _Utils_Tuple2(c, d);
-		}
-	});
-var $gampleman$elm_visualization$Scale$Continuous$nice = F2(
-	function (domain, count) {
-		var computation = function (_v0) {
-			var start = _v0.a;
-			var stop = _v0.b;
-			var step = A3($gampleman$elm_visualization$Scale$Continuous$tickIncrement, start, stop, count);
-			return _Utils_Tuple2(
-				step,
-				(step > 0) ? _Utils_Tuple2(
-					$elm$core$Basics$floor(start / step) * step,
-					$elm$core$Basics$ceiling(stop / step) * step) : ((step < 0) ? _Utils_Tuple2(
-					$elm$core$Basics$ceiling(start * step) / step,
-					$elm$core$Basics$floor(stop * step) / step) : _Utils_Tuple2(start, stop)));
-		};
-		return A2(
-			$gampleman$elm_visualization$Scale$Continuous$withNormalizedDomain,
-			function (dmn) {
-				return A3($gampleman$elm_visualization$Scale$Continuous$fixPoint, 10, dmn, computation);
-			},
-			domain);
-	});
-var $elm$core$Basics$abs = function (n) {
-	return (n < 0) ? (-n) : n;
-};
-var $gampleman$elm_visualization$Scale$Continuous$exponent = function (x) {
-	return (!x) ? 0 : ((x < 1) ? (1 + $gampleman$elm_visualization$Scale$Continuous$exponent(x * 10)) : 0);
-};
-var $gampleman$elm_visualization$Scale$Continuous$precisionFixed = function (step) {
-	return A2(
-		$elm$core$Basics$max,
-		0,
-		$gampleman$elm_visualization$Scale$Continuous$exponent(
-			$elm$core$Basics$abs(step)));
-};
-var $gampleman$elm_visualization$Statistics$tickStep = F3(
-	function (start, stop, count) {
-		var step0 = $elm$core$Basics$abs(stop - start) / A2($elm$core$Basics$max, 0, count);
-		var step1 = A2(
-			$elm$core$Basics$pow,
-			10,
-			$elm$core$Basics$floor(
-				A2($elm$core$Basics$logBase, $elm$core$Basics$e, step0) / A2($elm$core$Basics$logBase, $elm$core$Basics$e, 10)));
-		var error = step0 / step1;
-		var step2 = (_Utils_cmp(
-			error,
-			$elm$core$Basics$sqrt(50)) > -1) ? (step1 * 10) : ((_Utils_cmp(
-			error,
-			$elm$core$Basics$sqrt(10)) > -1) ? (step1 * 5) : ((_Utils_cmp(
-			error,
-			$elm$core$Basics$sqrt(2)) > -1) ? (step1 * 2) : step1));
-		return (_Utils_cmp(stop, start) < 0) ? (-step2) : step2;
-	});
-var $elm$core$String$cons = _String_cons;
-var $elm$core$String$fromChar = function (_char) {
-	return A2($elm$core$String$cons, _char, '');
-};
-var $elm$core$Bitwise$and = _Bitwise_and;
-var $elm$core$Bitwise$shiftRightBy = _Bitwise_shiftRightBy;
-var $elm$core$String$repeatHelp = F3(
-	function (n, chunk, result) {
-		return (n <= 0) ? result : A3(
-			$elm$core$String$repeatHelp,
-			n >> 1,
-			_Utils_ap(chunk, chunk),
-			(!(n & 1)) ? result : _Utils_ap(result, chunk));
-	});
-var $elm$core$String$repeat = F2(
-	function (n, chunk) {
-		return A3($elm$core$String$repeatHelp, n, chunk, '');
-	});
-var $elm$core$String$padRight = F3(
-	function (n, _char, string) {
-		return _Utils_ap(
-			string,
-			A2(
-				$elm$core$String$repeat,
-				n - $elm$core$String$length(string),
-				$elm$core$String$fromChar(_char)));
-	});
-var $elm$core$Basics$round = _Basics_round;
-var $gampleman$elm_visualization$Scale$Continuous$toFixed = F2(
-	function (precision, value) {
-		var power_ = A2($elm$core$Basics$pow, 10, precision);
-		var pad = function (num) {
-			_v0$2:
-			while (true) {
-				if (num.b) {
-					if (num.b.b) {
-						if (!num.b.b.b) {
-							var x = num.a;
-							var _v1 = num.b;
-							var y = _v1.a;
-							return _List_fromArray(
-								[
-									x,
-									A3(
-									$elm$core$String$padRight,
-									precision,
-									_Utils_chr('0'),
-									y)
-								]);
-						} else {
-							break _v0$2;
-						}
-					} else {
-						var val = num.a;
-						return (precision > 0) ? _List_fromArray(
-							[
-								val,
-								A3(
-								$elm$core$String$padRight,
-								precision,
-								_Utils_chr('0'),
-								'')
-							]) : _List_fromArray(
-							[val]);
-					}
-				} else {
-					break _v0$2;
-				}
-			}
-			var val = num;
-			return val;
-		};
-		return A2(
-			$elm$core$String$join,
-			'.',
-			pad(
-				A2(
-					$elm$core$String$split,
-					'.',
-					$elm$core$String$fromFloat(
-						$elm$core$Basics$round(value * power_) / power_))));
-	});
-var $gampleman$elm_visualization$Scale$Continuous$tickFormat = F2(
-	function (_v0, count) {
-		var start = _v0.a;
-		var stop = _v0.b;
-		return $gampleman$elm_visualization$Scale$Continuous$toFixed(
-			$gampleman$elm_visualization$Scale$Continuous$precisionFixed(
-				A3($gampleman$elm_visualization$Statistics$tickStep, start, stop, count)));
-	});
-var $elm$core$Bitwise$or = _Bitwise_or;
-var $gampleman$elm_visualization$Statistics$range = F3(
-	function (start, stop, step) {
-		var n = A2(
-			$elm$core$Basics$max,
-			0,
-			0 | $elm$core$Basics$ceiling((stop - start) / step));
-		var helper = F2(
-			function (i, list) {
-				return (i >= 0) ? A2(
-					helper,
-					i - 1,
-					A2($elm$core$List$cons, start + (step * i), list)) : list;
-			});
-		return A2(helper, n - 1, _List_Nil);
-	});
-var $gampleman$elm_visualization$Statistics$ticks = F3(
-	function (start, stop, count) {
-		var step = A3($gampleman$elm_visualization$Statistics$tickStep, start, stop, count);
-		var end = ($elm$core$Basics$floor(stop / step) * step) + (step / 2);
-		var beg = $elm$core$Basics$ceiling(start / step) * step;
-		return A3($gampleman$elm_visualization$Statistics$range, beg, end, step);
-	});
-var $gampleman$elm_visualization$Scale$Continuous$ticks = F2(
-	function (_v0, count) {
-		var start = _v0.a;
-		var end = _v0.b;
-		return A3($gampleman$elm_visualization$Statistics$ticks, start, end, count);
-	});
-var $gampleman$elm_visualization$Scale$Continuous$scaleWithTransform = F4(
-	function (transform, untransform, range_, domain_) {
-		return {
-			convert: A2($gampleman$elm_visualization$Scale$Continuous$convertTransform, transform, $gampleman$elm_visualization$Interpolation$float),
-			domain: domain_,
-			invert: A2($gampleman$elm_visualization$Scale$Continuous$invertTransform, transform, untransform),
-			nice: $gampleman$elm_visualization$Scale$Continuous$nice,
-			range: range_,
-			rangeExtent: F2(
-				function (_v0, r) {
-					return r;
-				}),
-			tickFormat: $gampleman$elm_visualization$Scale$Continuous$tickFormat,
-			ticks: $gampleman$elm_visualization$Scale$Continuous$ticks
-		};
-	});
-var $gampleman$elm_visualization$Scale$Continuous$linear = A2($gampleman$elm_visualization$Scale$Continuous$scaleWithTransform, $elm$core$Basics$identity, $elm$core$Basics$identity);
-var $gampleman$elm_visualization$Scale$linear = F2(
-	function (range_, domain_) {
-		return $gampleman$elm_visualization$Scale$Scale(
-			A2($gampleman$elm_visualization$Scale$Continuous$linear, range_, domain_));
-	});
 var $author$project$Displaydata$xScale = function (values) {
 	return A2(
 		$gampleman$elm_visualization$Scale$linear,
@@ -8557,6 +8933,7 @@ var $author$project$Main$viewHappiness = function (ls) {
 		$author$project$Displaydata$emptyCountry,
 		$elm$core$List$head(ls.data));
 	var df = ls.data;
+	var p_cntry = A2($author$project$Displaydata$getcountry_by_name, 'Germany', df);
 	var scat_desc = A2(
 		$elm$core$List$map,
 		$author$project$Displaydata$get_str_att('country_name'),
@@ -8574,7 +8951,13 @@ var $author$project$Main$viewHappiness = function (ls) {
 		_List_Nil,
 		_List_fromArray(
 			[
-				A5($author$project$Displaydata$scatterplot, scat_desc, x_values, y_values, ls.x_axis, ls.y_axis)
+				A5($author$project$Displaydata$scatterplot, scat_desc, x_values, y_values, ls.x_axis, ls.y_axis),
+				A3(
+				$author$project$Polarplot$drawPolarplot,
+				p_cntry.country_name,
+				p_cntry.ladder_score,
+				_List_fromArray(
+					[p_cntry.lg_gdp_pc, p_cntry.social_support, p_cntry.life_expectancy, p_cntry.freedom_lc, p_cntry.generosity, p_cntry.pc_corruption]))
 			]));
 };
 var $author$project$Main$view = function (model) {

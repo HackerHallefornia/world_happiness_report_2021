@@ -1,5 +1,6 @@
 module Main exposing (..)
 import Displaydata exposing(..)
+import Polarplot exposing(..)
 import Browser
 import Bulma.CDN exposing (..)
 import Bulma.Modifiers exposing (..)
@@ -49,11 +50,17 @@ viewHappiness ls =
     y_values = List.map (get_float_att ls.y_axis) df
     scat_desc : List String
     scat_desc = List.map (get_str_att "country_name") df
+
+    p_cntry : Country_2021
+    p_cntry = getcountry_by_name "Germany" df
   in     
     container []
         [ --p [] [text lengt], 
           --p [] [text (get_str_att "country_name" frst_elment)], 
-          scatterplot scat_desc x_values y_values ls.x_axis ls.y_axis]
+          scatterplot scat_desc x_values y_values ls.x_axis ls.y_axis ,
+          drawPolarplot  p_cntry.country_name p_cntry.ladder_score [p_cntry.lg_gdp_pc, 
+                p_cntry.social_support,p_cntry.life_expectancy,p_cntry.freedom_lc,
+                p_cntry.generosity,p_cntry.pc_corruption]]
 
 
 main : Program () Model Msg
