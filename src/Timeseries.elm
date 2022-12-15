@@ -5,14 +5,16 @@ import Path exposing (Path)
 import Scale exposing (ContinuousScale)
 import Shape
 
-import TypedSvg exposing (g, svg)
+import TypedSvg exposing (g, svg, text_, style )
 import TypedSvg.Attributes exposing (class, fill, stroke, transform, viewBox)
-import TypedSvg.Attributes.InPx exposing (strokeWidth)
-import TypedSvg.Core exposing (Svg)
+import TypedSvg.Attributes.InPx exposing (strokeWidth, y,x, fontSize)
+import TypedSvg.Core exposing (Svg, text)
 import TypedSvg.Types exposing (Paint(..), Transform(..))
+
 
 type alias Ts_scale =
     { ladder : ContinuousScale Float
+    , lg_gdp : ContinuousScale Float
     , social : ContinuousScale Float
     , life : ContinuousScale Float
     , freedom : ContinuousScale Float
@@ -21,11 +23,26 @@ type alias Ts_scale =
     , positive : ContinuousScale Float
     , negative : ContinuousScale Float
     }
+
+get_scale : String -> Ts_scale -> ContinuousScale Float
+get_scale selecter cntry = 
+    case selecter of
+        "Ladder Score" ->  .ladder cntry
+        "Log GDP per capita" ->  .lg_gdp cntry
+        "Social Support" ->  .social cntry
+        "Life expectancy" ->  .life cntry
+        "Freedom to make life choices" ->  .freedom cntry
+        "Generosity" ->  .generosity cntry
+        "Perceived Corruption" ->  .corruption cntry
+        "Positive Affect" ->  .positive cntry
+        "Negative Affect" ->  .negative cntry
+        _ -> .ladder cntry
 ts_scalesListed: Ts_scale
 ts_scalesListed = {
     ladder =  Scale.linear  ( ht - 2 * paddingt, 0 ) ( 0, 9),  --ladder
+    lg_gdp = Scale.linear  ( ht - 2 * paddingt, 0 ) ( 0, 12),
     social = Scale.linear ( ht - 2 * paddingt, 0 ) ( 0, 1), -- Social support
-    life = Scale.linear ( ht - 2 * paddingt, 0 ) ( 10, 80), -- Life expectancy
+    life = Scale.linear ( ht - 2 * paddingt, 0 ) ( 30, 80), -- Life expectancy
     freedom = Scale.linear ( ht - 2 * paddingt, 0 ) ( 0, 1), -- Freedom
     generosity = Scale.linear ( ht - 2 * paddingt, 0 ) ( -1, 1), -- generosity
     corruption = Scale.linear ( ht - 2 * paddingt, 0 ) ( 0, 1), -- perceived corruption
@@ -45,7 +62,7 @@ ht =
 
 paddingt : Float
 paddingt =
-    30
+    40
 
 
 xScale : ContinuousScale Float
@@ -63,10 +80,9 @@ xAxis model =
     Axis.bottom [ Axis.tickCount (List.length model) ] xScale
 
 
-yAxis : Svg msg
-yAxis =
-    Axis.left [ Axis.tickCount 5 ] ts_scalesListed.ladder
-
+get_yaxis : String -> Svg msg
+get_yaxis selecter = 
+    Axis.left [ Axis.tickCount 5 ] (get_scale selecter ts_scalesListed)
 
 transformToLineData :ContinuousScale Float ->   ( Float, Float )  -> Maybe ( Float, Float )
 transformToLineData yscale ( x, y )  =
@@ -80,16 +96,21 @@ line data yscale =
         |>Shape.line  Shape.linearCurve 
 
 
-ts_plot : List ( Float, Float ) -> List ( Float, Float ) -> Svg msg
-ts_plot line_1 line_2 =
+ts_plot : List ( Float, Float ) -> List ( Float, Float ) -> String -> String -> String -> Svg msg
+ts_plot line_1 line_2 ctry_1 ctry_2 scale_str=
     svg [ viewBox 0 0 wt ht ]
-        [ g [ transform [ Translate (paddingt - 1) (ht - paddingt) ] ]
+        [style [] [ text ".label {font-family:  sans-serif;}" ]
+        ,g [ class [ "label" ], transform [ Translate 10 10 ] ]
+            [ text_ [ fontSize 10, y 5 , x 150] [ text ("In Red: " ++ ctry_1)]
+            , text_ [ fontSize 10, y 15 , x 150 ] [ text ("In Blue: " ++ ctry_2)]
+            , text_ [ fontSize 10, y 5 ] [ text scale_str]]
+        ,g [ transform [ Translate (paddingt - 1) (ht - paddingt) ] ]
             [ xAxis line_1 ]
         , g [ transform [ Translate (paddingt - 1) paddingt ] ]
-            [ yAxis ]
+            [ get_yaxis scale_str]
         , g [ transform [ Translate paddingt paddingt ], class [ "series" ] ]
-            [ Path.element (line line_1 ts_scalesListed.ladder ) [ stroke <| Paint <| Color.rgb 1 0 0, strokeWidth 3, fill PaintNone],
-              Path.element (line line_2 ts_scalesListed.ladder ) [ stroke <| Paint <| Color.rgb 0 0 1, strokeWidth 3, fill PaintNone]
+            [ Path.element (line line_1 (get_scale scale_str ts_scalesListed)) [ stroke <| Paint <| Color.rgb 1 0 0, strokeWidth 3, fill PaintNone],
+              Path.element (line line_2 (get_scale scale_str ts_scalesListed)) [ stroke <| Paint <| Color.rgb 0 0 1, strokeWidth 3, fill PaintNone]
             ]
         ]
 

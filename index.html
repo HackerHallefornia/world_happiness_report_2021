@@ -7467,6 +7467,30 @@ var $author$project$Timeseries$id_to_ctry_ts = function (id) {
 			return '';
 	}
 };
+var $author$project$Main$id_to_ts_category = function (id) {
+	switch (id) {
+		case 1:
+			return 'Ladder Score';
+		case 2:
+			return 'Log GDP per capita';
+		case 3:
+			return 'Social Support';
+		case 4:
+			return 'Life expectancy';
+		case 5:
+			return 'Freedom to make life choices';
+		case 6:
+			return 'Generosity';
+		case 7:
+			return 'Perceived Corruption';
+		case 8:
+			return 'Positive Affect';
+		case 9:
+			return 'Negative Affect';
+		default:
+			return '';
+	}
+};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$update = F2(
@@ -7483,6 +7507,7 @@ var $author$project$Main$update = F2(
 								line_1: 'Germany',
 								line_2: 'Chad',
 								polar_country: 'Germany',
+								ts_cat: 'Life expectancy',
 								ts_data: _List_fromArray(
 									[$author$project$Displaydata$emptyts]),
 								x_axis: 'life_expectancy',
@@ -7572,7 +7597,7 @@ var $author$project$Main$update = F2(
 				} else {
 					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 				}
-			default:
+			case 'Timeseries_2':
 				var id = msg.a;
 				if (model.$ === 'Success') {
 					var d = model.a;
@@ -7582,6 +7607,21 @@ var $author$project$Main$update = F2(
 								d,
 								{
 									line_2: $author$project$Timeseries$id_to_ctry_ts(id)
+								})),
+						$elm$core$Platform$Cmd$none);
+				} else {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				}
+			default:
+				var id = msg.a;
+				if (model.$ === 'Success') {
+					var d = model.a;
+					return _Utils_Tuple2(
+						$author$project$Main$Success(
+							_Utils_update(
+								d,
+								{
+									ts_cat: $author$project$Main$id_to_ts_category(id)
 								})),
 						$elm$core$Platform$Cmd$none);
 				} else {
@@ -9838,6 +9878,66 @@ var $author$project$Main$dropDown_ts2 = A2(
 				},
 				$author$project$Timeseries$ts_list))
 		]));
+var $author$project$Main$Timeseries_cat = function (a) {
+	return {$: 'Timeseries_cat', a: a};
+};
+var $author$project$Main$category_ts_to_id = function (cat) {
+	switch (cat) {
+		case 'Ladder Score':
+			return '1';
+		case 'Log GDP per capita':
+			return '2';
+		case 'Social Support':
+			return '3';
+		case 'Life expectancy':
+			return '4';
+		case 'Freedom to make life choices':
+			return '5';
+		case 'Generosity':
+			return '6';
+		case 'Perceived Corruption':
+			return '7';
+		case 'Positive Affect':
+			return '8';
+		case 'Negative Affect':
+			return '9';
+		default:
+			return '';
+	}
+};
+var $author$project$Main$ts_category = _List_fromArray(
+	['Ladder Score', 'Log GDP per capita', 'Social Support', 'Life expectancy', 'Freedom to make life choices', 'Generosity', 'Perceived Corruption', 'Positive Affect', 'Negative Affect']);
+var $author$project$Main$dropDown_ts_cat = A2(
+	$surprisetalk$elm_bulma$Bulma$Layout$container,
+	_List_Nil,
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$select,
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$Events$on,
+					'change',
+					A2($elm$json$Json$Decode$map, $author$project$Main$Timeseries_cat, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
+				]),
+			A2(
+				$elm$core$List$map,
+				function (ctry) {
+					return A2(
+						$elm$html$Html$option,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$value(
+								$author$project$Main$category_ts_to_id(ctry))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text(ctry)
+							]));
+				},
+				$author$project$Main$ts_category))
+		]));
 var $author$project$Displaydata$emptyCountry = {country_name: 'String', freedom_lc: 0, generosity: 0, l_whisker: 0, ladder_score: 0, lg_gdp_pc: 0, life_expectancy: 0, pc_corruption: 0, regional_indicator: 'String', se_ladder: 0, social_support: 0, u_whisker: 0};
 var $author$project$Displaydata$get_float_att = F2(
 	function (_float, cntry) {
@@ -9927,12 +10027,62 @@ var $author$project$Displaydata$getcountry_by_name = F2(
 					$author$project$Displaydata$matches_countryname(countrystring),
 					countrylist)));
 	});
-var $author$project$Main$generate_ts_floats = function (tsd) {
-	return _Utils_Tuple2(tsd.year, tsd.ladder_score);
-};
-var $author$project$Main$list_ts_data_to_list_float = function (tsd_list) {
-	return A2($elm$core$List$map, $author$project$Main$generate_ts_floats, tsd_list);
-};
+var $author$project$Main$get_tsfloat_att = F2(
+	function (_float, cntry) {
+		switch (_float) {
+			case 'Ladder Score':
+				return function ($) {
+					return $.ladder_score;
+				}(cntry);
+			case 'Log GDP per capita':
+				return function ($) {
+					return $.lg_gdp_pc;
+				}(cntry);
+			case 'Social Support':
+				return function ($) {
+					return $.social_support;
+				}(cntry);
+			case 'Life expectancy':
+				return function ($) {
+					return $.life_expectancy;
+				}(cntry);
+			case 'Freedom to make life choices':
+				return function ($) {
+					return $.freedom_lc;
+				}(cntry);
+			case 'Generosity':
+				return function ($) {
+					return $.generosity;
+				}(cntry);
+			case 'Perceived Corruption':
+				return function ($) {
+					return $.pc_corruption;
+				}(cntry);
+			case 'Positive Affect':
+				return function ($) {
+					return $.positive_affect;
+				}(cntry);
+			case 'Negative Affect':
+				return function ($) {
+					return $.negative_affect;
+				}(cntry);
+			default:
+				return 0;
+		}
+	});
+var $author$project$Main$generate_ts_floats = F2(
+	function (select_string, tsd) {
+		return _Utils_Tuple2(
+			tsd.year,
+			A2($author$project$Main$get_tsfloat_att, select_string, tsd));
+	});
+var $author$project$Main$list_ts_data_to_list_float = F2(
+	function (select_string, tsd_list) {
+		return A2(
+			$elm$core$List$map,
+			$author$project$Main$generate_ts_floats(select_string),
+			tsd_list);
+	});
 var $elm_community$typed_svg$TypedSvg$Types$Percent = function (a) {
 	return {$: 'Percent', a: a};
 };
@@ -11291,7 +11441,100 @@ var $elm_community$typed_svg$TypedSvg$Attributes$fill = A2(
 	$elm$core$Basics$composeL,
 	$elm_community$typed_svg$TypedSvg$Core$attribute('fill'),
 	$elm_community$typed_svg$TypedSvg$TypesToStrings$paintToString);
+var $author$project$Timeseries$get_scale = F2(
+	function (selecter, cntry) {
+		switch (selecter) {
+			case 'Ladder Score':
+				return function ($) {
+					return $.ladder;
+				}(cntry);
+			case 'Log GDP per capita':
+				return function ($) {
+					return $.lg_gdp;
+				}(cntry);
+			case 'Social Support':
+				return function ($) {
+					return $.social;
+				}(cntry);
+			case 'Life expectancy':
+				return function ($) {
+					return $.life;
+				}(cntry);
+			case 'Freedom to make life choices':
+				return function ($) {
+					return $.freedom;
+				}(cntry);
+			case 'Generosity':
+				return function ($) {
+					return $.generosity;
+				}(cntry);
+			case 'Perceived Corruption':
+				return function ($) {
+					return $.corruption;
+				}(cntry);
+			case 'Positive Affect':
+				return function ($) {
+					return $.positive;
+				}(cntry);
+			case 'Negative Affect':
+				return function ($) {
+					return $.negative;
+				}(cntry);
+			default:
+				return function ($) {
+					return $.ladder;
+				}(cntry);
+		}
+	});
 var $author$project$Timeseries$ht = 300;
+var $author$project$Timeseries$paddingt = 40;
+var $author$project$Timeseries$ts_scalesListed = {
+	corruption: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(0, 1)),
+	freedom: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(0, 1)),
+	generosity: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(-1, 1)),
+	ladder: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(0, 9)),
+	lg_gdp: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(0, 12)),
+	life: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(30, 80)),
+	negative: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(0, 1)),
+	positive: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(0, 1)),
+	social: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(0, 1))
+};
+var $author$project$Timeseries$get_yaxis = function (selecter) {
+	return A2(
+		$gampleman$elm_visualization$Axis$left,
+		_List_fromArray(
+			[
+				$gampleman$elm_visualization$Axis$tickCount(5)
+			]),
+		A2($author$project$Timeseries$get_scale, selecter, $author$project$Timeseries$ts_scalesListed));
+};
 var $gampleman$elm_visualization$Shape$Generators$line = F2(
 	function (curve, data) {
 		var makeCurves = F2(
@@ -11380,7 +11623,6 @@ var $folkertdev$one_true_path_experiment$Curve$linear = function (points) {
 	}
 };
 var $gampleman$elm_visualization$Shape$linearCurve = $folkertdev$one_true_path_experiment$Curve$linear;
-var $author$project$Timeseries$paddingt = 30;
 var $author$project$Timeseries$wt = 600;
 var $author$project$Timeseries$xScale = A2(
 	$gampleman$elm_visualization$Scale$linear,
@@ -11427,40 +11669,6 @@ var $elm_community$typed_svg$TypedSvg$Attributes$InPx$strokeWidth = function (va
 	return $elm_community$typed_svg$TypedSvg$Attributes$strokeWidth(
 		$elm_community$typed_svg$TypedSvg$Types$px(value));
 };
-var $author$project$Timeseries$ts_scalesListed = {
-	corruption: A2(
-		$gampleman$elm_visualization$Scale$linear,
-		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
-		_Utils_Tuple2(0, 1)),
-	freedom: A2(
-		$gampleman$elm_visualization$Scale$linear,
-		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
-		_Utils_Tuple2(0, 1)),
-	generosity: A2(
-		$gampleman$elm_visualization$Scale$linear,
-		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
-		_Utils_Tuple2(-1, 1)),
-	ladder: A2(
-		$gampleman$elm_visualization$Scale$linear,
-		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
-		_Utils_Tuple2(0, 9)),
-	life: A2(
-		$gampleman$elm_visualization$Scale$linear,
-		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
-		_Utils_Tuple2(10, 80)),
-	negative: A2(
-		$gampleman$elm_visualization$Scale$linear,
-		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
-		_Utils_Tuple2(0, 1)),
-	positive: A2(
-		$gampleman$elm_visualization$Scale$linear,
-		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
-		_Utils_Tuple2(0, 1)),
-	social: A2(
-		$gampleman$elm_visualization$Scale$linear,
-		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
-		_Utils_Tuple2(0, 1))
-};
 var $author$project$Timeseries$xAxis = function (model) {
 	return A2(
 		$gampleman$elm_visualization$Axis$bottom,
@@ -11471,15 +11679,8 @@ var $author$project$Timeseries$xAxis = function (model) {
 			]),
 		$author$project$Timeseries$xScale);
 };
-var $author$project$Timeseries$yAxis = A2(
-	$gampleman$elm_visualization$Axis$left,
-	_List_fromArray(
-		[
-			$gampleman$elm_visualization$Axis$tickCount(5)
-		]),
-	$author$project$Timeseries$ts_scalesListed.ladder);
-var $author$project$Timeseries$ts_plot = F2(
-	function (line_1, line_2) {
+var $author$project$Timeseries$ts_plot = F5(
+	function (line_1, line_2, ctry_1, ctry_2, scale_str) {
 		return A2(
 			$elm_community$typed_svg$TypedSvg$svg,
 			_List_fromArray(
@@ -11488,6 +11689,64 @@ var $author$project$Timeseries$ts_plot = F2(
 				]),
 			_List_fromArray(
 				[
+					A2(
+					$elm_community$typed_svg$TypedSvg$style,
+					_List_Nil,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Core$text('.label {font-family:  sans-serif;}')
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['label'])),
+							$elm_community$typed_svg$TypedSvg$Attributes$transform(
+							_List_fromArray(
+								[
+									A2($elm_community$typed_svg$TypedSvg$Types$Translate, 10, 10)
+								]))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(5),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(150)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text('In Red: ' + ctry_1)
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(15),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(150)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text('In Blue: ' + ctry_2)
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(5)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text(scale_str)
+								]))
+						])),
 					A2(
 					$elm_community$typed_svg$TypedSvg$g,
 					_List_fromArray(
@@ -11513,7 +11772,9 @@ var $author$project$Timeseries$ts_plot = F2(
 								]))
 						]),
 					_List_fromArray(
-						[$author$project$Timeseries$yAxis])),
+						[
+							$author$project$Timeseries$get_yaxis(scale_str)
+						])),
 					A2(
 					$elm_community$typed_svg$TypedSvg$g,
 					_List_fromArray(
@@ -11531,7 +11792,10 @@ var $author$project$Timeseries$ts_plot = F2(
 						[
 							A2(
 							$folkertdev$one_true_path_experiment$Path$element,
-							A2($author$project$Timeseries$line, line_1, $author$project$Timeseries$ts_scalesListed.ladder),
+							A2(
+								$author$project$Timeseries$line,
+								line_1,
+								A2($author$project$Timeseries$get_scale, scale_str, $author$project$Timeseries$ts_scalesListed)),
 							_List_fromArray(
 								[
 									$elm_community$typed_svg$TypedSvg$Attributes$stroke(
@@ -11542,7 +11806,10 @@ var $author$project$Timeseries$ts_plot = F2(
 								])),
 							A2(
 							$folkertdev$one_true_path_experiment$Path$element,
-							A2($author$project$Timeseries$line, line_2, $author$project$Timeseries$ts_scalesListed.ladder),
+							A2(
+								$author$project$Timeseries$line,
+								line_2,
+								A2($author$project$Timeseries$get_scale, scale_str, $author$project$Timeseries$ts_scalesListed)),
 							_List_fromArray(
 								[
 									$elm_community$typed_svg$TypedSvg$Attributes$stroke(
@@ -11555,9 +11822,13 @@ var $author$project$Timeseries$ts_plot = F2(
 				]));
 	});
 var $author$project$Main$viewHappiness = function (ls) {
-	var ts_data_ctry2 = $author$project$Main$list_ts_data_to_list_float(
+	var ts_data_ctry2 = A2(
+		$author$project$Main$list_ts_data_to_list_float,
+		ls.ts_cat,
 		A2($author$project$Main$get_ts_data_by_countryname, ls.line_2, ls.ts_data));
-	var ts_data_ctry1 = $author$project$Main$list_ts_data_to_list_float(
+	var ts_data_ctry1 = A2(
+		$author$project$Main$list_ts_data_to_list_float,
+		ls.ts_cat,
 		A2($author$project$Main$get_ts_data_by_countryname, ls.line_1, ls.ts_data));
 	var lengt = $elm$core$String$fromInt(
 		$elm$core$List$length(ls.data));
@@ -11607,7 +11878,8 @@ var $author$project$Main$viewHappiness = function (ls) {
 					[p_cntry.lg_gdp_pc, p_cntry.social_support, p_cntry.life_expectancy, p_cntry.freedom_lc, p_cntry.generosity, p_cntry.pc_corruption])),
 				$author$project$Main$dropDown_ts1,
 				$author$project$Main$dropDown_ts2,
-				A2($author$project$Timeseries$ts_plot, ts_data_ctry1, ts_data_ctry2)
+				$author$project$Main$dropDown_ts_cat,
+				A5($author$project$Timeseries$ts_plot, ts_data_ctry1, ts_data_ctry2, ls.line_1, ls.line_2, ls.ts_cat)
 			]));
 };
 var $author$project$Main$view = function (model) {

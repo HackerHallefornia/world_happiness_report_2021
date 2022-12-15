@@ -26,7 +26,8 @@ type alias WorldHappData =
       x_axis : String,
       polar_country : String,
       line_1 : String,
-      line_2 : String
+      line_2 : String,
+      ts_cat : String
     }
 
 
@@ -71,10 +72,10 @@ viewHappiness ls =
     p_cntry = getcountry_by_name ls.polar_country df
 
     ts_data_ctry1 : List (Float, Float)
-    ts_data_ctry1 = list_ts_data_to_list_float <| get_ts_data_by_countryname ls.line_1 ls.ts_data
+    ts_data_ctry1 = list_ts_data_to_list_float ls.ts_cat <| get_ts_data_by_countryname ls.line_1 ls.ts_data
     
     ts_data_ctry2 : List (Float, Float)
-    ts_data_ctry2 = list_ts_data_to_list_float <| get_ts_data_by_countryname ls.line_2 ls.ts_data
+    ts_data_ctry2 = list_ts_data_to_list_float ls.ts_cat <| get_ts_data_by_countryname ls.line_2 ls.ts_data
 
   in     
     container []
@@ -87,7 +88,8 @@ viewHappiness ls =
                 p_cntry.generosity,p_cntry.pc_corruption],
           dropDown_ts1,
           dropDown_ts2,
-          ts_plot ts_data_ctry1 ts_data_ctry2
+          dropDown_ts_cat,
+          ts_plot ts_data_ctry1 ts_data_ctry2 ls.line_1 ls.line_2 ls.ts_cat
           ]
 
 
@@ -115,7 +117,7 @@ update msg model =
         Ok data ->
           (Success <| {data = (csvString_to_data data), ts_data = [emptyts], 
             y_axis = "ladder_score", x_axis ="life_expectancy", polar_country = "Germany",
-            line_1 = "Germany", line_2 = "Chad"}, fetchTsData)
+            line_1 = "Germany", line_2 = "Chad", ts_cat = "Life expectancy"}, fetchTsData)
           
         Err _ ->
           (Failure, Cmd.none) 
@@ -162,7 +164,12 @@ update msg model =
             (Success <| { d | line_2 = id_to_ctry_ts id}, Cmd.none)
         _ -> 
             (model, Cmd.none)
-    
+    Timeseries_cat id ->
+      case model of
+        Success d -> 
+            (Success <| { d | ts_cat = id_to_ts_category id}, Cmd.none)
+        _ -> 
+            (model, Cmd.none)   
 
 
 
@@ -180,6 +187,7 @@ type Msg
   | Polarplot_country Int
   | Timeseries_1 Int
   | Timeseries_2 Int
+  | Timeseries_cat Int
 fetchData : Cmd Msg
 fetchData =
     Http.get
@@ -237,12 +245,21 @@ dropDown_ts2 =
          (List.map(\ctry -> option[value (countryTsToid ctry)][ Html.text ctry]) ts_list)
     ]
 
-list_ts_data_to_list_float : List Ts_data -> List (Float, Float)
-list_ts_data_to_list_float tsd_list= 
-    List.map generate_ts_floats tsd_list
-generate_ts_floats: Ts_data -> (Float, Float)
-generate_ts_floats tsd =
-    (tsd.year, tsd.ladder_score)
+dropDown_ts_cat : Html Msg
+dropDown_ts_cat =
+  container []
+    [ select
+        [ on "change" (Json.map Timeseries_cat targetValueIntParse)
+        ]
+         (List.map(\ctry -> option[value (category_ts_to_id ctry)][ Html.text ctry]) ts_category)
+    ]
+
+list_ts_data_to_list_float : String -> List Ts_data  -> List (Float, Float)
+list_ts_data_to_list_float select_string tsd_list = 
+    List.map (generate_ts_floats select_string) tsd_list
+generate_ts_floats: String -> Ts_data -> (Float, Float)
+generate_ts_floats select_string tsd =
+    (tsd.year, get_tsfloat_att select_string tsd)
 get_ts_data_by_countryname : String -> List Ts_data -> List Ts_data
 get_ts_data_by_countryname countrystring countrylist = 
     List.filter (matches_countryname_ts countrystring) countrylist
@@ -250,6 +267,62 @@ get_ts_data_by_countryname countrystring countrylist =
 matches_countryname_ts : String -> Ts_data -> Bool
 matches_countryname_ts countrystring country =
     country.country_name == countrystring
+
+
+get_tsfloat_att : String -> Ts_data -> Float
+get_tsfloat_att float cntry = 
+    case float of
+        "Ladder Score" ->  .ladder_score cntry
+        "Log GDP per capita" ->  .lg_gdp_pc cntry
+        "Social Support" ->  .social_support cntry
+        "Life expectancy" ->  .life_expectancy cntry
+        "Freedom to make life choices" ->  .freedom_lc cntry
+        "Generosity" ->  .generosity cntry
+        "Perceived Corruption" ->  .pc_corruption cntry
+        "Positive Affect" ->  .positive_affect cntry
+        "Negative Affect" ->  .negative_affect cntry
+        _ -> 0
+
+ts_category: List String
+ts_category = [
+        "Ladder Score",
+        "Log GDP per capita",
+        "Social Support",
+        "Life expectancy" ,
+        "Freedom to make life choices",
+        "Generosity" ,
+        "Perceived Corruption",
+        "Positive Affect" ,
+        "Negative Affect"]
+
+id_to_ts_category: Int -> String
+id_to_ts_category id = 
+    case id of 
+      1 -> "Ladder Score"
+      2 -> "Log GDP per capita"
+      3 -> "Social Support"
+      4 -> "Life expectancy" 
+      5 -> "Freedom to make life choices"
+      6 -> "Generosity" 
+      7 -> "Perceived Corruption"
+      8 -> "Positive Affect" 
+      9 ->  "Negative Affect"
+      _ -> ""
+ 
+category_ts_to_id : String -> String
+category_ts_to_id cat = 
+    case cat of 
+       "Ladder Score" -> "1"
+       "Log GDP per capita" -> "2"
+       "Social Support" -> "3"
+       "Life expectancy" -> "4"
+       "Freedom to make life choices" -> "5"
+       "Generosity" -> "6"
+       "Perceived Corruption" -> "7"
+       "Positive Affect" -> "8"
+       "Negative Affect" -> "9"
+       _ -> ""       
+
 
 axislist: List String
 axislist = [
@@ -268,7 +341,7 @@ idToAxis : Int -> String
 idToAxis id = 
       case id of
        1 -> "ladder_score"
-       2-> "se_ladder"
+       2 -> "se_ladder"
        3 -> "u_whisker"
        4 -> "l_whisker" 
        5 -> "lg_gdp_pc"
