@@ -51,6 +51,8 @@ viewHappiness ls =
     y_values = List.map (get_float_att ls.y_axis) df
     scat_desc : List String
     scat_desc = List.map (get_str_att "country_name") df
+    country_category : List String
+    country_category = List.map (get_str_att "regional_indicator") df
 
     p_cntry : Country_2021
     p_cntry = getcountry_by_name ls.polar_country df
@@ -58,7 +60,7 @@ viewHappiness ls =
     container []
         [ --p [] [text lengt], 
           --p [] [text (get_str_att "country_name" frst_elment)], 
-          scatterplot scat_desc x_values y_values ls.x_axis ls.y_axis ,
+          scatterplot scat_desc country_category x_values y_values ls.x_axis ls.y_axis ,
           drawPolarplot  p_cntry.country_name p_cntry.ladder_score [p_cntry.lg_gdp_pc, 
                 p_cntry.social_support,p_cntry.life_expectancy,p_cntry.freedom_lc,
                 p_cntry.generosity,p_cntry.pc_corruption]]
@@ -86,10 +88,21 @@ update msg model =
     GotText result ->
       case result of
         Ok data ->
-          (Success <| {data = (csvString_to_data data), y_axis = "ladder_score", x_axis ="life_expectancy", polar_country = "Germany"}, Cmd.none)
-
+          (Success <| {data = (csvString_to_data data), ts_data= "none", y_axis = "ladder_score", x_axis ="life_expectancy", polar_country = "Germany"}, fetchTsData)
+          
         Err _ ->
-          (Failure, Cmd.none)
+          (Failure, Cmd.none) 
+
+    GotTsdata result ->
+      case result of
+        Ok tsdata ->
+          case model of
+            Success d -> 
+              (Success <| { d | ts_data = tsdata}, Cmd.none)
+            _ -> 
+              (model, Cmd.none)
+        Err _ ->
+          (Failure, Cmd.none)      
     -- Changetext ->
     --     (Success <| { data = "Here is some text"}, Cmd.none)   
     Scatterplot_yaxis id ->
@@ -113,9 +126,25 @@ update msg model =
 
 type alias WorldHappData = 
     { data : List Country_2021,
+      ts_data : String,
       y_axis : String,
       x_axis : String,
       polar_country : String
+    }
+
+type alias Ts_data = 
+      { country_name : String
+    , regional_indicator : String
+    , ladder_score :  Float
+    , se_ladder :  Float
+    , u_whisker :  Float
+    , l_whisker :  Float
+    , lg_gdp_pc :  Float
+    , social_support :  Float
+    , life_expectancy :  Float
+    , freedom_lc :  Float
+    , generosity :  Float
+    , pc_corruption :  Float
     }
 
 type Model 
@@ -125,6 +154,7 @@ type Model
 
 type Msg
   = GotText (Result Http.Error String)
+  | GotTsdata (Result Http.Error String)
   | Scatterplot_yaxis Int
   | Scatterplot_xaxis Int
   | Polarplot_country Int
@@ -136,7 +166,12 @@ fetchData =
         , expect = Http.expectString <| GotText
         }
 -- 
-
+fetchTsData : Cmd Msg
+fetchTsData =
+    Http.get
+        { url = "https://raw.githubusercontent.com/HackerHallefornia/world_happiness_report_2021/main/data/world-happiness-report_ts.csv"
+        , expect = Http.expectString <| GotTsdata
+        }
 --- dropdown function
 dropDown_y : Html Msg
 dropDown_y =

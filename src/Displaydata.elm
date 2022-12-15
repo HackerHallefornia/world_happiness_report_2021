@@ -18,23 +18,6 @@ import TypedSvg.Types exposing (AnchorAlignment(..), Length(..), Paint(..), Tran
 import Csv.Decode exposing (..)
 import Csv exposing (..)
 
--- MAIN
-main =
-  Browser.element
-    { init = init
-    , update = update
-    , subscriptions = \_ -> Sub.none
-    , view = view
-    }
-
-
--- MODEL
-type Model
-  = Failure
-  | Loading
-  | Success String
-
-
 
 type alias Country_2021 =
     { country_name : String
@@ -99,16 +82,6 @@ get_float_att float cntry =
         "pc_corruption" ->  .pc_corruption cntry
         _ -> 0
 
-
-init : () -> (Model, Cmd Msg)
-init _ =
-  ( Loading , 
-  Http.get
-  { url = "https://raw.githubusercontent.com/HackerHallefornia/world_happiness_report_2021/main/data/world-happiness-report-2021_simple.csv"
-  , expect = Http.expectString GotText
-  })
-
-
 csvString_to_data : String -> List Country_2021
 csvString_to_data csvRaw =
     Csv.parse csvRaw
@@ -140,59 +113,7 @@ datListe country_list =
         |> List.concat
 
 
--- UPDATE
-type Msg
-  = GotText (Result Http.Error String)
 
-update : Msg -> Model -> (Model, Cmd Msg)
-update msg model =
-  case msg of
-    GotText result ->
-      case result of
-        Ok fullText ->
-          (Success fullText, Cmd.none)
-
-        Err _ ->
-          (Failure, Cmd.none)
-
--- SUBSCRIPTIONS
-subscriptions : Model -> Sub Msg
-subscriptions model =
-  Sub.none
-
--- VIEW
-view : Model -> Html Msg
-view model =
-  case model of
-    Failure ->
-      text "I was unable to load your book."
-
-    Loading ->
-      text "Loading..."
-
-    Success fullText ->
-      viewData fullText
-
--- Displayfunction genrating the Visualization page      
-viewData : String -> Html Msg
-viewData ls = 
-  let
-    df = csvString_to_data ls
-
-    x_values : List Float
-    x_values = List.map (get_float_att "ladder_score") df
-    y_values : List Float
-    y_values = List.map (get_float_att "life_expectancy") df
-
-    scat_desc : List String
-    scat_desc = List.map (get_str_att "country_name") df
-  in     
-    Html.div []
-        [ Html.p [] [Html.text "Mydata"], 
-        scatterplot scat_desc x_values y_values "Ladder Score" "Life expectancy"]
-        
--- Visualization functions  
--- Scatterplot 
 
 
 -- Scatterplot Settings 
@@ -266,8 +187,8 @@ defaultExtent =
 ----- Scatterplot 
 
 
-scatterplot : List String -> List Float -> List Float -> String -> String -> Svg msg
-scatterplot descriptions xValues yValues xLabel yLabel =
+scatterplot : List String -> List String -> List Float -> List Float -> String -> String -> Svg msg
+scatterplot descriptions regions xValues yValues xLabel yLabel =
     let
 
         xyPoints =
@@ -295,12 +216,7 @@ scatterplot descriptions xValues yValues xLabel yLabel =
     in            
     
     svg [ viewBox 0 0 w h, TypedSvg.Attributes.width <| TypedSvg.Types.Percent 100, TypedSvg.Attributes.height <| TypedSvg.Types.Percent 100 ]
-        [ style [] [ TypedSvg.Core.text """
-            .point circle { stroke: rgba(0, 0, 0,0.4); fill: rgba(255, 255, 255,0.3); }
-            .point text { display: none; }
-            .point:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
-            .point:hover text { display: inline; }
-          """ ]
+        [ style [] [ TypedSvg.Core.text cssbycountry]
         , g
             [ transform [ Translate (padding - 1) ( padding - 1 ) ]
             , class [ "point" ]
@@ -329,12 +245,18 @@ scatterplot descriptions xValues yValues xLabel yLabel =
             ]
          , g 
              [transform [ Translate padding padding ] ]
-                (List.map2 (point xScaleLocal yScaleLocal) descriptions xyPoints)      
+                (List.map3 (point xScaleLocal yScaleLocal) descriptions regions xyPoints)      
         ]
 
-point : ContinuousScale Float -> ContinuousScale Float -> String -> (Float, Float)  -> Svg msg
-point scaleX scaleY description xyPoint   =
-            g [ class [ "point" ], fontSize <| Px 10.0, fontFamily [ "sans-serif" ] ]       
+point : ContinuousScale Float -> ContinuousScale Float -> String -> String -> (Float, Float)  -> Svg msg
+point scaleX scaleY description region_id xyPoint   =
+        let
+            
+            css_region: String
+            css_region = country_group_to_css region_id
+        in
+        
+            g [ class [ css_region ], fontSize <| Px 10.0, fontFamily [ "sans-serif" ] ]       
                 [ circle
                     [ cx (Scale.convert scaleX (Tuple.first xyPoint))
                     , cy (Scale.convert scaleY (Tuple.second xyPoint))
@@ -348,4 +270,74 @@ point scaleX scaleY description xyPoint   =
                     ]
                     [Html.text description]
                 ]
-            
+                 
+
+country_group_to_css : String -> String
+country_group_to_css region_string = 
+    case region_string of
+        "Western Europe" -> "westerneurope"
+        "North America and ANZ" -> "northamericaandanz"
+        "Middle East and North Africa" -> "middleeastandnorthafrica"
+        "Latin America and Caribbean" -> "latinamericaandcaribbean"
+        "Central and Eastern Europe" -> "centralandeasterneurope"
+        "East Asia" -> "eastasia"
+        "Southeast Asia" -> "southeastasia"
+        "Commonwealth of Independent States" -> "commonwealthofindependentstates"
+        "Sub-Saharan Africa" -> "sub-saharanafrica"
+        "South Asia" -> "southasia"
+        _  -> " "
+        
+cssbycountry : String
+cssbycountry =
+    """
+    .westerneurope circle { stroke: rgba(0, 0, 0,0.4); fill: rgba(21, 111, 187, 1); }
+    .westerneurope text { display: none; }
+    .westerneurope:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
+    .westerneurope:hover text { display: inline; }
+
+    .northamericaandanz circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 153, 51); }
+    .northamericaandanz text { display: none; }
+    .northamericaandanz:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
+    .northamericaandanz:hover text { display: inline; }
+
+    .middleeastandnorthafrica circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 153, 0); }
+    .middleeastandnorthafrica text { display: none; }
+    .middleeastandnorthafrica:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
+    .middleeastandnorthafrica:hover text { display: inline; }
+
+    .latinamericaandcaribbean circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(204, 0, 0); }
+    .latinamericaandcaribbean text { display: none; }
+    .latinamericaandcaribbean:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
+    .latinamericaandcaribbean:hover text { display: inline; }
+    
+    .centralandeasterneurope circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 204, 255); }
+    .centralandeasterneurope text { display: none; }
+    .centralandeasterneurope:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
+    .centralandeasterneurope:hover text { display: inline; }
+
+    .eastasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(153, 51, 255); }
+    .eastasia text { display: none; }
+    .eastasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
+    .eastasia:hover text { display: inline; }
+
+    .southeastasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 0); }
+    .southeastasia text { display: none; }
+    .southeastasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
+    .southeastasia:hover text { display: inline; }
+
+    .commonwealthofindependentstates circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 255, 102); }
+    .commonwealthofindependentstates text { display: none; }
+    .commonwealthofindependentstates:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
+    .commonwealthofindependentstates:hover text { display: inline; }
+
+    .sub-saharanafrica circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 102, 204); }
+    .sub-saharanafrica text { display: none; }
+    .sub-saharanafrica:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
+    .sub-saharanafrica:hover text { display: inline; }
+
+    .southasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 204); }
+    .southasia text { display: none; }
+    .southasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
+    .southasia:hover text { display: inline; }
+
+    """

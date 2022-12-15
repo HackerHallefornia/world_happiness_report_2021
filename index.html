@@ -6709,6 +6709,14 @@ var $author$project$Displaydata$csvString_to_data = function (csvRaw) {
 				$author$project$Displaydata$decodeCsvCountry,
 				$lovasoa$elm_csv$Csv$parse(csvRaw))));
 };
+var $author$project$Main$GotTsdata = function (a) {
+	return {$: 'GotTsdata', a: a};
+};
+var $author$project$Main$fetchTsData = $elm$http$Http$get(
+	{
+		expect: $elm$http$Http$expectString($author$project$Main$GotTsdata),
+		url: 'https://raw.githubusercontent.com/HackerHallefornia/world_happiness_report_2021/main/data/world-happiness-report-2021_simple.csv'
+	});
 var $author$project$Main$idToAxis = function (id) {
 	switch (id) {
 		case 1:
@@ -7053,10 +7061,29 @@ var $author$project$Main$update = F2(
 							{
 								data: $author$project$Displaydata$csvString_to_data(data),
 								polar_country: 'Germany',
+								ts_data: 'none',
 								x_axis: 'life_expectancy',
 								y_axis: 'ladder_score'
 							}),
-						$elm$core$Platform$Cmd$none);
+						$author$project$Main$fetchTsData);
+				} else {
+					return _Utils_Tuple2($author$project$Main$Failure, $elm$core$Platform$Cmd$none);
+				}
+			case 'GotTsdata':
+				var result = msg.a;
+				if (result.$ === 'Ok') {
+					var tsdata = result.a;
+					if (model.$ === 'Success') {
+						var d = model.a;
+						return _Utils_Tuple2(
+							$author$project$Main$Success(
+								_Utils_update(
+									d,
+									{ts_data: tsdata})),
+							$elm$core$Platform$Cmd$none);
+					} else {
+						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+					}
 				} else {
 					return _Utils_Tuple2($author$project$Main$Failure, $elm$core$Platform$Cmd$none);
 				}
@@ -9075,6 +9102,7 @@ var $author$project$Displaydata$getcountry_by_name = F2(
 var $elm_community$typed_svg$TypedSvg$Types$Percent = function (a) {
 	return {$: 'Percent', a: a};
 };
+var $author$project$Displaydata$cssbycountry = '\r\n    .westerneurope circle { stroke: rgba(0, 0, 0,0.4); fill: rgba(21, 111, 187, 1); }\r\n    .westerneurope text { display: none; }\r\n    .westerneurope:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .westerneurope:hover text { display: inline; }\r\n\r\n    .northamericaandanz circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 153, 51); }\r\n    .northamericaandanz text { display: none; }\r\n    .northamericaandanz:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .northamericaandanz:hover text { display: inline; }\r\n\r\n    .middleeastandnorthafrica circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 153, 0); }\r\n    .middleeastandnorthafrica text { display: none; }\r\n    .middleeastandnorthafrica:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .middleeastandnorthafrica:hover text { display: inline; }\r\n\r\n    .latinamericaandcaribbean circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(204, 0, 0); }\r\n    .latinamericaandcaribbean text { display: none; }\r\n    .latinamericaandcaribbean:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .latinamericaandcaribbean:hover text { display: inline; }\r\n    \r\n    .centralandeasterneurope circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 204, 255); }\r\n    .centralandeasterneurope text { display: none; }\r\n    .centralandeasterneurope:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .centralandeasterneurope:hover text { display: inline; }\r\n\r\n    .eastasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(153, 51, 255); }\r\n    .eastasia text { display: none; }\r\n    .eastasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .eastasia:hover text { display: inline; }\r\n\r\n    .southeastasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 0); }\r\n    .southeastasia text { display: none; }\r\n    .southeastasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .southeastasia:hover text { display: inline; }\r\n\r\n    .commonwealthofindependentstates circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 255, 102); }\r\n    .commonwealthofindependentstates text { display: none; }\r\n    .commonwealthofindependentstates:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .commonwealthofindependentstates:hover text { display: inline; }\r\n\r\n    .sub-saharanafrica circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 102, 204); }\r\n    .sub-saharanafrica text { display: none; }\r\n    .sub-saharanafrica:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .sub-saharanafrica:hover text { display: inline; }\r\n\r\n    .southasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 204); }\r\n    .southasia text { display: none; }\r\n    .southasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .southasia:hover text { display: inline; }\r\n\r\n    ';
 var $elm_community$typed_svg$TypedSvg$Attributes$fontFamily = function (families) {
 	if (!families.b) {
 		return A2($elm_community$typed_svg$TypedSvg$Core$attribute, 'font-family', 'inherit');
@@ -9093,6 +9121,32 @@ var $elm_community$typed_svg$TypedSvg$Attributes$height = function (length) {
 		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
 };
 var $author$project$Displaydata$padding = 60;
+var $author$project$Displaydata$country_group_to_css = function (region_string) {
+	switch (region_string) {
+		case 'Western Europe':
+			return 'westerneurope';
+		case 'North America and ANZ':
+			return 'northamericaandanz';
+		case 'Middle East and North Africa':
+			return 'middleeastandnorthafrica';
+		case 'Latin America and Caribbean':
+			return 'latinamericaandcaribbean';
+		case 'Central and Eastern Europe':
+			return 'centralandeasterneurope';
+		case 'East Asia':
+			return 'eastasia';
+		case 'Southeast Asia':
+			return 'southeastasia';
+		case 'Commonwealth of Independent States':
+			return 'commonwealthofindependentstates';
+		case 'Sub-Saharan Africa':
+			return 'sub-saharanafrica';
+		case 'South Asia':
+			return 'southasia';
+		default:
+			return ' ';
+	}
+};
 var $elm_community$typed_svg$TypedSvg$Attributes$cx = function (length) {
 	return A2(
 		$elm_community$typed_svg$TypedSvg$Core$attribute,
@@ -9104,15 +9158,16 @@ var $elm_community$typed_svg$TypedSvg$Attributes$InPx$cx = function (value) {
 		$elm_community$typed_svg$TypedSvg$Types$px(value));
 };
 var $author$project$Displaydata$radius = 5.0;
-var $author$project$Displaydata$point = F4(
-	function (scaleX, scaleY, description, xyPoint) {
+var $author$project$Displaydata$point = F5(
+	function (scaleX, scaleY, description, region_id, xyPoint) {
+		var css_region = $author$project$Displaydata$country_group_to_css(region_id);
 		return A2(
 			$elm_community$typed_svg$TypedSvg$g,
 			_List_fromArray(
 				[
 					$elm_community$typed_svg$TypedSvg$Attributes$class(
 					_List_fromArray(
-						['point'])),
+						[css_region])),
 					$elm_community$typed_svg$TypedSvg$Attributes$fontSize(
 					$elm_community$typed_svg$TypedSvg$Types$Px(10.0)),
 					$elm_community$typed_svg$TypedSvg$Attributes$fontFamily(
@@ -9458,8 +9513,8 @@ var $author$project$Displaydata$yAxis = function (values) {
 			]),
 		$author$project$Displaydata$yScale(values));
 };
-var $author$project$Displaydata$scatterplot = F5(
-	function (descriptions, xValues, yValues, xLabel, yLabel) {
+var $author$project$Displaydata$scatterplot = F6(
+	function (descriptions, regions, xValues, yValues, xLabel, yLabel) {
 		var yScaleLocal = $author$project$Displaydata$yScale(yValues);
 		var xyPoints = A3(
 			$elm$core$List$map2,
@@ -9495,7 +9550,7 @@ var $author$project$Displaydata$scatterplot = F5(
 					_List_Nil,
 					_List_fromArray(
 						[
-							$elm_community$typed_svg$TypedSvg$Core$text('\r\n            .point circle { stroke: rgba(0, 0, 0,0.4); fill: rgba(255, 255, 255,0.3); }\r\n            .point text { display: none; }\r\n            .point:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n            .point:hover text { display: inline; }\r\n          ')
+							$elm_community$typed_svg$TypedSvg$Core$text($author$project$Displaydata$cssbycountry)
 						])),
 					A2(
 					$elm_community$typed_svg$TypedSvg$g,
@@ -9578,10 +9633,11 @@ var $author$project$Displaydata$scatterplot = F5(
 									A2($elm_community$typed_svg$TypedSvg$Types$Translate, $author$project$Displaydata$padding, $author$project$Displaydata$padding)
 								]))
 						]),
-					A3(
-						$elm$core$List$map2,
+					A4(
+						$elm$core$List$map3,
 						A2($author$project$Displaydata$point, xScaleLocal, yScaleLocal),
 						descriptions,
+						regions,
 						xyPoints))
 				]));
 	});
@@ -9606,12 +9662,16 @@ var $author$project$Main$viewHappiness = function (ls) {
 		$elm$core$List$map,
 		$author$project$Displaydata$get_float_att(ls.y_axis),
 		df);
+	var country_category = A2(
+		$elm$core$List$map,
+		$author$project$Displaydata$get_str_att('regional_indicator'),
+		df);
 	return A2(
 		$surprisetalk$elm_bulma$Bulma$Layout$container,
 		_List_Nil,
 		_List_fromArray(
 			[
-				A5($author$project$Displaydata$scatterplot, scat_desc, x_values, y_values, ls.x_axis, ls.y_axis),
+				A6($author$project$Displaydata$scatterplot, scat_desc, country_category, x_values, y_values, ls.x_axis, ls.y_axis),
 				A3(
 				$author$project$Polarplot$drawPolarplot,
 				p_cntry.country_name,
