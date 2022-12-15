@@ -1,6 +1,7 @@
 module Main exposing (..)
 import Displaydata exposing(..)
 import Polarplot exposing(..)
+import Timeseries exposing (..)
 import Browser
 import Bulma.CDN exposing (..)
 import Bulma.Modifiers exposing (..)
@@ -17,6 +18,19 @@ import Html.Events exposing (onClick, on)
 import Html.Events.Extra exposing (targetValueIntParse)
 import Json.Decode as Json
 -- VIEW
+
+type alias WorldHappData = 
+    { data : List Country_2021,
+      ts_data : List Ts_data,
+      y_axis : String,
+      x_axis : String,
+      polar_country : String,
+      line_1 : String,
+      line_2 : String
+    }
+
+
+
 view : Model -> Html Msg
 view model =
   case model of
@@ -35,7 +49,6 @@ view model =
         , dropDown_x
         , dropDown_y
         , (viewHappiness fullText)
-        , dropDown_polar
         , myfooter
         ]
         
@@ -56,14 +69,26 @@ viewHappiness ls =
 
     p_cntry : Country_2021
     p_cntry = getcountry_by_name ls.polar_country df
+
+    ts_data_ctry1 : List (Float, Float)
+    ts_data_ctry1 = list_ts_data_to_list_float <| get_ts_data_by_countryname ls.line_1 ls.ts_data
+    
+    ts_data_ctry2 : List (Float, Float)
+    ts_data_ctry2 = list_ts_data_to_list_float <| get_ts_data_by_countryname ls.line_2 ls.ts_data
+
   in     
     container []
-        [ --p [] [text lengt], 
+        [ p [] [text <| String.fromInt <|List.length ls.ts_data], 
           --p [] [text (get_str_att "country_name" frst_elment)], 
           scatterplot scat_desc country_category x_values y_values ls.x_axis ls.y_axis ,
+          dropDown_polar,
           drawPolarplot  p_cntry.country_name p_cntry.ladder_score [p_cntry.lg_gdp_pc, 
                 p_cntry.social_support,p_cntry.life_expectancy,p_cntry.freedom_lc,
-                p_cntry.generosity,p_cntry.pc_corruption]]
+                p_cntry.generosity,p_cntry.pc_corruption],
+          dropDown_ts1,
+          dropDown_ts2,
+          ts_plot ts_data_ctry1 ts_data_ctry2
+          ]
 
 
 main : Program () Model Msg
@@ -88,7 +113,9 @@ update msg model =
     GotText result ->
       case result of
         Ok data ->
-          (Success <| {data = (csvString_to_data data), ts_data= "none", y_axis = "ladder_score", x_axis ="life_expectancy", polar_country = "Germany"}, fetchTsData)
+          (Success <| {data = (csvString_to_data data), ts_data = [emptyts], 
+            y_axis = "ladder_score", x_axis ="life_expectancy", polar_country = "Germany",
+            line_1 = "Germany", line_2 = "Chad"}, fetchTsData)
           
         Err _ ->
           (Failure, Cmd.none) 
@@ -98,7 +125,7 @@ update msg model =
         Ok tsdata ->
           case model of
             Success d -> 
-              (Success <| { d | ts_data = tsdata}, Cmd.none)
+              (Success <| { d | ts_data = csvString_to_data_ts tsdata}, Cmd.none)
             _ -> 
               (model, Cmd.none)
         Err _ ->
@@ -123,29 +150,22 @@ update msg model =
             (Success <| { d | polar_country = idToCountryPolar id}, Cmd.none)
         _ -> 
             (model, Cmd.none)
+    Timeseries_1 id ->
+      case model of
+        Success d -> 
+            (Success <| { d | line_1 = id_to_ctry_ts id}, Cmd.none)
+        _ -> 
+            (model, Cmd.none)
+    Timeseries_2 id ->
+      case model of
+        Success d -> 
+            (Success <| { d | line_2 = id_to_ctry_ts id}, Cmd.none)
+        _ -> 
+            (model, Cmd.none)
+    
 
-type alias WorldHappData = 
-    { data : List Country_2021,
-      ts_data : String,
-      y_axis : String,
-      x_axis : String,
-      polar_country : String
-    }
 
-type alias Ts_data = 
-      { country_name : String
-    , regional_indicator : String
-    , ladder_score :  Float
-    , se_ladder :  Float
-    , u_whisker :  Float
-    , l_whisker :  Float
-    , lg_gdp_pc :  Float
-    , social_support :  Float
-    , life_expectancy :  Float
-    , freedom_lc :  Float
-    , generosity :  Float
-    , pc_corruption :  Float
-    }
+
 
 type Model 
   =  Failure
@@ -158,7 +178,8 @@ type Msg
   | Scatterplot_yaxis Int
   | Scatterplot_xaxis Int
   | Polarplot_country Int
-
+  | Timeseries_1 Int
+  | Timeseries_2 Int
 fetchData : Cmd Msg
 fetchData =
     Http.get
@@ -199,7 +220,36 @@ dropDown_polar =
          (List.map(\ctry -> option[value (countryPolarToid ctry)][ Html.text ctry]) polarlist)
     ]
 
+dropDown_ts1 : Html Msg
+dropDown_ts1 =
+  container []
+    [ select
+        [ on "change" (Json.map Timeseries_1 targetValueIntParse)
+        ]
+         (List.map(\ctry -> option[value (countryTsToid ctry)][ Html.text ctry]) ts_list)
+    ]
+dropDown_ts2 : Html Msg
+dropDown_ts2 =
+  container []
+    [ select
+        [ on "change" (Json.map Timeseries_2 targetValueIntParse)
+        ]
+         (List.map(\ctry -> option[value (countryTsToid ctry)][ Html.text ctry]) ts_list)
+    ]
 
+list_ts_data_to_list_float : List Ts_data -> List (Float, Float)
+list_ts_data_to_list_float tsd_list= 
+    List.map generate_ts_floats tsd_list
+generate_ts_floats: Ts_data -> (Float, Float)
+generate_ts_floats tsd =
+    (tsd.year, tsd.ladder_score)
+get_ts_data_by_countryname : String -> List Ts_data -> List Ts_data
+get_ts_data_by_countryname countrystring countrylist = 
+    List.filter (matches_countryname_ts countrystring) countrylist
+
+matches_countryname_ts : String -> Ts_data -> Bool
+matches_countryname_ts countrystring country =
+    country.country_name == countrystring
 
 axislist: List String
 axislist = [

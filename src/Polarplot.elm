@@ -1,6 +1,5 @@
 
 module Polarplot exposing (..)
-import Path
 import Scale exposing (ContinuousScale)
 import Statistics
 import TypedSvg exposing (circle, ellipse, polygon, g, line, style, svg, text_)

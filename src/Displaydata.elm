@@ -51,6 +51,37 @@ emptyCountry = {
     }
 
 
+emptyts: Ts_data
+emptyts = {
+    country_name = "String"
+    -- add country indicator later
+    , year = 0
+    , ladder_score =  0
+    , lg_gdp_pc =  0
+    , social_support =  0
+    , life_expectancy =  0
+    , freedom_lc =  0
+    , generosity =  0
+    , pc_corruption =  0
+    , positive_affect = 0
+    , negative_affect = 0 
+    }
+
+type alias Ts_data = 
+      { country_name : String
+    -- add country indicator later
+    , year : Float
+    , ladder_score :  Float
+    , lg_gdp_pc :  Float
+    , social_support :  Float
+    , life_expectancy :  Float
+    , freedom_lc :  Float
+    , generosity :  Float
+    , pc_corruption :  Float
+    , positive_affect : Float
+    , negative_affect : Float 
+    }
+
 matches_countryname : String -> Country_2021 -> Bool
 matches_countryname countrystring country =
     country.country_name == countrystring
@@ -90,6 +121,19 @@ csvString_to_data csvRaw =
         |> Maybe.withDefault []
 
 
+datListe :List String -> List Country_2021
+datListe country_list =
+    List.map(\x -> csvString_to_data x) country_list
+        |> List.concat
+
+
+csvString_to_data_ts : String -> List Ts_data
+csvString_to_data_ts csvRaw =
+    Csv.parse csvRaw
+        |> Csv.Decode.decodeCsv decodeCsvtimeseries
+        |> Result.toMaybe
+        |> Maybe.withDefault []
+
 decodeCsvCountry : Csv.Decode.Decoder (Country_2021 -> a ) a 
 decodeCsvCountry =
     Csv.Decode.map Country_2021
@@ -106,11 +150,24 @@ decodeCsvCountry =
               |> Csv.Decode.andMap (Csv.Decode.field "Generosity" (String.toFloat >> Result.fromMaybe "error parsing string"))
               |> Csv.Decode.andMap (Csv.Decode.field "Perceptions of corruption" (String.toFloat >> Result.fromMaybe "error parsing string"))
         )
-        
-datListe :List String -> List Country_2021
-datListe country_list =
-    List.map(\x -> csvString_to_data x) country_list
-        |> List.concat
+
+decodeCsvtimeseries : Csv.Decode.Decoder (Ts_data -> a ) a 
+decodeCsvtimeseries =
+    Csv.Decode.map Ts_data
+         (Csv.Decode.field "Country name" Ok
+              |> Csv.Decode.andMap (Csv.Decode.field "year"(String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Life Ladder" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Log GDP per capita" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Social support" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Healthy life expectancy at birth" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Freedom to make life choices" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Generosity" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Perceptions of corruption" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Positive affect" (String.toFloat >> Result.fromMaybe "error parsing string"))
+              |> Csv.Decode.andMap (Csv.Decode.field "Negative affect" (String.toFloat >> Result.fromMaybe "error parsing string"))
+        )
+
+
 
 
 

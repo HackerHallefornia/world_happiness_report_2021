@@ -6709,13 +6709,141 @@ var $author$project$Displaydata$csvString_to_data = function (csvRaw) {
 				$author$project$Displaydata$decodeCsvCountry,
 				$lovasoa$elm_csv$Csv$parse(csvRaw))));
 };
+var $author$project$Displaydata$Ts_data = function (country_name) {
+	return function (year) {
+		return function (ladder_score) {
+			return function (lg_gdp_pc) {
+				return function (social_support) {
+					return function (life_expectancy) {
+						return function (freedom_lc) {
+							return function (generosity) {
+								return function (pc_corruption) {
+									return function (positive_affect) {
+										return function (negative_affect) {
+											return {country_name: country_name, freedom_lc: freedom_lc, generosity: generosity, ladder_score: ladder_score, lg_gdp_pc: lg_gdp_pc, life_expectancy: life_expectancy, negative_affect: negative_affect, pc_corruption: pc_corruption, positive_affect: positive_affect, social_support: social_support, year: year};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var $author$project$Displaydata$decodeCsvtimeseries = A2(
+	$ericgj$elm_csv_decode$Csv$Decode$map,
+	$author$project$Displaydata$Ts_data,
+	A2(
+		$ericgj$elm_csv_decode$Csv$Decode$andMap,
+		A2(
+			$ericgj$elm_csv_decode$Csv$Decode$field,
+			'Negative affect',
+			A2(
+				$elm$core$Basics$composeR,
+				$elm$core$String$toFloat,
+				$elm$core$Result$fromMaybe('error parsing string'))),
+		A2(
+			$ericgj$elm_csv_decode$Csv$Decode$andMap,
+			A2(
+				$ericgj$elm_csv_decode$Csv$Decode$field,
+				'Positive affect',
+				A2(
+					$elm$core$Basics$composeR,
+					$elm$core$String$toFloat,
+					$elm$core$Result$fromMaybe('error parsing string'))),
+			A2(
+				$ericgj$elm_csv_decode$Csv$Decode$andMap,
+				A2(
+					$ericgj$elm_csv_decode$Csv$Decode$field,
+					'Perceptions of corruption',
+					A2(
+						$elm$core$Basics$composeR,
+						$elm$core$String$toFloat,
+						$elm$core$Result$fromMaybe('error parsing string'))),
+				A2(
+					$ericgj$elm_csv_decode$Csv$Decode$andMap,
+					A2(
+						$ericgj$elm_csv_decode$Csv$Decode$field,
+						'Generosity',
+						A2(
+							$elm$core$Basics$composeR,
+							$elm$core$String$toFloat,
+							$elm$core$Result$fromMaybe('error parsing string'))),
+					A2(
+						$ericgj$elm_csv_decode$Csv$Decode$andMap,
+						A2(
+							$ericgj$elm_csv_decode$Csv$Decode$field,
+							'Freedom to make life choices',
+							A2(
+								$elm$core$Basics$composeR,
+								$elm$core$String$toFloat,
+								$elm$core$Result$fromMaybe('error parsing string'))),
+						A2(
+							$ericgj$elm_csv_decode$Csv$Decode$andMap,
+							A2(
+								$ericgj$elm_csv_decode$Csv$Decode$field,
+								'Healthy life expectancy at birth',
+								A2(
+									$elm$core$Basics$composeR,
+									$elm$core$String$toFloat,
+									$elm$core$Result$fromMaybe('error parsing string'))),
+							A2(
+								$ericgj$elm_csv_decode$Csv$Decode$andMap,
+								A2(
+									$ericgj$elm_csv_decode$Csv$Decode$field,
+									'Social support',
+									A2(
+										$elm$core$Basics$composeR,
+										$elm$core$String$toFloat,
+										$elm$core$Result$fromMaybe('error parsing string'))),
+								A2(
+									$ericgj$elm_csv_decode$Csv$Decode$andMap,
+									A2(
+										$ericgj$elm_csv_decode$Csv$Decode$field,
+										'Log GDP per capita',
+										A2(
+											$elm$core$Basics$composeR,
+											$elm$core$String$toFloat,
+											$elm$core$Result$fromMaybe('error parsing string'))),
+									A2(
+										$ericgj$elm_csv_decode$Csv$Decode$andMap,
+										A2(
+											$ericgj$elm_csv_decode$Csv$Decode$field,
+											'Life Ladder',
+											A2(
+												$elm$core$Basics$composeR,
+												$elm$core$String$toFloat,
+												$elm$core$Result$fromMaybe('error parsing string'))),
+										A2(
+											$ericgj$elm_csv_decode$Csv$Decode$andMap,
+											A2(
+												$ericgj$elm_csv_decode$Csv$Decode$field,
+												'year',
+												A2(
+													$elm$core$Basics$composeR,
+													$elm$core$String$toFloat,
+													$elm$core$Result$fromMaybe('error parsing string'))),
+											A2($ericgj$elm_csv_decode$Csv$Decode$field, 'Country name', $elm$core$Result$Ok))))))))))));
+var $author$project$Displaydata$csvString_to_data_ts = function (csvRaw) {
+	return A2(
+		$elm$core$Maybe$withDefault,
+		_List_Nil,
+		$elm$core$Result$toMaybe(
+			A2(
+				$ericgj$elm_csv_decode$Csv$Decode$decodeCsv,
+				$author$project$Displaydata$decodeCsvtimeseries,
+				$lovasoa$elm_csv$Csv$parse(csvRaw))));
+};
+var $author$project$Displaydata$emptyts = {country_name: 'String', freedom_lc: 0, generosity: 0, ladder_score: 0, lg_gdp_pc: 0, life_expectancy: 0, negative_affect: 0, pc_corruption: 0, positive_affect: 0, social_support: 0, year: 0};
 var $author$project$Main$GotTsdata = function (a) {
 	return {$: 'GotTsdata', a: a};
 };
 var $author$project$Main$fetchTsData = $elm$http$Http$get(
 	{
 		expect: $elm$http$Http$expectString($author$project$Main$GotTsdata),
-		url: 'https://raw.githubusercontent.com/HackerHallefornia/world_happiness_report_2021/main/data/world-happiness-report-2021_simple.csv'
+		url: 'https://raw.githubusercontent.com/HackerHallefornia/world_happiness_report_2021/main/data/world-happiness-report_ts.csv'
 	});
 var $author$project$Main$idToAxis = function (id) {
 	switch (id) {
@@ -7047,6 +7175,298 @@ var $author$project$Polarplot$idToCountryPolar = function (id) {
 			return ' ';
 	}
 };
+var $author$project$Timeseries$id_to_ctry_ts = function (id) {
+	switch (id) {
+		case 1:
+			return 'Afghanistan';
+		case 2:
+			return 'Albania';
+		case 3:
+			return 'Algeria';
+		case 4:
+			return 'Argentina';
+		case 5:
+			return 'Armenia';
+		case 6:
+			return 'Australia';
+		case 7:
+			return 'Austria';
+		case 8:
+			return 'Azerbaijan';
+		case 9:
+			return 'Bahrain';
+		case 10:
+			return 'Bangladesh';
+		case 11:
+			return 'Belarus';
+		case 12:
+			return 'Belgium';
+		case 13:
+			return 'Benin';
+		case 14:
+			return 'Bolivia';
+		case 15:
+			return 'Bosnia and Herzegovina';
+		case 16:
+			return 'Botswana';
+		case 17:
+			return 'Brazil';
+		case 18:
+			return 'Bulgaria';
+		case 19:
+			return 'Burkina Faso';
+		case 20:
+			return 'Burundi';
+		case 21:
+			return 'Cambodia';
+		case 22:
+			return 'Cameroon';
+		case 23:
+			return 'Canada';
+		case 24:
+			return 'Chad';
+		case 25:
+			return 'Chile';
+		case 26:
+			return 'Colombia';
+		case 27:
+			return 'Comoros';
+		case 28:
+			return 'Congo (Brazzaville)';
+		case 29:
+			return 'Costa Rica';
+		case 30:
+			return 'Croatia';
+		case 31:
+			return 'Cyprus';
+		case 32:
+			return 'Czech Republic';
+		case 33:
+			return 'Denmark';
+		case 34:
+			return 'Dominican Republic';
+		case 35:
+			return 'Ecuador';
+		case 36:
+			return 'Egypt';
+		case 37:
+			return 'El Salvador';
+		case 38:
+			return 'Estonia';
+		case 39:
+			return 'Ethiopia';
+		case 40:
+			return 'Finland';
+		case 41:
+			return 'France';
+		case 42:
+			return 'Gabon';
+		case 43:
+			return 'Gambia';
+		case 44:
+			return 'Georgia';
+		case 45:
+			return 'Germany';
+		case 46:
+			return 'Ghana';
+		case 47:
+			return 'Greece';
+		case 48:
+			return 'Guatemala';
+		case 49:
+			return 'Guinea';
+		case 50:
+			return 'Haiti';
+		case 51:
+			return 'Honduras';
+		case 52:
+			return 'Hungary';
+		case 53:
+			return 'Iceland';
+		case 54:
+			return 'India';
+		case 55:
+			return 'Indonesia';
+		case 56:
+			return 'Iran';
+		case 57:
+			return 'Iraq';
+		case 58:
+			return 'Ireland';
+		case 59:
+			return 'Israel';
+		case 60:
+			return 'Italy';
+		case 61:
+			return 'Ivory Coast';
+		case 62:
+			return 'Jamaica';
+		case 63:
+			return 'Japan';
+		case 64:
+			return 'Jordan';
+		case 65:
+			return 'Kazakhstan';
+		case 66:
+			return 'Kenya';
+		case 67:
+			return 'Kuwait';
+		case 68:
+			return 'Kyrgyzstan';
+		case 69:
+			return 'Laos';
+		case 70:
+			return 'Latvia';
+		case 71:
+			return 'Lebanon';
+		case 72:
+			return 'Lesotho';
+		case 73:
+			return 'Liberia';
+		case 74:
+			return 'Libya';
+		case 75:
+			return 'Lithuania';
+		case 76:
+			return 'Luxembourg';
+		case 77:
+			return 'Madagascar';
+		case 78:
+			return 'Malawi';
+		case 79:
+			return 'Malaysia';
+		case 80:
+			return 'Mali';
+		case 81:
+			return 'Malta';
+		case 82:
+			return 'Mauritania';
+		case 83:
+			return 'Mauritius';
+		case 84:
+			return 'Mexico';
+		case 85:
+			return 'Moldova';
+		case 86:
+			return 'Mongolia';
+		case 87:
+			return 'Montenegro';
+		case 88:
+			return 'Morocco';
+		case 89:
+			return 'Mozambique';
+		case 90:
+			return 'Myanmar';
+		case 91:
+			return 'Namibia';
+		case 92:
+			return 'Nepal';
+		case 93:
+			return 'Netherlands';
+		case 94:
+			return 'New Zealand';
+		case 95:
+			return 'Nicaragua';
+		case 96:
+			return 'Niger';
+		case 97:
+			return 'Nigeria';
+		case 98:
+			return 'North Macedonia';
+		case 99:
+			return 'Norway';
+		case 100:
+			return 'Pakistan';
+		case 101:
+			return 'Palestinian Territories';
+		case 102:
+			return 'Panama';
+		case 103:
+			return 'Paraguay';
+		case 104:
+			return 'Peru';
+		case 105:
+			return 'Philippines';
+		case 106:
+			return 'Poland';
+		case 107:
+			return 'Portugal';
+		case 108:
+			return 'Romania';
+		case 109:
+			return 'Russia';
+		case 110:
+			return 'Rwanda';
+		case 111:
+			return 'Saudi Arabia';
+		case 112:
+			return 'Senegal';
+		case 113:
+			return 'Serbia';
+		case 114:
+			return 'Sierra Leone';
+		case 115:
+			return 'Singapore';
+		case 116:
+			return 'Slovakia';
+		case 117:
+			return 'Slovenia';
+		case 118:
+			return 'South Africa';
+		case 119:
+			return 'South Korea';
+		case 120:
+			return 'Spain';
+		case 121:
+			return 'Sri Lanka';
+		case 122:
+			return 'Swaziland';
+		case 123:
+			return 'Sweden';
+		case 124:
+			return 'Switzerland';
+		case 125:
+			return 'Taiwan Province of China';
+		case 126:
+			return 'Tajikistan';
+		case 127:
+			return 'Tanzania';
+		case 128:
+			return 'Thailand';
+		case 129:
+			return 'Togo';
+		case 130:
+			return 'Tunisia';
+		case 131:
+			return 'Turkey';
+		case 132:
+			return 'Uganda';
+		case 133:
+			return 'Ukraine';
+		case 134:
+			return 'United Arab Emirates';
+		case 135:
+			return 'United Kingdom';
+		case 136:
+			return 'United States';
+		case 137:
+			return 'Uruguay';
+		case 138:
+			return 'Uzbekistan';
+		case 139:
+			return 'Venezuela';
+		case 140:
+			return 'Vietnam';
+		case 141:
+			return 'Yemen';
+		case 142:
+			return 'Zambia';
+		case 143:
+			return 'Zimbabwe';
+		default:
+			return '';
+	}
+};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$update = F2(
@@ -7060,8 +7480,11 @@ var $author$project$Main$update = F2(
 						$author$project$Main$Success(
 							{
 								data: $author$project$Displaydata$csvString_to_data(data),
+								line_1: 'Germany',
+								line_2: 'Chad',
 								polar_country: 'Germany',
-								ts_data: 'none',
+								ts_data: _List_fromArray(
+									[$author$project$Displaydata$emptyts]),
 								x_axis: 'life_expectancy',
 								y_axis: 'ladder_score'
 							}),
@@ -7079,7 +7502,9 @@ var $author$project$Main$update = F2(
 							$author$project$Main$Success(
 								_Utils_update(
 									d,
-									{ts_data: tsdata})),
+									{
+										ts_data: $author$project$Displaydata$csvString_to_data_ts(tsdata)
+									})),
 							$elm$core$Platform$Cmd$none);
 					} else {
 						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
@@ -7117,7 +7542,7 @@ var $author$project$Main$update = F2(
 				} else {
 					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 				}
-			default:
+			case 'Polarplot_country':
 				var id = msg.a;
 				if (model.$ === 'Success') {
 					var d = model.a;
@@ -7132,10 +7557,68 @@ var $author$project$Main$update = F2(
 				} else {
 					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 				}
+			case 'Timeseries_1':
+				var id = msg.a;
+				if (model.$ === 'Success') {
+					var d = model.a;
+					return _Utils_Tuple2(
+						$author$project$Main$Success(
+							_Utils_update(
+								d,
+								{
+									line_1: $author$project$Timeseries$id_to_ctry_ts(id)
+								})),
+						$elm$core$Platform$Cmd$none);
+				} else {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				}
+			default:
+				var id = msg.a;
+				if (model.$ === 'Success') {
+					var d = model.a;
+					return _Utils_Tuple2(
+						$author$project$Main$Success(
+							_Utils_update(
+								d,
+								{
+									line_2: $author$project$Timeseries$id_to_ctry_ts(id)
+								})),
+						$elm$core$Platform$Cmd$none);
+				} else {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				}
 		}
 	});
-var $author$project$Main$Polarplot_country = function (a) {
-	return {$: 'Polarplot_country', a: a};
+var $author$project$Main$Scatterplot_xaxis = function (a) {
+	return {$: 'Scatterplot_xaxis', a: a};
+};
+var $author$project$Main$axislist = _List_fromArray(
+	['ladder_score', 'se_ladder', 'u_whisker', 'l_whisker', 'lg_gdp_pc', 'social_support', 'life_expectancy', 'freedom_lc', 'generosity', 'pc_corruption']);
+var $author$project$Main$axisname_to_id = function (name) {
+	switch (name) {
+		case 'ladder_score':
+			return '1';
+		case 'se_ladder':
+			return '2';
+		case 'u_whisker':
+			return '3';
+		case 'l_whisker':
+			return '4';
+		case 'lg_gdp_pc':
+			return '5';
+		case 'social_support':
+			return '6';
+		case 'life_expectancy':
+			return '7';
+		case 'freedom_lc':
+			return '8';
+		case 'generosity':
+			return '9';
+		case 'pc_corruption':
+			return '10';
+		default:
+			return ' ';
+	}
 };
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -7164,310 +7647,6 @@ var $surprisetalk$elm_bulma$Bulma$Layout$container = A2(
 	'div',
 	_List_fromArray(
 		[$surprisetalk$elm_bulma$Bulma$Classes$container]));
-var $author$project$Polarplot$countryPolarToid = function (name) {
-	switch (name) {
-		case 'Afghanistan':
-			return '1';
-		case 'Albania':
-			return '2';
-		case 'Algeria':
-			return '3';
-		case 'Argentina':
-			return '4';
-		case 'Armenia':
-			return '5';
-		case 'Australia':
-			return '6';
-		case 'Austria':
-			return '7';
-		case 'Azerbaijan':
-			return '8';
-		case 'Bahrain':
-			return '9';
-		case 'Bangladesh':
-			return '10';
-		case 'Belarus':
-			return '11';
-		case 'Belgium':
-			return '12';
-		case 'Benin':
-			return '13';
-		case 'Bolivia':
-			return '14';
-		case 'Bosnia and Herzegovina':
-			return '15';
-		case 'Botswana':
-			return '16';
-		case 'Brazil':
-			return '17';
-		case 'Bulgaria':
-			return '18';
-		case 'Burkina Faso':
-			return '19';
-		case 'Burundi':
-			return '20';
-		case 'Cambodia':
-			return '21';
-		case 'Cameroon':
-			return '22';
-		case 'Canada':
-			return '23';
-		case 'Chad':
-			return '24';
-		case 'Chile':
-			return '25';
-		case 'China':
-			return '26';
-		case 'Colombia':
-			return '27';
-		case 'Comoros':
-			return '28';
-		case 'Congo (Brazzaville)':
-			return '29';
-		case 'Costa Rica':
-			return '30';
-		case 'Croatia':
-			return '31';
-		case 'Cyprus':
-			return '32';
-		case 'Czech Republic':
-			return '33';
-		case 'Denmark':
-			return '34';
-		case 'Dominican Republic':
-			return '35';
-		case 'Ecuador':
-			return '36';
-		case 'Egypt':
-			return '37';
-		case 'El Salvador':
-			return '38';
-		case 'Estonia':
-			return '39';
-		case 'Ethiopia':
-			return '40';
-		case 'Finland':
-			return '41';
-		case 'France':
-			return '42';
-		case 'Gabon':
-			return '43';
-		case 'Gambia':
-			return '44';
-		case 'Georgia':
-			return '45';
-		case 'Germany':
-			return '46';
-		case 'Ghana':
-			return '47';
-		case 'Greece':
-			return '48';
-		case 'Guatemala':
-			return '49';
-		case 'Guinea':
-			return '50';
-		case 'Haiti':
-			return '51';
-		case 'Honduras':
-			return '52';
-		case 'Hong Kong S.A.R. of China':
-			return '53';
-		case 'Hungary':
-			return '54';
-		case 'Iceland':
-			return '55';
-		case 'India':
-			return '56';
-		case 'Indonesia':
-			return '57';
-		case 'Iran':
-			return '58';
-		case 'Iraq':
-			return '59';
-		case 'Ireland':
-			return '60';
-		case 'Israel':
-			return '61';
-		case 'Italy':
-			return '62';
-		case 'Ivory Coast':
-			return '63';
-		case 'Jamaica':
-			return '64';
-		case 'Japan':
-			return '65';
-		case 'Jordan':
-			return '66';
-		case 'Kazakhstan':
-			return '67';
-		case 'Kenya':
-			return '68';
-		case 'Kosovo':
-			return '69';
-		case 'Kuwait':
-			return '70';
-		case 'Kyrgyzstan':
-			return '71';
-		case 'Laos':
-			return '72';
-		case 'Latvia':
-			return '73';
-		case 'Lebanon':
-			return '74';
-		case 'Lesotho':
-			return '75';
-		case 'Liberia':
-			return '76';
-		case 'Libya':
-			return '77';
-		case 'Lithuania':
-			return '78';
-		case 'Luxembourg':
-			return '79';
-		case 'Madagascar':
-			return '80';
-		case 'Malawi':
-			return '81';
-		case 'Malaysia':
-			return '82';
-		case 'Maldives':
-			return '83';
-		case 'Mali':
-			return '84';
-		case 'Malta':
-			return '85';
-		case 'Mauritania':
-			return '86';
-		case 'Mauritius':
-			return '87';
-		case 'Mexico':
-			return '88';
-		case 'Moldova':
-			return '89';
-		case 'Mongolia':
-			return '90';
-		case 'Montenegro':
-			return '91';
-		case 'Morocco':
-			return '92';
-		case 'Mozambique':
-			return '93';
-		case 'Myanmar':
-			return '94';
-		case 'Namibia':
-			return '95';
-		case 'Nepal':
-			return '96';
-		case 'Netherlands':
-			return '97';
-		case 'New Zealand':
-			return '98';
-		case 'Nicaragua':
-			return '99';
-		case 'Niger':
-			return '100';
-		case 'Nigeria':
-			return '101';
-		case 'North Cyprus':
-			return '102';
-		case 'North Macedonia':
-			return '103';
-		case 'Norway':
-			return '104';
-		case 'Pakistan':
-			return '105';
-		case 'Palestinian Territories':
-			return '106';
-		case 'Panama':
-			return '107';
-		case 'Paraguay':
-			return '108';
-		case 'Peru':
-			return '109';
-		case 'Philippines':
-			return '110';
-		case 'Poland':
-			return '111';
-		case 'Portugal':
-			return '112';
-		case 'Romania':
-			return '113';
-		case 'Russia':
-			return '114';
-		case 'Rwanda':
-			return '115';
-		case 'Saudi Arabia':
-			return '116';
-		case 'Senegal':
-			return '117';
-		case 'Serbia':
-			return '118';
-		case 'Sierra Leone':
-			return '119';
-		case 'Singapore':
-			return '120';
-		case 'Slovakia':
-			return '121';
-		case 'Slovenia':
-			return '122';
-		case 'South Africa':
-			return '123';
-		case 'South Korea':
-			return '124';
-		case 'Spain':
-			return '125';
-		case 'Sri Lanka':
-			return '126';
-		case 'Swaziland':
-			return '127';
-		case 'Sweden':
-			return '128';
-		case 'Switzerland':
-			return '129';
-		case 'Taiwan Province of China':
-			return '130';
-		case 'Tajikistan':
-			return '131';
-		case 'Tanzania':
-			return '132';
-		case 'Thailand':
-			return '133';
-		case 'Togo':
-			return '134';
-		case 'Tunisia':
-			return '135';
-		case 'Turkey':
-			return '136';
-		case 'Turkmenistan':
-			return '137';
-		case 'Uganda':
-			return '138';
-		case 'Ukraine':
-			return '139';
-		case 'United Arab Emirates':
-			return '140';
-		case 'United Kingdom':
-			return '141';
-		case 'United States':
-			return '142';
-		case 'Uruguay':
-			return '143';
-		case 'Uzbekistan':
-			return '144';
-		case 'Venezuela':
-			return '145';
-		case 'Vietnam':
-			return '146';
-		case 'Yemen':
-			return '147';
-		case 'Zambia':
-			return '148';
-		case 'Zimbabwe':
-			return '149';
-		default:
-			return ' ';
-	}
-};
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 'Normal', a: a};
 };
@@ -7480,8 +7659,6 @@ var $elm$html$Html$Events$on = F2(
 			$elm$virtual_dom$VirtualDom$Normal(decoder));
 	});
 var $elm$html$Html$option = _VirtualDom_node('option');
-var $author$project$Polarplot$polarlist = _List_fromArray(
-	['Afghanistan', 'Albania', 'Algeria', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahrain', 'Bangladesh', 'Belarus', 'Belgium', 'Benin', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo (Brazzaville)', 'Costa Rica', 'Croatia', 'Cyprus', 'Czech Republic', 'Denmark', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Estonia', 'Ethiopia', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Guatemala', 'Guinea', 'Haiti', 'Honduras', 'Hong Kong S.A.R. of China', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Ivory Coast', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kosovo', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Lithuania', 'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Mauritania', 'Mauritius', 'Mexico', 'Moldova', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Cyprus', 'North Macedonia', 'Norway', 'Pakistan', 'Palestinian Territories', 'Panama', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Romania', 'Russia', 'Rwanda', 'Saudi Arabia', 'Senegal', 'Serbia', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'South Africa', 'South Korea', 'Spain', 'Sri Lanka', 'Swaziland', 'Sweden', 'Switzerland', 'Taiwan Province of China', 'Tajikistan', 'Tanzania', 'Thailand', 'Togo', 'Tunisia', 'Turkey', 'Turkmenistan', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe']);
 var $elm$html$Html$select = _VirtualDom_node('select');
 var $elm$json$Json$Decode$andThen = _Json_andThen;
 var $elm$json$Json$Decode$fail = _Json_fail;
@@ -7522,68 +7699,6 @@ var $arowM$html_extra$Html$Events$Extra$targetValueIntParse = $arowM$elm_html_ex
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
-var $author$project$Main$dropDown_polar = A2(
-	$surprisetalk$elm_bulma$Bulma$Layout$container,
-	_List_Nil,
-	_List_fromArray(
-		[
-			A2(
-			$elm$html$Html$select,
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$Events$on,
-					'change',
-					A2($elm$json$Json$Decode$map, $author$project$Main$Polarplot_country, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
-				]),
-			A2(
-				$elm$core$List$map,
-				function (ctry) {
-					return A2(
-						$elm$html$Html$option,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$value(
-								$author$project$Polarplot$countryPolarToid(ctry))
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text(ctry)
-							]));
-				},
-				$author$project$Polarplot$polarlist))
-		]));
-var $author$project$Main$Scatterplot_xaxis = function (a) {
-	return {$: 'Scatterplot_xaxis', a: a};
-};
-var $author$project$Main$axislist = _List_fromArray(
-	['ladder_score', 'se_ladder', 'u_whisker', 'l_whisker', 'lg_gdp_pc', 'social_support', 'life_expectancy', 'freedom_lc', 'generosity', 'pc_corruption']);
-var $author$project$Main$axisname_to_id = function (name) {
-	switch (name) {
-		case 'ladder_score':
-			return '1';
-		case 'se_ladder':
-			return '2';
-		case 'u_whisker':
-			return '3';
-		case 'l_whisker':
-			return '4';
-		case 'lg_gdp_pc':
-			return '5';
-		case 'social_support':
-			return '6';
-		case 'life_expectancy':
-			return '7';
-		case 'freedom_lc':
-			return '8';
-		case 'generosity':
-			return '9';
-		case 'pc_corruption':
-			return '10';
-		default:
-			return ' ';
-	}
-};
 var $author$project$Main$dropDown_x = A2(
 	$surprisetalk$elm_bulma$Bulma$Layout$container,
 	_List_Nil,
@@ -9021,6 +9136,708 @@ var $author$project$Polarplot$drawPolarplot = F3(
 					A4($elm$core$List$map3, $author$project$Polarplot$drawPointandTicks, $author$project$Polarplot$scalesListed, listofvalues, $author$project$Polarplot$anglelist))
 				]));
 	});
+var $author$project$Main$Polarplot_country = function (a) {
+	return {$: 'Polarplot_country', a: a};
+};
+var $author$project$Polarplot$countryPolarToid = function (name) {
+	switch (name) {
+		case 'Afghanistan':
+			return '1';
+		case 'Albania':
+			return '2';
+		case 'Algeria':
+			return '3';
+		case 'Argentina':
+			return '4';
+		case 'Armenia':
+			return '5';
+		case 'Australia':
+			return '6';
+		case 'Austria':
+			return '7';
+		case 'Azerbaijan':
+			return '8';
+		case 'Bahrain':
+			return '9';
+		case 'Bangladesh':
+			return '10';
+		case 'Belarus':
+			return '11';
+		case 'Belgium':
+			return '12';
+		case 'Benin':
+			return '13';
+		case 'Bolivia':
+			return '14';
+		case 'Bosnia and Herzegovina':
+			return '15';
+		case 'Botswana':
+			return '16';
+		case 'Brazil':
+			return '17';
+		case 'Bulgaria':
+			return '18';
+		case 'Burkina Faso':
+			return '19';
+		case 'Burundi':
+			return '20';
+		case 'Cambodia':
+			return '21';
+		case 'Cameroon':
+			return '22';
+		case 'Canada':
+			return '23';
+		case 'Chad':
+			return '24';
+		case 'Chile':
+			return '25';
+		case 'China':
+			return '26';
+		case 'Colombia':
+			return '27';
+		case 'Comoros':
+			return '28';
+		case 'Congo (Brazzaville)':
+			return '29';
+		case 'Costa Rica':
+			return '30';
+		case 'Croatia':
+			return '31';
+		case 'Cyprus':
+			return '32';
+		case 'Czech Republic':
+			return '33';
+		case 'Denmark':
+			return '34';
+		case 'Dominican Republic':
+			return '35';
+		case 'Ecuador':
+			return '36';
+		case 'Egypt':
+			return '37';
+		case 'El Salvador':
+			return '38';
+		case 'Estonia':
+			return '39';
+		case 'Ethiopia':
+			return '40';
+		case 'Finland':
+			return '41';
+		case 'France':
+			return '42';
+		case 'Gabon':
+			return '43';
+		case 'Gambia':
+			return '44';
+		case 'Georgia':
+			return '45';
+		case 'Germany':
+			return '46';
+		case 'Ghana':
+			return '47';
+		case 'Greece':
+			return '48';
+		case 'Guatemala':
+			return '49';
+		case 'Guinea':
+			return '50';
+		case 'Haiti':
+			return '51';
+		case 'Honduras':
+			return '52';
+		case 'Hong Kong S.A.R. of China':
+			return '53';
+		case 'Hungary':
+			return '54';
+		case 'Iceland':
+			return '55';
+		case 'India':
+			return '56';
+		case 'Indonesia':
+			return '57';
+		case 'Iran':
+			return '58';
+		case 'Iraq':
+			return '59';
+		case 'Ireland':
+			return '60';
+		case 'Israel':
+			return '61';
+		case 'Italy':
+			return '62';
+		case 'Ivory Coast':
+			return '63';
+		case 'Jamaica':
+			return '64';
+		case 'Japan':
+			return '65';
+		case 'Jordan':
+			return '66';
+		case 'Kazakhstan':
+			return '67';
+		case 'Kenya':
+			return '68';
+		case 'Kosovo':
+			return '69';
+		case 'Kuwait':
+			return '70';
+		case 'Kyrgyzstan':
+			return '71';
+		case 'Laos':
+			return '72';
+		case 'Latvia':
+			return '73';
+		case 'Lebanon':
+			return '74';
+		case 'Lesotho':
+			return '75';
+		case 'Liberia':
+			return '76';
+		case 'Libya':
+			return '77';
+		case 'Lithuania':
+			return '78';
+		case 'Luxembourg':
+			return '79';
+		case 'Madagascar':
+			return '80';
+		case 'Malawi':
+			return '81';
+		case 'Malaysia':
+			return '82';
+		case 'Maldives':
+			return '83';
+		case 'Mali':
+			return '84';
+		case 'Malta':
+			return '85';
+		case 'Mauritania':
+			return '86';
+		case 'Mauritius':
+			return '87';
+		case 'Mexico':
+			return '88';
+		case 'Moldova':
+			return '89';
+		case 'Mongolia':
+			return '90';
+		case 'Montenegro':
+			return '91';
+		case 'Morocco':
+			return '92';
+		case 'Mozambique':
+			return '93';
+		case 'Myanmar':
+			return '94';
+		case 'Namibia':
+			return '95';
+		case 'Nepal':
+			return '96';
+		case 'Netherlands':
+			return '97';
+		case 'New Zealand':
+			return '98';
+		case 'Nicaragua':
+			return '99';
+		case 'Niger':
+			return '100';
+		case 'Nigeria':
+			return '101';
+		case 'North Cyprus':
+			return '102';
+		case 'North Macedonia':
+			return '103';
+		case 'Norway':
+			return '104';
+		case 'Pakistan':
+			return '105';
+		case 'Palestinian Territories':
+			return '106';
+		case 'Panama':
+			return '107';
+		case 'Paraguay':
+			return '108';
+		case 'Peru':
+			return '109';
+		case 'Philippines':
+			return '110';
+		case 'Poland':
+			return '111';
+		case 'Portugal':
+			return '112';
+		case 'Romania':
+			return '113';
+		case 'Russia':
+			return '114';
+		case 'Rwanda':
+			return '115';
+		case 'Saudi Arabia':
+			return '116';
+		case 'Senegal':
+			return '117';
+		case 'Serbia':
+			return '118';
+		case 'Sierra Leone':
+			return '119';
+		case 'Singapore':
+			return '120';
+		case 'Slovakia':
+			return '121';
+		case 'Slovenia':
+			return '122';
+		case 'South Africa':
+			return '123';
+		case 'South Korea':
+			return '124';
+		case 'Spain':
+			return '125';
+		case 'Sri Lanka':
+			return '126';
+		case 'Swaziland':
+			return '127';
+		case 'Sweden':
+			return '128';
+		case 'Switzerland':
+			return '129';
+		case 'Taiwan Province of China':
+			return '130';
+		case 'Tajikistan':
+			return '131';
+		case 'Tanzania':
+			return '132';
+		case 'Thailand':
+			return '133';
+		case 'Togo':
+			return '134';
+		case 'Tunisia':
+			return '135';
+		case 'Turkey':
+			return '136';
+		case 'Turkmenistan':
+			return '137';
+		case 'Uganda':
+			return '138';
+		case 'Ukraine':
+			return '139';
+		case 'United Arab Emirates':
+			return '140';
+		case 'United Kingdom':
+			return '141';
+		case 'United States':
+			return '142';
+		case 'Uruguay':
+			return '143';
+		case 'Uzbekistan':
+			return '144';
+		case 'Venezuela':
+			return '145';
+		case 'Vietnam':
+			return '146';
+		case 'Yemen':
+			return '147';
+		case 'Zambia':
+			return '148';
+		case 'Zimbabwe':
+			return '149';
+		default:
+			return ' ';
+	}
+};
+var $author$project$Polarplot$polarlist = _List_fromArray(
+	['Afghanistan', 'Albania', 'Algeria', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahrain', 'Bangladesh', 'Belarus', 'Belgium', 'Benin', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo (Brazzaville)', 'Costa Rica', 'Croatia', 'Cyprus', 'Czech Republic', 'Denmark', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Estonia', 'Ethiopia', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Guatemala', 'Guinea', 'Haiti', 'Honduras', 'Hong Kong S.A.R. of China', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Ivory Coast', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kosovo', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Lithuania', 'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Mauritania', 'Mauritius', 'Mexico', 'Moldova', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Cyprus', 'North Macedonia', 'Norway', 'Pakistan', 'Palestinian Territories', 'Panama', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Romania', 'Russia', 'Rwanda', 'Saudi Arabia', 'Senegal', 'Serbia', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'South Africa', 'South Korea', 'Spain', 'Sri Lanka', 'Swaziland', 'Sweden', 'Switzerland', 'Taiwan Province of China', 'Tajikistan', 'Tanzania', 'Thailand', 'Togo', 'Tunisia', 'Turkey', 'Turkmenistan', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe']);
+var $author$project$Main$dropDown_polar = A2(
+	$surprisetalk$elm_bulma$Bulma$Layout$container,
+	_List_Nil,
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$select,
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$Events$on,
+					'change',
+					A2($elm$json$Json$Decode$map, $author$project$Main$Polarplot_country, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
+				]),
+			A2(
+				$elm$core$List$map,
+				function (ctry) {
+					return A2(
+						$elm$html$Html$option,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$value(
+								$author$project$Polarplot$countryPolarToid(ctry))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text(ctry)
+							]));
+				},
+				$author$project$Polarplot$polarlist))
+		]));
+var $author$project$Main$Timeseries_1 = function (a) {
+	return {$: 'Timeseries_1', a: a};
+};
+var $author$project$Timeseries$countryTsToid = function (name) {
+	switch (name) {
+		case 'Afghanistan':
+			return '1';
+		case 'Albania':
+			return '2';
+		case 'Algeria':
+			return '3';
+		case 'Argentina':
+			return '4';
+		case 'Armenia':
+			return '5';
+		case 'Australia':
+			return '6';
+		case 'Austria':
+			return '7';
+		case 'Azerbaijan':
+			return '8';
+		case 'Bahrain':
+			return '9';
+		case 'Bangladesh':
+			return '10';
+		case 'Belarus':
+			return '11';
+		case 'Belgium':
+			return '12';
+		case 'Benin':
+			return '13';
+		case 'Bolivia':
+			return '14';
+		case 'Bosnia and Herzegovina':
+			return '15';
+		case 'Botswana':
+			return '16';
+		case 'Brazil':
+			return '17';
+		case 'Bulgaria':
+			return '18';
+		case 'Burkina Faso':
+			return '19';
+		case 'Burundi':
+			return '20';
+		case 'Cambodia':
+			return '21';
+		case 'Cameroon':
+			return '22';
+		case 'Canada':
+			return '23';
+		case 'Chad':
+			return '24';
+		case 'Chile':
+			return '25';
+		case 'Colombia':
+			return '26';
+		case 'Comoros':
+			return '27';
+		case 'Congo (Brazzaville)':
+			return '28';
+		case 'Costa Rica':
+			return '29';
+		case 'Croatia':
+			return '30';
+		case 'Cyprus':
+			return '31';
+		case 'Czech Republic':
+			return '32';
+		case 'Denmark':
+			return '33';
+		case 'Dominican Republic':
+			return '34';
+		case 'Ecuador':
+			return '35';
+		case 'Egypt':
+			return '36';
+		case 'El Salvador':
+			return '37';
+		case 'Estonia':
+			return '38';
+		case 'Ethiopia':
+			return '39';
+		case 'Finland':
+			return '40';
+		case 'France':
+			return '41';
+		case 'Gabon':
+			return '42';
+		case 'Gambia':
+			return '43';
+		case 'Georgia':
+			return '44';
+		case 'Germany':
+			return '45';
+		case 'Ghana':
+			return '46';
+		case 'Greece':
+			return '47';
+		case 'Guatemala':
+			return '48';
+		case 'Guinea':
+			return '49';
+		case 'Haiti':
+			return '50';
+		case 'Honduras':
+			return '51';
+		case 'Hungary':
+			return '52';
+		case 'Iceland':
+			return '53';
+		case 'India':
+			return '54';
+		case 'Indonesia':
+			return '55';
+		case 'Iran':
+			return '56';
+		case 'Iraq':
+			return '57';
+		case 'Ireland':
+			return '58';
+		case 'Israel':
+			return '59';
+		case 'Italy':
+			return '60';
+		case 'Ivory Coast':
+			return '61';
+		case 'Jamaica':
+			return '62';
+		case 'Japan':
+			return '63';
+		case 'Jordan':
+			return '64';
+		case 'Kazakhstan':
+			return '65';
+		case 'Kenya':
+			return '66';
+		case 'Kuwait':
+			return '67';
+		case 'Kyrgyzstan':
+			return '68';
+		case 'Laos':
+			return '69';
+		case 'Latvia':
+			return '70';
+		case 'Lebanon':
+			return '71';
+		case 'Lesotho':
+			return '72';
+		case 'Liberia':
+			return '73';
+		case 'Libya':
+			return '74';
+		case 'Lithuania':
+			return '75';
+		case 'Luxembourg':
+			return '76';
+		case 'Madagascar':
+			return '77';
+		case 'Malawi':
+			return '78';
+		case 'Malaysia':
+			return '79';
+		case 'Mali':
+			return '80';
+		case 'Malta':
+			return '81';
+		case 'Mauritania':
+			return '82';
+		case 'Mauritius':
+			return '83';
+		case 'Mexico':
+			return '84';
+		case 'Moldova':
+			return '85';
+		case 'Mongolia':
+			return '86';
+		case 'Montenegro':
+			return '87';
+		case 'Morocco':
+			return '88';
+		case 'Mozambique':
+			return '89';
+		case 'Myanmar':
+			return '90';
+		case 'Namibia':
+			return '91';
+		case 'Nepal':
+			return '92';
+		case 'Netherlands':
+			return '93';
+		case 'New Zealand':
+			return '94';
+		case 'Nicaragua':
+			return '95';
+		case 'Niger':
+			return '96';
+		case 'Nigeria':
+			return '97';
+		case 'North Macedonia':
+			return '98';
+		case 'Norway':
+			return '99';
+		case 'Pakistan':
+			return '100';
+		case 'Palestinian Territories':
+			return '101';
+		case 'Panama':
+			return '102';
+		case 'Paraguay':
+			return '103';
+		case 'Peru':
+			return '104';
+		case 'Philippines':
+			return '105';
+		case 'Poland':
+			return '106';
+		case 'Portugal':
+			return '107';
+		case 'Romania':
+			return '108';
+		case 'Russia':
+			return '109';
+		case 'Rwanda':
+			return '110';
+		case 'Saudi Arabia':
+			return '111';
+		case 'Senegal':
+			return '112';
+		case 'Serbia':
+			return '113';
+		case 'Sierra Leone':
+			return '114';
+		case 'Singapore':
+			return '115';
+		case 'Slovakia':
+			return '116';
+		case 'Slovenia':
+			return '117';
+		case 'South Africa':
+			return '118';
+		case 'South Korea':
+			return '119';
+		case 'Spain':
+			return '120';
+		case 'Sri Lanka':
+			return '121';
+		case 'Swaziland':
+			return '122';
+		case 'Sweden':
+			return '123';
+		case 'Switzerland':
+			return '124';
+		case 'Taiwan Province of China':
+			return '125';
+		case 'Tajikistan':
+			return '126';
+		case 'Tanzania':
+			return '127';
+		case 'Thailand':
+			return '128';
+		case 'Togo':
+			return '129';
+		case 'Tunisia':
+			return '130';
+		case 'Turkey':
+			return '131';
+		case 'Uganda':
+			return '132';
+		case 'Ukraine':
+			return '133';
+		case 'United Arab Emirates':
+			return '134';
+		case 'United Kingdom':
+			return '135';
+		case 'United States':
+			return '136';
+		case 'Uruguay':
+			return '137';
+		case 'Uzbekistan':
+			return '138';
+		case 'Venezuela':
+			return '139';
+		case 'Vietnam':
+			return '140';
+		case 'Yemen':
+			return '141';
+		case 'Zambia':
+			return '142';
+		case 'Zimbabwe':
+			return '143';
+		default:
+			return '';
+	}
+};
+var $author$project$Timeseries$ts_list = _List_fromArray(
+	['Afghanistan', 'Albania', 'Algeria', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahrain', 'Bangladesh', 'Belarus', 'Belgium', 'Benin', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Chad', 'Chile', 'Colombia', 'Comoros', 'Congo (Brazzaville)', 'Costa Rica', 'Croatia', 'Cyprus', 'Czech Republic', 'Denmark', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Estonia', 'Ethiopia', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Guatemala', 'Guinea', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Ivory Coast', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Lithuania', 'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 'Mali', 'Malta', 'Mauritania', 'Mauritius', 'Mexico', 'Moldova', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Macedonia', 'Norway', 'Pakistan', 'Palestinian Territories', 'Panama', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Romania', 'Russia', 'Rwanda', 'Saudi Arabia', 'Senegal', 'Serbia', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'South Africa', 'South Korea', 'Spain', 'Sri Lanka', 'Swaziland', 'Sweden', 'Switzerland', 'Taiwan Province of China', 'Tajikistan', 'Tanzania', 'Thailand', 'Togo', 'Tunisia', 'Turkey', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe']);
+var $author$project$Main$dropDown_ts1 = A2(
+	$surprisetalk$elm_bulma$Bulma$Layout$container,
+	_List_Nil,
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$select,
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$Events$on,
+					'change',
+					A2($elm$json$Json$Decode$map, $author$project$Main$Timeseries_1, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
+				]),
+			A2(
+				$elm$core$List$map,
+				function (ctry) {
+					return A2(
+						$elm$html$Html$option,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$value(
+								$author$project$Timeseries$countryTsToid(ctry))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text(ctry)
+							]));
+				},
+				$author$project$Timeseries$ts_list))
+		]));
+var $author$project$Main$Timeseries_2 = function (a) {
+	return {$: 'Timeseries_2', a: a};
+};
+var $author$project$Main$dropDown_ts2 = A2(
+	$surprisetalk$elm_bulma$Bulma$Layout$container,
+	_List_Nil,
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$select,
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$Events$on,
+					'change',
+					A2($elm$json$Json$Decode$map, $author$project$Main$Timeseries_2, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
+				]),
+			A2(
+				$elm$core$List$map,
+				function (ctry) {
+					return A2(
+						$elm$html$Html$option,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$value(
+								$author$project$Timeseries$countryTsToid(ctry))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text(ctry)
+							]));
+				},
+				$author$project$Timeseries$ts_list))
+		]));
 var $author$project$Displaydata$emptyCountry = {country_name: 'String', freedom_lc: 0, generosity: 0, l_whisker: 0, ladder_score: 0, lg_gdp_pc: 0, life_expectancy: 0, pc_corruption: 0, regional_indicator: 'String', se_ladder: 0, social_support: 0, u_whisker: 0};
 var $author$project$Displaydata$get_float_att = F2(
 	function (_float, cntry) {
@@ -9084,6 +9901,17 @@ var $author$project$Displaydata$get_str_att = F2(
 				return str;
 		}
 	});
+var $author$project$Main$matches_countryname_ts = F2(
+	function (countrystring, country) {
+		return _Utils_eq(country.country_name, countrystring);
+	});
+var $author$project$Main$get_ts_data_by_countryname = F2(
+	function (countrystring, countrylist) {
+		return A2(
+			$elm$core$List$filter,
+			$author$project$Main$matches_countryname_ts(countrystring),
+			countrylist);
+	});
 var $author$project$Displaydata$matches_countryname = F2(
 	function (countrystring, country) {
 		return _Utils_eq(country.country_name, countrystring);
@@ -9099,6 +9927,12 @@ var $author$project$Displaydata$getcountry_by_name = F2(
 					$author$project$Displaydata$matches_countryname(countrystring),
 					countrylist)));
 	});
+var $author$project$Main$generate_ts_floats = function (tsd) {
+	return _Utils_Tuple2(tsd.year, tsd.ladder_score);
+};
+var $author$project$Main$list_ts_data_to_list_float = function (tsd_list) {
+	return A2($elm$core$List$map, $author$project$Main$generate_ts_floats, tsd_list);
+};
 var $elm_community$typed_svg$TypedSvg$Types$Percent = function (a) {
 	return {$: 'Percent', a: a};
 };
@@ -9641,7 +10475,1090 @@ var $author$project$Displaydata$scatterplot = F6(
 						xyPoints))
 				]));
 	});
+var $elm_community$typed_svg$TypedSvg$Types$Paint = function (a) {
+	return {$: 'Paint', a: a};
+};
+var $elm_community$typed_svg$TypedSvg$Types$PaintNone = {$: 'PaintNone'};
+var $folkertdev$one_true_path_experiment$SubPath$Empty = {$: 'Empty'};
+var $folkertdev$one_true_path_experiment$SubPath$SubPath = function (a) {
+	return {$: 'SubPath', a: a};
+};
+var $folkertdev$elm_deque$Deque$Deque = function (a) {
+	return {$: 'Deque', a: a};
+};
+var $folkertdev$elm_deque$Internal$empty = {front: _List_Nil, rear: _List_Nil, sizeF: 0, sizeR: 0};
+var $folkertdev$elm_deque$Deque$empty = $folkertdev$elm_deque$Deque$Deque($folkertdev$elm_deque$Internal$empty);
+var $elm$core$List$takeReverse = F3(
+	function (n, list, kept) {
+		takeReverse:
+		while (true) {
+			if (n <= 0) {
+				return kept;
+			} else {
+				if (!list.b) {
+					return kept;
+				} else {
+					var x = list.a;
+					var xs = list.b;
+					var $temp$n = n - 1,
+						$temp$list = xs,
+						$temp$kept = A2($elm$core$List$cons, x, kept);
+					n = $temp$n;
+					list = $temp$list;
+					kept = $temp$kept;
+					continue takeReverse;
+				}
+			}
+		}
+	});
+var $elm$core$List$takeTailRec = F2(
+	function (n, list) {
+		return $elm$core$List$reverse(
+			A3($elm$core$List$takeReverse, n, list, _List_Nil));
+	});
+var $elm$core$List$takeFast = F3(
+	function (ctr, n, list) {
+		if (n <= 0) {
+			return _List_Nil;
+		} else {
+			var _v0 = _Utils_Tuple2(n, list);
+			_v0$1:
+			while (true) {
+				_v0$5:
+				while (true) {
+					if (!_v0.b.b) {
+						return list;
+					} else {
+						if (_v0.b.b.b) {
+							switch (_v0.a) {
+								case 1:
+									break _v0$1;
+								case 2:
+									var _v2 = _v0.b;
+									var x = _v2.a;
+									var _v3 = _v2.b;
+									var y = _v3.a;
+									return _List_fromArray(
+										[x, y]);
+								case 3:
+									if (_v0.b.b.b.b) {
+										var _v4 = _v0.b;
+										var x = _v4.a;
+										var _v5 = _v4.b;
+										var y = _v5.a;
+										var _v6 = _v5.b;
+										var z = _v6.a;
+										return _List_fromArray(
+											[x, y, z]);
+									} else {
+										break _v0$5;
+									}
+								default:
+									if (_v0.b.b.b.b && _v0.b.b.b.b.b) {
+										var _v7 = _v0.b;
+										var x = _v7.a;
+										var _v8 = _v7.b;
+										var y = _v8.a;
+										var _v9 = _v8.b;
+										var z = _v9.a;
+										var _v10 = _v9.b;
+										var w = _v10.a;
+										var tl = _v10.b;
+										return (ctr > 1000) ? A2(
+											$elm$core$List$cons,
+											x,
+											A2(
+												$elm$core$List$cons,
+												y,
+												A2(
+													$elm$core$List$cons,
+													z,
+													A2(
+														$elm$core$List$cons,
+														w,
+														A2($elm$core$List$takeTailRec, n - 4, tl))))) : A2(
+											$elm$core$List$cons,
+											x,
+											A2(
+												$elm$core$List$cons,
+												y,
+												A2(
+													$elm$core$List$cons,
+													z,
+													A2(
+														$elm$core$List$cons,
+														w,
+														A3($elm$core$List$takeFast, ctr + 1, n - 4, tl)))));
+									} else {
+										break _v0$5;
+									}
+							}
+						} else {
+							if (_v0.a === 1) {
+								break _v0$1;
+							} else {
+								break _v0$5;
+							}
+						}
+					}
+				}
+				return list;
+			}
+			var _v1 = _v0.b;
+			var x = _v1.a;
+			return _List_fromArray(
+				[x]);
+		}
+	});
+var $elm$core$List$take = F2(
+	function (n, list) {
+		return A3($elm$core$List$takeFast, 0, n, list);
+	});
+var $folkertdev$elm_deque$Internal$rebalance = function (deque) {
+	var sizeF = deque.sizeF;
+	var sizeR = deque.sizeR;
+	var front = deque.front;
+	var rear = deque.rear;
+	var size1 = ((sizeF + sizeR) / 2) | 0;
+	var size2 = (sizeF + sizeR) - size1;
+	var balanceConstant = 4;
+	if ((sizeF + sizeR) < 2) {
+		return deque;
+	} else {
+		if (_Utils_cmp(sizeF, (balanceConstant * sizeR) + 1) > 0) {
+			var newRear = _Utils_ap(
+				rear,
+				$elm$core$List$reverse(
+					A2($elm$core$List$drop, size1, front)));
+			var newFront = A2($elm$core$List$take, size1, front);
+			return {front: newFront, rear: newRear, sizeF: size1, sizeR: size2};
+		} else {
+			if (_Utils_cmp(sizeR, (balanceConstant * sizeF) + 1) > 0) {
+				var newRear = A2($elm$core$List$take, size1, rear);
+				var newFront = _Utils_ap(
+					front,
+					$elm$core$List$reverse(
+						A2($elm$core$List$drop, size1, rear)));
+				return {front: newFront, rear: newRear, sizeF: size1, sizeR: size2};
+			} else {
+				return deque;
+			}
+		}
+	}
+};
+var $folkertdev$elm_deque$Internal$fromList = function (list) {
+	return $folkertdev$elm_deque$Internal$rebalance(
+		{
+			front: list,
+			rear: _List_Nil,
+			sizeF: $elm$core$List$length(list),
+			sizeR: 0
+		});
+};
+var $folkertdev$elm_deque$Deque$fromList = A2($elm$core$Basics$composeL, $folkertdev$elm_deque$Deque$Deque, $folkertdev$elm_deque$Internal$fromList);
+var $folkertdev$one_true_path_experiment$LowLevel$Command$ClosePath = {$: 'ClosePath'};
+var $folkertdev$one_true_path_experiment$LowLevel$Command$CurveTo = function (a) {
+	return {$: 'CurveTo', a: a};
+};
+var $folkertdev$one_true_path_experiment$LowLevel$Command$EllipticalArc = function (a) {
+	return {$: 'EllipticalArc', a: a};
+};
+var $folkertdev$one_true_path_experiment$LowLevel$Command$LineTo = function (a) {
+	return {$: 'LineTo', a: a};
+};
+var $folkertdev$one_true_path_experiment$LowLevel$Command$QuadraticBezierCurveTo = function (a) {
+	return {$: 'QuadraticBezierCurveTo', a: a};
+};
+var $folkertdev$one_true_path_experiment$LowLevel$Command$merge = F2(
+	function (instruction1, instruction2) {
+		var _v0 = _Utils_Tuple2(instruction1, instruction2);
+		_v0$5:
+		while (true) {
+			switch (_v0.a.$) {
+				case 'LineTo':
+					if (_v0.b.$ === 'LineTo') {
+						var p1 = _v0.a.a;
+						var p2 = _v0.b.a;
+						return $elm$core$Result$Ok(
+							$folkertdev$one_true_path_experiment$LowLevel$Command$LineTo(
+								_Utils_ap(p1, p2)));
+					} else {
+						break _v0$5;
+					}
+				case 'CurveTo':
+					if (_v0.b.$ === 'CurveTo') {
+						var p1 = _v0.a.a;
+						var p2 = _v0.b.a;
+						return $elm$core$Result$Ok(
+							$folkertdev$one_true_path_experiment$LowLevel$Command$CurveTo(
+								_Utils_ap(p1, p2)));
+					} else {
+						break _v0$5;
+					}
+				case 'QuadraticBezierCurveTo':
+					if (_v0.b.$ === 'QuadraticBezierCurveTo') {
+						var p1 = _v0.a.a;
+						var p2 = _v0.b.a;
+						return $elm$core$Result$Ok(
+							$folkertdev$one_true_path_experiment$LowLevel$Command$QuadraticBezierCurveTo(
+								_Utils_ap(p1, p2)));
+					} else {
+						break _v0$5;
+					}
+				case 'EllipticalArc':
+					if (_v0.b.$ === 'EllipticalArc') {
+						var p1 = _v0.a.a;
+						var p2 = _v0.b.a;
+						return $elm$core$Result$Ok(
+							$folkertdev$one_true_path_experiment$LowLevel$Command$EllipticalArc(
+								_Utils_ap(p1, p2)));
+					} else {
+						break _v0$5;
+					}
+				default:
+					if (_v0.b.$ === 'ClosePath') {
+						var _v1 = _v0.a;
+						var _v2 = _v0.b;
+						return $elm$core$Result$Ok($folkertdev$one_true_path_experiment$LowLevel$Command$ClosePath);
+					} else {
+						break _v0$5;
+					}
+			}
+		}
+		return $elm$core$Result$Err(
+			_Utils_Tuple2(instruction1, instruction2));
+	});
+var $folkertdev$elm_deque$Internal$toList = function (deque) {
+	return _Utils_ap(
+		deque.front,
+		$elm$core$List$reverse(deque.rear));
+};
+var $folkertdev$elm_deque$Deque$unwrap = function (_v0) {
+	var boundedDeque = _v0.a;
+	return boundedDeque;
+};
+var $folkertdev$elm_deque$Deque$toList = A2($elm$core$Basics$composeL, $folkertdev$elm_deque$Internal$toList, $folkertdev$elm_deque$Deque$unwrap);
+var $folkertdev$one_true_path_experiment$SubPath$compressHelper = function (drawtos) {
+	var folder = F2(
+		function (instruction, _v3) {
+			var previous = _v3.a;
+			var accum = _v3.b;
+			var _v2 = A2($folkertdev$one_true_path_experiment$LowLevel$Command$merge, previous, instruction);
+			if (_v2.$ === 'Ok') {
+				var merged = _v2.a;
+				return _Utils_Tuple2(merged, accum);
+			} else {
+				return _Utils_Tuple2(
+					instruction,
+					A2($elm$core$List$cons, previous, accum));
+			}
+		});
+	var _v0 = $folkertdev$elm_deque$Deque$toList(drawtos);
+	if (!_v0.b) {
+		return $folkertdev$elm_deque$Deque$empty;
+	} else {
+		var first = _v0.a;
+		var rest = _v0.b;
+		return $folkertdev$elm_deque$Deque$fromList(
+			$elm$core$List$reverse(
+				function (_v1) {
+					var a = _v1.a;
+					var b = _v1.b;
+					return A2($elm$core$List$cons, a, b);
+				}(
+					A3(
+						$elm$core$List$foldl,
+						folder,
+						_Utils_Tuple2(first, _List_Nil),
+						rest))));
+	}
+};
+var $folkertdev$one_true_path_experiment$SubPath$compress = function (subpath) {
+	if (subpath.$ === 'Empty') {
+		return $folkertdev$one_true_path_experiment$SubPath$Empty;
+	} else {
+		var data = subpath.a;
+		return $folkertdev$one_true_path_experiment$SubPath$SubPath(
+			_Utils_update(
+				data,
+				{
+					drawtos: $folkertdev$one_true_path_experiment$SubPath$compressHelper(data.drawtos)
+				}));
+	}
+};
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$DecimalPlaces = function (a) {
+	return {$: 'DecimalPlaces', a: a};
+};
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$decimalPlaces = $folkertdev$svg_path_lowlevel$Path$LowLevel$DecimalPlaces;
+var $folkertdev$one_true_path_experiment$SubPath$defaultConfig = {decimalPlaces: $elm$core$Maybe$Nothing, mergeAdjacent: false};
+var $elm$core$Maybe$map = F2(
+	function (f, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return $elm$core$Maybe$Just(
+				f(value));
+		} else {
+			return $elm$core$Maybe$Nothing;
+		}
+	});
+var $folkertdev$one_true_path_experiment$SubPath$optionFolder = F2(
+	function (option, config) {
+		if (option.$ === 'DecimalPlaces') {
+			var n = option.a;
+			return _Utils_update(
+				config,
+				{
+					decimalPlaces: $elm$core$Maybe$Just(n)
+				});
+		} else {
+			return _Utils_update(
+				config,
+				{mergeAdjacent: true});
+		}
+	});
+var $elm$core$List$singleton = function (value) {
+	return _List_fromArray(
+		[value]);
+};
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$Absolute = {$: 'Absolute'};
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$ClosePath = {$: 'ClosePath'};
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$CurveTo = F2(
+	function (a, b) {
+		return {$: 'CurveTo', a: a, b: b};
+	});
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$EllipticalArc = F2(
+	function (a, b) {
+		return {$: 'EllipticalArc', a: a, b: b};
+	});
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$LineTo = F2(
+	function (a, b) {
+		return {$: 'LineTo', a: a, b: b};
+	});
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$QuadraticBezierCurveTo = F2(
+	function (a, b) {
+		return {$: 'QuadraticBezierCurveTo', a: a, b: b};
+	});
+var $folkertdev$one_true_path_experiment$LowLevel$Command$toLowLevelDrawTo = function (drawto) {
+	switch (drawto.$) {
+		case 'LineTo':
+			var coordinates = drawto.a;
+			return A2($folkertdev$svg_path_lowlevel$Path$LowLevel$LineTo, $folkertdev$svg_path_lowlevel$Path$LowLevel$Absolute, coordinates);
+		case 'CurveTo':
+			var coordinates = drawto.a;
+			return A2($folkertdev$svg_path_lowlevel$Path$LowLevel$CurveTo, $folkertdev$svg_path_lowlevel$Path$LowLevel$Absolute, coordinates);
+		case 'QuadraticBezierCurveTo':
+			var coordinates = drawto.a;
+			return A2($folkertdev$svg_path_lowlevel$Path$LowLevel$QuadraticBezierCurveTo, $folkertdev$svg_path_lowlevel$Path$LowLevel$Absolute, coordinates);
+		case 'EllipticalArc':
+			var _arguments = drawto.a;
+			return A2($folkertdev$svg_path_lowlevel$Path$LowLevel$EllipticalArc, $folkertdev$svg_path_lowlevel$Path$LowLevel$Absolute, _arguments);
+		default:
+			return $folkertdev$svg_path_lowlevel$Path$LowLevel$ClosePath;
+	}
+};
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$MoveTo = F2(
+	function (a, b) {
+		return {$: 'MoveTo', a: a, b: b};
+	});
+var $folkertdev$one_true_path_experiment$LowLevel$Command$toLowLevelMoveTo = function (_v0) {
+	var target = _v0.a;
+	return A2($folkertdev$svg_path_lowlevel$Path$LowLevel$MoveTo, $folkertdev$svg_path_lowlevel$Path$LowLevel$Absolute, target);
+};
+var $folkertdev$one_true_path_experiment$SubPath$toLowLevel = function (subpath) {
+	if (subpath.$ === 'Empty') {
+		return $elm$core$Maybe$Nothing;
+	} else {
+		var moveto = subpath.a.moveto;
+		var drawtos = subpath.a.drawtos;
+		return $elm$core$Maybe$Just(
+			{
+				drawtos: A2(
+					$elm$core$List$map,
+					$folkertdev$one_true_path_experiment$LowLevel$Command$toLowLevelDrawTo,
+					$folkertdev$elm_deque$Deque$toList(drawtos)),
+				moveto: $folkertdev$one_true_path_experiment$LowLevel$Command$toLowLevelMoveTo(moveto)
+			});
+	}
+};
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$defaultConfig = {floatFormatter: $elm$core$String$fromFloat};
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$roundTo = F2(
+	function (n, value) {
+		if (!n) {
+			return $elm$core$String$fromInt(
+				$elm$core$Basics$round(value));
+		} else {
+			var sign = (value < 0.0) ? '-' : '';
+			var exp = A2($elm$core$Basics$pow, 10, n);
+			var raised = $elm$core$Basics$abs(
+				$elm$core$Basics$round(value * exp));
+			var decimals = raised % exp;
+			return (!decimals) ? _Utils_ap(
+				sign,
+				$elm$core$String$fromInt((raised / exp) | 0)) : (sign + ($elm$core$String$fromInt((raised / exp) | 0) + ('.' + $elm$core$String$fromInt(decimals))));
+		}
+	});
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$optionFolder = F2(
+	function (option, config) {
+		var n = option.a;
+		return _Utils_update(
+			config,
+			{
+				floatFormatter: $folkertdev$svg_path_lowlevel$Path$LowLevel$roundTo(n)
+			});
+	});
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$accumulateOptions = A2($elm$core$List$foldl, $folkertdev$svg_path_lowlevel$Path$LowLevel$optionFolder, $folkertdev$svg_path_lowlevel$Path$LowLevel$defaultConfig);
+var $elm$core$List$isEmpty = function (xs) {
+	if (!xs.b) {
+		return true;
+	} else {
+		return false;
+	}
+};
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$isEmpty = function (command) {
+	switch (command.$) {
+		case 'LineTo':
+			var mode = command.a;
+			var coordinates = command.b;
+			return $elm$core$List$isEmpty(coordinates);
+		case 'Horizontal':
+			var mode = command.a;
+			var coordinates = command.b;
+			return $elm$core$List$isEmpty(coordinates);
+		case 'Vertical':
+			var mode = command.a;
+			var coordinates = command.b;
+			return $elm$core$List$isEmpty(coordinates);
+		case 'CurveTo':
+			var mode = command.a;
+			var coordinates = command.b;
+			return $elm$core$List$isEmpty(coordinates);
+		case 'SmoothCurveTo':
+			var mode = command.a;
+			var coordinates = command.b;
+			return $elm$core$List$isEmpty(coordinates);
+		case 'QuadraticBezierCurveTo':
+			var mode = command.a;
+			var coordinates = command.b;
+			return $elm$core$List$isEmpty(coordinates);
+		case 'SmoothQuadraticBezierCurveTo':
+			var mode = command.a;
+			var coordinates = command.b;
+			return $elm$core$List$isEmpty(coordinates);
+		case 'EllipticalArc':
+			var mode = command.a;
+			var _arguments = command.b;
+			return $elm$core$List$isEmpty(_arguments);
+		default:
+			return false;
+	}
+};
+var $elm$core$Char$toLower = _Char_toLower;
+var $elm$core$Char$toUpper = _Char_toUpper;
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCharacter = F2(
+	function (mode, character) {
+		if (mode.$ === 'Absolute') {
+			return $elm$core$String$fromChar(
+				$elm$core$Char$toUpper(character));
+		} else {
+			return $elm$core$String$fromChar(
+				$elm$core$Char$toLower(character));
+		}
+	});
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate = F2(
+	function (config, _v0) {
+		var x = _v0.a;
+		var y = _v0.b;
+		return config.floatFormatter(x) + (',' + config.floatFormatter(y));
+	});
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate2 = F2(
+	function (config, _v0) {
+		var c1 = _v0.a;
+		var c2 = _v0.b;
+		return A2($folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate, config, c1) + (' ' + A2($folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate, config, c2));
+	});
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate3 = F2(
+	function (config, _v0) {
+		var c1 = _v0.a;
+		var c2 = _v0.b;
+		var c3 = _v0.c;
+		return A2($folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate, config, c1) + (' ' + (A2($folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate, config, c2) + (' ' + A2($folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate, config, c3))));
+	});
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$encodeFlags = function (_v0) {
+	var arcFlag = _v0.a;
+	var direction = _v0.b;
+	var _v1 = _Utils_Tuple2(arcFlag, direction);
+	if (_v1.a.$ === 'LargestArc') {
+		if (_v1.b.$ === 'Clockwise') {
+			var _v2 = _v1.a;
+			var _v3 = _v1.b;
+			return _Utils_Tuple2(1, 0);
+		} else {
+			var _v6 = _v1.a;
+			var _v7 = _v1.b;
+			return _Utils_Tuple2(1, 1);
+		}
+	} else {
+		if (_v1.b.$ === 'Clockwise') {
+			var _v4 = _v1.a;
+			var _v5 = _v1.b;
+			return _Utils_Tuple2(0, 0);
+		} else {
+			var _v8 = _v1.a;
+			var _v9 = _v1.b;
+			return _Utils_Tuple2(0, 1);
+		}
+	}
+};
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyEllipticalArcArgument = F2(
+	function (config, _v0) {
+		var radii = _v0.radii;
+		var xAxisRotate = _v0.xAxisRotate;
+		var arcFlag = _v0.arcFlag;
+		var direction = _v0.direction;
+		var target = _v0.target;
+		var _v1 = $folkertdev$svg_path_lowlevel$Path$LowLevel$encodeFlags(
+			_Utils_Tuple2(arcFlag, direction));
+		var arc = _v1.a;
+		var sweep = _v1.b;
+		return A2(
+			$elm$core$String$join,
+			' ',
+			_List_fromArray(
+				[
+					A2($folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate, config, radii),
+					$elm$core$String$fromFloat(xAxisRotate),
+					$elm$core$String$fromInt(arc),
+					$elm$core$String$fromInt(sweep),
+					A2($folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate, config, target)
+				]));
+	});
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyDrawTo = F2(
+	function (config, command) {
+		if ($folkertdev$svg_path_lowlevel$Path$LowLevel$isEmpty(command)) {
+			return '';
+		} else {
+			switch (command.$) {
+				case 'LineTo':
+					var mode = command.a;
+					var coordinates = command.b;
+					return _Utils_ap(
+						A2(
+							$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCharacter,
+							mode,
+							_Utils_chr('L')),
+						A2(
+							$elm$core$String$join,
+							' ',
+							A2(
+								$elm$core$List$map,
+								$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate(config),
+								coordinates)));
+				case 'Horizontal':
+					var mode = command.a;
+					var coordinates = command.b;
+					return $elm$core$List$isEmpty(coordinates) ? '' : _Utils_ap(
+						A2(
+							$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCharacter,
+							mode,
+							_Utils_chr('H')),
+						A2(
+							$elm$core$String$join,
+							' ',
+							A2($elm$core$List$map, $elm$core$String$fromFloat, coordinates)));
+				case 'Vertical':
+					var mode = command.a;
+					var coordinates = command.b;
+					return _Utils_ap(
+						A2(
+							$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCharacter,
+							mode,
+							_Utils_chr('V')),
+						A2(
+							$elm$core$String$join,
+							' ',
+							A2($elm$core$List$map, $elm$core$String$fromFloat, coordinates)));
+				case 'CurveTo':
+					var mode = command.a;
+					var coordinates = command.b;
+					return _Utils_ap(
+						A2(
+							$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCharacter,
+							mode,
+							_Utils_chr('C')),
+						A2(
+							$elm$core$String$join,
+							' ',
+							A2(
+								$elm$core$List$map,
+								$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate3(config),
+								coordinates)));
+				case 'SmoothCurveTo':
+					var mode = command.a;
+					var coordinates = command.b;
+					return _Utils_ap(
+						A2(
+							$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCharacter,
+							mode,
+							_Utils_chr('S')),
+						A2(
+							$elm$core$String$join,
+							' ',
+							A2(
+								$elm$core$List$map,
+								$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate2(config),
+								coordinates)));
+				case 'QuadraticBezierCurveTo':
+					var mode = command.a;
+					var coordinates = command.b;
+					return _Utils_ap(
+						A2(
+							$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCharacter,
+							mode,
+							_Utils_chr('Q')),
+						A2(
+							$elm$core$String$join,
+							' ',
+							A2(
+								$elm$core$List$map,
+								$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate2(config),
+								coordinates)));
+				case 'SmoothQuadraticBezierCurveTo':
+					var mode = command.a;
+					var coordinates = command.b;
+					return _Utils_ap(
+						A2(
+							$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCharacter,
+							mode,
+							_Utils_chr('T')),
+						A2(
+							$elm$core$String$join,
+							' ',
+							A2(
+								$elm$core$List$map,
+								$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate(config),
+								coordinates)));
+				case 'EllipticalArc':
+					var mode = command.a;
+					var _arguments = command.b;
+					return _Utils_ap(
+						A2(
+							$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCharacter,
+							mode,
+							_Utils_chr('A')),
+						A2(
+							$elm$core$String$join,
+							' ',
+							A2(
+								$elm$core$List$map,
+								$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyEllipticalArcArgument(config),
+								_arguments)));
+				default:
+					return 'Z';
+			}
+		}
+	});
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyMoveTo = F2(
+	function (config, _v0) {
+		var mode = _v0.a;
+		var coordinate = _v0.b;
+		if (mode.$ === 'Absolute') {
+			return 'M' + A2($folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate, config, coordinate);
+		} else {
+			return 'm' + A2($folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyCoordinate, config, coordinate);
+		}
+	});
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$toStringSubPath = F2(
+	function (config, _v0) {
+		var moveto = _v0.moveto;
+		var drawtos = _v0.drawtos;
+		return A2($folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyMoveTo, config, moveto) + (' ' + A2(
+			$elm$core$String$join,
+			' ',
+			A2(
+				$elm$core$List$map,
+				$folkertdev$svg_path_lowlevel$Path$LowLevel$stringifyDrawTo(config),
+				drawtos)));
+	});
+var $folkertdev$svg_path_lowlevel$Path$LowLevel$toStringWith = F2(
+	function (options, subpaths) {
+		var config = $folkertdev$svg_path_lowlevel$Path$LowLevel$accumulateOptions(options);
+		return A2(
+			$elm$core$String$join,
+			' ',
+			A2(
+				$elm$core$List$map,
+				$folkertdev$svg_path_lowlevel$Path$LowLevel$toStringSubPath(config),
+				subpaths));
+	});
+var $folkertdev$one_true_path_experiment$SubPath$toStringWith = F2(
+	function (options, subpath) {
+		var config = A3($elm$core$List$foldl, $folkertdev$one_true_path_experiment$SubPath$optionFolder, $folkertdev$one_true_path_experiment$SubPath$defaultConfig, options);
+		var lowLevelOptions = function () {
+			var _v0 = config.decimalPlaces;
+			if (_v0.$ === 'Nothing') {
+				return _List_Nil;
+			} else {
+				var n = _v0.a;
+				return _List_fromArray(
+					[
+						$folkertdev$svg_path_lowlevel$Path$LowLevel$decimalPlaces(n)
+					]);
+			}
+		}();
+		return A2(
+			$elm$core$Maybe$withDefault,
+			'',
+			A2(
+				$elm$core$Maybe$map,
+				A2(
+					$elm$core$Basics$composeL,
+					$folkertdev$svg_path_lowlevel$Path$LowLevel$toStringWith(lowLevelOptions),
+					$elm$core$List$singleton),
+				$folkertdev$one_true_path_experiment$SubPath$toLowLevel(
+					(config.mergeAdjacent ? $folkertdev$one_true_path_experiment$SubPath$compress : $elm$core$Basics$identity)(subpath))));
+	});
+var $folkertdev$one_true_path_experiment$SubPath$toString = function (subpath) {
+	return A2($folkertdev$one_true_path_experiment$SubPath$toStringWith, _List_Nil, subpath);
+};
+var $folkertdev$one_true_path_experiment$Path$toString = A2(
+	$elm$core$Basics$composeL,
+	$elm$core$String$join(' '),
+	$elm$core$List$map($folkertdev$one_true_path_experiment$SubPath$toString));
+var $folkertdev$one_true_path_experiment$Path$element = F2(
+	function (path, attributes) {
+		return A2(
+			$elm$svg$Svg$path,
+			A2(
+				$elm$core$List$cons,
+				$elm$svg$Svg$Attributes$d(
+					$folkertdev$one_true_path_experiment$Path$toString(path)),
+				attributes),
+			_List_Nil);
+	});
+var $avh4$elm_color$Color$toCssString = function (_v0) {
+	var r = _v0.a;
+	var g = _v0.b;
+	var b = _v0.c;
+	var a = _v0.d;
+	var roundTo = function (x) {
+		return $elm$core$Basics$round(x * 1000) / 1000;
+	};
+	var pct = function (x) {
+		return $elm$core$Basics$round(x * 10000) / 100;
+	};
+	return $elm$core$String$concat(
+		_List_fromArray(
+			[
+				'rgba(',
+				$elm$core$String$fromFloat(
+				pct(r)),
+				'%,',
+				$elm$core$String$fromFloat(
+				pct(g)),
+				'%,',
+				$elm$core$String$fromFloat(
+				pct(b)),
+				'%,',
+				$elm$core$String$fromFloat(
+				roundTo(a)),
+				')'
+			]));
+};
+var $elm_community$typed_svg$TypedSvg$TypesToStrings$paintToString = function (paint) {
+	switch (paint.$) {
+		case 'Paint':
+			var color = paint.a;
+			return $avh4$elm_color$Color$toCssString(color);
+		case 'CSSVariable':
+			var string = paint.a;
+			return $elm$core$String$concat(
+				_List_fromArray(
+					['var(' + (string + ')')]));
+		case 'Reference':
+			var string = paint.a;
+			return $elm$core$String$concat(
+				_List_fromArray(
+					['url(#', string, ')']));
+		case 'ContextFill':
+			return 'context-fill';
+		case 'ContextStroke':
+			return 'context-stroke';
+		default:
+			return 'none';
+	}
+};
+var $elm_community$typed_svg$TypedSvg$Attributes$fill = A2(
+	$elm$core$Basics$composeL,
+	$elm_community$typed_svg$TypedSvg$Core$attribute('fill'),
+	$elm_community$typed_svg$TypedSvg$TypesToStrings$paintToString);
+var $author$project$Timeseries$ht = 300;
+var $gampleman$elm_visualization$Shape$Generators$line = F2(
+	function (curve, data) {
+		var makeCurves = F2(
+			function (datum, _v3) {
+				var prev = _v3.a;
+				var list = _v3.b;
+				var _v0 = _Utils_Tuple3(prev, datum, list);
+				if (_v0.b.$ === 'Nothing') {
+					var _v1 = _v0.b;
+					var l = _v0.c;
+					return _Utils_Tuple2(false, l);
+				} else {
+					if (!_v0.a) {
+						var point = _v0.b.a;
+						var l = _v0.c;
+						return _Utils_Tuple2(
+							true,
+							A2(
+								$elm$core$List$cons,
+								_List_fromArray(
+									[point]),
+								l));
+					} else {
+						if (_v0.c.b) {
+							var p1 = _v0.b.a;
+							var _v2 = _v0.c;
+							var ps = _v2.a;
+							var l = _v2.b;
+							return _Utils_Tuple2(
+								true,
+								A2(
+									$elm$core$List$cons,
+									A2($elm$core$List$cons, p1, ps),
+									l));
+						} else {
+							var p1 = _v0.b.a;
+							var l = _v0.c;
+							return _Utils_Tuple2(
+								true,
+								A2(
+									$elm$core$List$cons,
+									_List_fromArray(
+										[p1]),
+									l));
+						}
+					}
+				}
+			});
+		return A2(
+			$elm$core$List$map,
+			curve,
+			A3(
+				$elm$core$List$foldr,
+				makeCurves,
+				_Utils_Tuple2(false, _List_Nil),
+				data).b);
+	});
+var $gampleman$elm_visualization$Shape$line = $gampleman$elm_visualization$Shape$Generators$line;
+var $folkertdev$one_true_path_experiment$SubPath$empty = $folkertdev$one_true_path_experiment$SubPath$Empty;
+var $folkertdev$one_true_path_experiment$LowLevel$Command$lineTo = $folkertdev$one_true_path_experiment$LowLevel$Command$LineTo;
+var $folkertdev$one_true_path_experiment$LowLevel$Command$MoveTo = function (a) {
+	return {$: 'MoveTo', a: a};
+};
+var $folkertdev$one_true_path_experiment$LowLevel$Command$moveTo = $folkertdev$one_true_path_experiment$LowLevel$Command$MoveTo;
+var $folkertdev$one_true_path_experiment$SubPath$with = F2(
+	function (moveto, drawtos) {
+		return $folkertdev$one_true_path_experiment$SubPath$SubPath(
+			{
+				drawtos: $folkertdev$elm_deque$Deque$fromList(drawtos),
+				moveto: moveto
+			});
+	});
+var $folkertdev$one_true_path_experiment$Curve$linear = function (points) {
+	if (!points.b) {
+		return $folkertdev$one_true_path_experiment$SubPath$empty;
+	} else {
+		var x = points.a;
+		var xs = points.b;
+		return A2(
+			$folkertdev$one_true_path_experiment$SubPath$with,
+			$folkertdev$one_true_path_experiment$LowLevel$Command$moveTo(x),
+			_List_fromArray(
+				[
+					$folkertdev$one_true_path_experiment$LowLevel$Command$lineTo(xs)
+				]));
+	}
+};
+var $gampleman$elm_visualization$Shape$linearCurve = $folkertdev$one_true_path_experiment$Curve$linear;
+var $author$project$Timeseries$paddingt = 30;
+var $author$project$Timeseries$wt = 600;
+var $author$project$Timeseries$xScale = A2(
+	$gampleman$elm_visualization$Scale$linear,
+	_Utils_Tuple2(0, $author$project$Timeseries$wt - (2 * $author$project$Timeseries$paddingt)),
+	_Utils_Tuple2(2005, 2020));
+var $author$project$Timeseries$transformToLineData = F2(
+	function (yscale, _v0) {
+		var x = _v0.a;
+		var y = _v0.b;
+		return $elm$core$Maybe$Just(
+			_Utils_Tuple2(
+				A2($gampleman$elm_visualization$Scale$convert, $author$project$Timeseries$xScale, x),
+				A2($gampleman$elm_visualization$Scale$convert, yscale, y)));
+	});
+var $author$project$Timeseries$line = F2(
+	function (data, yscale) {
+		return A2(
+			$gampleman$elm_visualization$Shape$line,
+			$gampleman$elm_visualization$Shape$linearCurve,
+			A2(
+				$elm$core$List$map,
+				$author$project$Timeseries$transformToLineData(yscale),
+				data));
+	});
+var $avh4$elm_color$Color$RgbaSpace = F4(
+	function (a, b, c, d) {
+		return {$: 'RgbaSpace', a: a, b: b, c: c, d: d};
+	});
+var $avh4$elm_color$Color$rgb = F3(
+	function (r, g, b) {
+		return A4($avh4$elm_color$Color$RgbaSpace, r, g, b, 1.0);
+	});
+var $elm_community$typed_svg$TypedSvg$Attributes$stroke = A2(
+	$elm$core$Basics$composeL,
+	$elm_community$typed_svg$TypedSvg$Core$attribute('stroke'),
+	$elm_community$typed_svg$TypedSvg$TypesToStrings$paintToString);
+var $elm_community$typed_svg$TypedSvg$Attributes$strokeWidth = function (length) {
+	return A2(
+		$elm_community$typed_svg$TypedSvg$Core$attribute,
+		'stroke-width',
+		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
+};
+var $elm_community$typed_svg$TypedSvg$Attributes$InPx$strokeWidth = function (value) {
+	return $elm_community$typed_svg$TypedSvg$Attributes$strokeWidth(
+		$elm_community$typed_svg$TypedSvg$Types$px(value));
+};
+var $author$project$Timeseries$ts_scalesListed = {
+	corruption: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(0, 1)),
+	freedom: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(0, 1)),
+	generosity: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(-1, 1)),
+	ladder: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(0, 9)),
+	life: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(10, 80)),
+	negative: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(0, 1)),
+	positive: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(0, 1)),
+	social: A2(
+		$gampleman$elm_visualization$Scale$linear,
+		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
+		_Utils_Tuple2(0, 1))
+};
+var $author$project$Timeseries$xAxis = function (model) {
+	return A2(
+		$gampleman$elm_visualization$Axis$bottom,
+		_List_fromArray(
+			[
+				$gampleman$elm_visualization$Axis$tickCount(
+				$elm$core$List$length(model))
+			]),
+		$author$project$Timeseries$xScale);
+};
+var $author$project$Timeseries$yAxis = A2(
+	$gampleman$elm_visualization$Axis$left,
+	_List_fromArray(
+		[
+			$gampleman$elm_visualization$Axis$tickCount(5)
+		]),
+	$author$project$Timeseries$ts_scalesListed.ladder);
+var $author$project$Timeseries$ts_plot = F2(
+	function (line_1, line_2) {
+		return A2(
+			$elm_community$typed_svg$TypedSvg$svg,
+			_List_fromArray(
+				[
+					A4($elm_community$typed_svg$TypedSvg$Attributes$viewBox, 0, 0, $author$project$Timeseries$wt, $author$project$Timeseries$ht)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$transform(
+							_List_fromArray(
+								[
+									A2($elm_community$typed_svg$TypedSvg$Types$Translate, $author$project$Timeseries$paddingt - 1, $author$project$Timeseries$ht - $author$project$Timeseries$paddingt)
+								]))
+						]),
+					_List_fromArray(
+						[
+							$author$project$Timeseries$xAxis(line_1)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$transform(
+							_List_fromArray(
+								[
+									A2($elm_community$typed_svg$TypedSvg$Types$Translate, $author$project$Timeseries$paddingt - 1, $author$project$Timeseries$paddingt)
+								]))
+						]),
+					_List_fromArray(
+						[$author$project$Timeseries$yAxis])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$transform(
+							_List_fromArray(
+								[
+									A2($elm_community$typed_svg$TypedSvg$Types$Translate, $author$project$Timeseries$paddingt, $author$project$Timeseries$paddingt)
+								])),
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['series']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$folkertdev$one_true_path_experiment$Path$element,
+							A2($author$project$Timeseries$line, line_1, $author$project$Timeseries$ts_scalesListed.ladder),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$stroke(
+									$elm_community$typed_svg$TypedSvg$Types$Paint(
+										A3($avh4$elm_color$Color$rgb, 1, 0, 0))),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$strokeWidth(3),
+									$elm_community$typed_svg$TypedSvg$Attributes$fill($elm_community$typed_svg$TypedSvg$Types$PaintNone)
+								])),
+							A2(
+							$folkertdev$one_true_path_experiment$Path$element,
+							A2($author$project$Timeseries$line, line_2, $author$project$Timeseries$ts_scalesListed.ladder),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$stroke(
+									$elm_community$typed_svg$TypedSvg$Types$Paint(
+										A3($avh4$elm_color$Color$rgb, 0, 0, 1))),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$strokeWidth(3),
+									$elm_community$typed_svg$TypedSvg$Attributes$fill($elm_community$typed_svg$TypedSvg$Types$PaintNone)
+								]))
+						]))
+				]));
+	});
 var $author$project$Main$viewHappiness = function (ls) {
+	var ts_data_ctry2 = $author$project$Main$list_ts_data_to_list_float(
+		A2($author$project$Main$get_ts_data_by_countryname, ls.line_2, ls.ts_data));
+	var ts_data_ctry1 = $author$project$Main$list_ts_data_to_list_float(
+		A2($author$project$Main$get_ts_data_by_countryname, ls.line_1, ls.ts_data));
 	var lengt = $elm$core$String$fromInt(
 		$elm$core$List$length(ls.data));
 	var frst_elment = A2(
@@ -9671,13 +11588,26 @@ var $author$project$Main$viewHappiness = function (ls) {
 		_List_Nil,
 		_List_fromArray(
 			[
+				A2(
+				$elm$html$Html$p,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text(
+						$elm$core$String$fromInt(
+							$elm$core$List$length(ls.ts_data)))
+					])),
 				A6($author$project$Displaydata$scatterplot, scat_desc, country_category, x_values, y_values, ls.x_axis, ls.y_axis),
+				$author$project$Main$dropDown_polar,
 				A3(
 				$author$project$Polarplot$drawPolarplot,
 				p_cntry.country_name,
 				p_cntry.ladder_score,
 				_List_fromArray(
-					[p_cntry.lg_gdp_pc, p_cntry.social_support, p_cntry.life_expectancy, p_cntry.freedom_lc, p_cntry.generosity, p_cntry.pc_corruption]))
+					[p_cntry.lg_gdp_pc, p_cntry.social_support, p_cntry.life_expectancy, p_cntry.freedom_lc, p_cntry.generosity, p_cntry.pc_corruption])),
+				$author$project$Main$dropDown_ts1,
+				$author$project$Main$dropDown_ts2,
+				A2($author$project$Timeseries$ts_plot, ts_data_ctry1, ts_data_ctry2)
 			]));
 };
 var $author$project$Main$view = function (model) {
@@ -9700,7 +11630,6 @@ var $author$project$Main$view = function (model) {
 						$author$project$Main$dropDown_x,
 						$author$project$Main$dropDown_y,
 						$author$project$Main$viewHappiness(fullText),
-						$author$project$Main$dropDown_polar,
 						$author$project$Main$myfooter
 					]));
 	}
