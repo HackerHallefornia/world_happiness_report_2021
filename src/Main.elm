@@ -417,7 +417,7 @@ exampleHero
     [ heroBody []
       [ container []
         [ title H2 [] [ text "World Happiness 2021" ]
-        , text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis."]
+        , text "Summarising findings on World Happiness with the data from World Happiness Report 2021. The data are until 2020, all non timeseries plots are about 2020."]
         -- , Html.button [ onClick Changetext ] [ text "Click me" ]]
       ]
     ]

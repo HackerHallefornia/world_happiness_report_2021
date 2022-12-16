@@ -286,7 +286,7 @@ scatterplot descriptions regions xValues yValues xLabel yLabel =
             [ transform [ Translate (padding - 1) (h - padding) ] ]
             [ xAxis xValues
              , text_
-                [ x (Scale.convert xScaleLocal labelPositions.x)
+                [ x 300
                  , y 30                
                 ]
                 [ text xLabel ]

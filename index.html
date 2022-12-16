@@ -7961,7 +7961,7 @@ var $author$project$Main$exampleHero = A3(
 								[
 									$elm$html$Html$text('World Happiness 2021')
 								])),
-							$elm$html$Html$text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.')
+							$elm$html$Html$text('Summarising findings on World Happiness with the data from World Happiness Report 2021. The data are until 2020, all non timeseries plots are about 2020.')
 						]))
 				]))
 		]));
@@ -10572,8 +10572,7 @@ var $author$project$Displaydata$scatterplot = F6(
 							$elm_community$typed_svg$TypedSvg$text_,
 							_List_fromArray(
 								[
-									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(
-									A2($gampleman$elm_visualization$Scale$convert, xScaleLocal, labelPositions.x)),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(300),
 									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(30)
 								]),
 							_List_fromArray(
@@ -11516,11 +11515,11 @@ var $author$project$Timeseries$ts_scalesListed = {
 	negative: A2(
 		$gampleman$elm_visualization$Scale$linear,
 		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
-		_Utils_Tuple2(0, 1)),
+		_Utils_Tuple2(0, 0.8)),
 	positive: A2(
 		$gampleman$elm_visualization$Scale$linear,
 		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
-		_Utils_Tuple2(0, 1)),
+		_Utils_Tuple2(0.3, 1)),
 	social: A2(
 		$gampleman$elm_visualization$Scale$linear,
 		_Utils_Tuple2($author$project$Timeseries$ht - (2 * $author$project$Timeseries$paddingt), 0),
@@ -11740,11 +11739,23 @@ var $author$project$Timeseries$ts_plot = F5(
 							_List_fromArray(
 								[
 									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
-									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(5)
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(15)
 								]),
 							_List_fromArray(
 								[
 									$elm_community$typed_svg$TypedSvg$Core$text(scale_str)
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(280),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(300)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text('Year')
 								]))
 						])),
 					A2(
