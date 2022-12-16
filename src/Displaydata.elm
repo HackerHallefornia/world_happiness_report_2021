@@ -231,7 +231,7 @@ wideExtent values =
         extension =
             (Tuple.second closeExtent - Tuple.first closeExtent) / toFloat (2 * tickCount)
     in
-    ( Tuple.first closeExtent - extension |> max 0
+    ( Tuple.first closeExtent - extension |> max -5
     , Tuple.second closeExtent + extension
     )
 

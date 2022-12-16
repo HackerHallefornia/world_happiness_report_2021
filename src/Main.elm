@@ -326,24 +326,32 @@ category_ts_to_id cat =
 
 axislist: List String
 axislist = [
-        "ladder_score",
-        "se_ladder",
-        "u_whisker",
-        "l_whisker" ,
-        "lg_gdp_pc",
-        "social_support" ,
-        "life_expectancy",
-        "freedom_lc" ,
-        "generosity",
-        "pc_corruption"]
+        "Happiness Score",
+        "Logged GDP per capita",
+        "Social support" ,
+        "Life expectancy",
+        "Freedom to make life choices" ,
+        "Generosity",
+        "Perceived corruption"]
+
+
+axisname_to_id : String -> String
+axisname_to_id name = 
+    case name of
+        "Happiness Score" ->  "1"
+        "Logged GDP per capita" -> "5"
+        "Social support" -> "6" 
+        "Life expectancy" -> "7" 
+        "Freedom to make life choices" -> "8"
+        "Generosity" -> "9"
+        "Perceived corruption" -> "10" 
+        _ -> " "
+
 
 idToAxis : Int -> String
 idToAxis id = 
       case id of
        1 -> "ladder_score"
-       2 -> "se_ladder"
-       3 -> "u_whisker"
-       4 -> "l_whisker" 
        5 -> "lg_gdp_pc"
        6 -> "social_support" 
        7 -> "life_expectancy"
@@ -351,22 +359,6 @@ idToAxis id =
        9 -> "generosity"
        10 -> "pc_corruption" 
        _  -> " "
-
-axisname_to_id : String -> String
-axisname_to_id name = 
-    case name of
-        "ladder_score" ->  "1"
-        "se_ladder" -> "2"
-        "u_whisker" -> "3"
-        "l_whisker" -> "4"
-        "lg_gdp_pc" -> "5"
-        "social_support" -> "6" 
-        "life_expectancy" -> "7" 
-        "freedom_lc" -> "8"
-        "generosity" -> "9"
-        "pc_corruption" -> "10" 
-        _ -> " "
-
 
 fontAwesomeCDN
   = Html.node "link"

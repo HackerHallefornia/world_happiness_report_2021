@@ -6849,12 +6849,6 @@ var $author$project$Main$idToAxis = function (id) {
 	switch (id) {
 		case 1:
 			return 'ladder_score';
-		case 2:
-			return 'se_ladder';
-		case 3:
-			return 'u_whisker';
-		case 4:
-			return 'l_whisker';
 		case 5:
 			return 'lg_gdp_pc';
 		case 6:
@@ -7633,28 +7627,22 @@ var $author$project$Main$Scatterplot_xaxis = function (a) {
 	return {$: 'Scatterplot_xaxis', a: a};
 };
 var $author$project$Main$axislist = _List_fromArray(
-	['ladder_score', 'se_ladder', 'u_whisker', 'l_whisker', 'lg_gdp_pc', 'social_support', 'life_expectancy', 'freedom_lc', 'generosity', 'pc_corruption']);
+	['Happiness Score', 'Logged GDP per capita', 'Social support', 'Life expectancy', 'Freedom to make life choices', 'Generosity', 'Perceived corruption']);
 var $author$project$Main$axisname_to_id = function (name) {
 	switch (name) {
-		case 'ladder_score':
+		case 'Happiness Score':
 			return '1';
-		case 'se_ladder':
-			return '2';
-		case 'u_whisker':
-			return '3';
-		case 'l_whisker':
-			return '4';
-		case 'lg_gdp_pc':
+		case 'Logged GDP per capita':
 			return '5';
-		case 'social_support':
+		case 'Social support':
 			return '6';
-		case 'life_expectancy':
+		case 'Life expectancy':
 			return '7';
-		case 'freedom_lc':
+		case 'Freedom to make life choices':
 			return '8';
-		case 'generosity':
+		case 'Generosity':
 			return '9';
-		case 'pc_corruption':
+		case 'Perceived corruption':
 			return '10';
 		default:
 			return ' ';
@@ -10245,7 +10233,7 @@ var $author$project$Displaydata$wideExtent = function (values) {
 		$gampleman$elm_visualization$Statistics$extent(values));
 	var extension = (closeExtent.b - closeExtent.a) / (2 * $author$project$Displaydata$tickCount);
 	return _Utils_Tuple2(
-		A2($elm$core$Basics$max, 0, closeExtent.a - extension),
+		A2($elm$core$Basics$max, -5, closeExtent.a - extension),
 		closeExtent.b + extension);
 };
 var $elm_community$typed_svg$TypedSvg$Attributes$width = function (length) {

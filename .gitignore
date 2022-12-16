@@ -20,3 +20,8 @@ Experiment/Test_bulm.elm
 *.dat
 *.elmo
 *.elmi
+*.dat
+elm-stuff/0.19.1/d.dat
+elm-stuff/0.19.1/Displaydata.elmi
+*.ipynb
+*.dat
