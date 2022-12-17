@@ -5,9 +5,9 @@ import Path exposing (Path)
 import Scale exposing (ContinuousScale)
 import Shape
 
-import TypedSvg exposing (g, svg, text_, style )
+import TypedSvg exposing (g, svg, text_, style,rect )
 import TypedSvg.Attributes exposing (class, fill, stroke, transform, viewBox)
-import TypedSvg.Attributes.InPx exposing (strokeWidth, y,x, fontSize)
+import TypedSvg.Attributes.InPx exposing (strokeWidth, y,x, fontSize, height,width)
 import TypedSvg.Core exposing (Svg, text)
 import TypedSvg.Types exposing (Paint(..), Transform(..))
 
@@ -99,12 +99,14 @@ line data yscale =
 ts_plot : List ( Float, Float ) -> List ( Float, Float ) -> String -> String -> String -> Svg msg
 ts_plot line_1 line_2 ctry_1 ctry_2 scale_str=
     svg [ viewBox 0 0 wt ht ]
-        [style [] [ text ".label {font-family:  sans-serif;}" ]
+        [style [] [ text ".label {font-family:  sans-serif;}    .redline rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(256, 0, 0); } .blueline rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 0, 256); }" ]
         ,g [ class [ "label" ], transform [ Translate 10 10 ] ]
-            [ text_ [ fontSize 10, y 5 , x 150] [ text ("In Red: " ++ ctry_1)]
-            , text_ [ fontSize 10, y 15 , x 150 ] [ text ("In Blue: " ++ ctry_2)]
+            [ text_ [ fontSize 10, y 5 , x 185] [ text ctry_1]
+            , text_ [ fontSize 10, y 16 , x 185 ] [ text ctry_2]
             , text_ [ fontSize 10, y 15 ] [ text scale_str]
             , text_ [ fontSize 10, y 280, x 300 ] [ text "Year"]]
+        , g[class [ "redline" ]][rect  [ x 185 , y 7, width 8, height 8][]]
+        , g[class [ "blueline" ]][rect  [ x 185 , y 19, width 8, height 8][]]  
         ,g [ transform [ Translate (paddingt - 1) (ht - paddingt) ] ]
             [ xAxis line_1 ]
         , g [ transform [ Translate (paddingt - 1) paddingt ] ]

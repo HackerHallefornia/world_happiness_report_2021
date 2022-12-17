@@ -8245,7 +8245,7 @@ var $elm_community$typed_svg$TypedSvg$Attributes$class = function (names) {
 		'class',
 		A2($elm$core$String$join, ' ', names));
 };
-var $author$project$Polarplot$css = '\r\n    .frame {\r\n      fill: none;\r\n      stroke: #000;\r\n    }\r\n\r\n    .axis text {\r\n      font: 10px sans-serif;\r\n    }\r\n\r\n    .axis line{\r\n      stroke: #777;\r\n      stroke-dasharray: 1,2;\r\n    }\r\n    \r\n    .axis circle {\r\n      fill: rgba(58, 139, 211, 1);\r\n    }\r\n    .point circle {\r\n      fill: rgba(58, 139, 211, 1);\r\n      \r\n    }\r\n    .point:hover circle {\r\n      fill: rgba(58, 200, 211, 1);\r\n      stroke: black;\r\n    }\r\n    .point text { display: none;}\r\n    .point:hover text { \r\n        display: inline;\r\n        font: 12px sans-serif;\r\n        }\r\n\r\n\r\n    .axis ellipse {\r\n      fill: none;\r\n      stroke: black;\r\n      stroke-dasharray: 1,2;\r\n      stroke-width: 1px;\r\n    }\r\n    \r\n    .axis :last-of-type ellipse {\r\n      fill: none;\r\n      stroke: black;\r\n      stroke-dasharray: none;\r\n      stroke-width: 2px;\r\n    }\r\n\r\n    .axis :last-of-type circle {\r\n      stroke: #333;\r\n      stroke-dasharray: none;\r\n    }\r\n\r\n    .line {\r\n      fill: none;\r\n      stroke: red;\r\n      stroke-width: 1px;\r\n    }\r\n\r\n    .label {\r\n      font-family:  sans-serif;\r\n    }\r\n  ';
+var $author$project$Polarplot$css = '\r\n    .frame {\r\n      fill: none;\r\n      stroke: #000;\r\n    }\r\n    .axis text {\r\n      font: 10px sans-serif;\r\n    }\r\n\r\n    .axis line{\r\n      stroke: #777;\r\n      stroke-dasharray: 1,2;\r\n    }\r\n    \r\n    .axis circle {\r\n      fill: rgba(58, 139, 211, 1);\r\n    }\r\n    .point circle {\r\n      fill: rgba(58, 139, 211, 1);\r\n      \r\n    }\r\n    .point:hover circle {\r\n      fill: rgba(58, 200, 211, 1);\r\n      stroke: black;\r\n    }\r\n    .point text { display: none;}\r\n    .point:hover text { \r\n        display: inline;\r\n        font: 12px sans-serif;\r\n        }\r\n\r\n\r\n    .axis ellipse {\r\n      fill: none;\r\n      stroke: black;\r\n      stroke-dasharray: 1,2;\r\n      stroke-width: 1px;\r\n    }\r\n    \r\n    .axis :last-of-type ellipse {\r\n      fill: none;\r\n      stroke: black;\r\n      stroke-dasharray: none;\r\n      stroke-width: 2px;\r\n    }\r\n\r\n    .axis :last-of-type circle {\r\n      stroke: #333;\r\n      stroke-dasharray: none;\r\n    }\r\n\r\n    .line {\r\n      fill: none;\r\n      stroke: red;\r\n      stroke-width: 1px;\r\n    }\r\n\r\n    .label {\r\n      font-family:  sans-serif;\r\n    }\r\n  ';
 var $gampleman$elm_visualization$Scale$convert = F2(
 	function (_v0, value) {
 		var scale = _v0.a;
@@ -10587,12 +10587,138 @@ var $author$project$Displaydata$scatterplot = F6(
 								[
 									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
 									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(10),
-									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(300)
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(350)
 								]),
 							_List_fromArray(
 								[
 									$elm$html$Html$text('North America and ANZ')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(25),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(350)
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Latin America and Caribbean')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(500)
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Sub-Saharan Africa')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(25),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(500)
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('East Asia')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(100)
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Southeast Asia')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(25),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(100)
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('South Asia')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(650)
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Middle East and North Africa')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(25),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(650)
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Commonwealth of Independent States')
 								]))
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['southeastasia']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(85),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(3),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(8),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(8)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['southasia']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(85),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(18),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(8),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(8)
+								]),
+							_List_Nil)
 						])),
 					A2(
 					$elm_community$typed_svg$TypedSvg$g,
@@ -10650,8 +10776,113 @@ var $author$project$Displaydata$scatterplot = F6(
 							$elm_community$typed_svg$TypedSvg$rect,
 							_List_fromArray(
 								[
-									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(285),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(335),
 									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(3),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(8),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(8)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['latinamericaandcaribbean']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(335),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(18),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(8),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(8)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['sub-saharanafrica']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(485),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(3),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(8),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(8)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['eastasia']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(485),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(18),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(8),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(8)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['middleeastandnorthafrica']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(635),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(3),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(8),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(8)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['commonwealthofindependentstates']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(635),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(18),
 									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(8),
 									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(8)
 								]),
@@ -11795,7 +12026,7 @@ var $author$project$Timeseries$ts_plot = F5(
 					_List_Nil,
 					_List_fromArray(
 						[
-							$elm_community$typed_svg$TypedSvg$Core$text('.label {font-family:  sans-serif;}')
+							$elm_community$typed_svg$TypedSvg$Core$text('.label {font-family:  sans-serif;}    .redline rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(256, 0, 0); } .blueline rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 0, 256); }')
 						])),
 					A2(
 					$elm_community$typed_svg$TypedSvg$g,
@@ -11818,23 +12049,23 @@ var $author$project$Timeseries$ts_plot = F5(
 								[
 									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
 									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(5),
-									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(150)
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(185)
 								]),
 							_List_fromArray(
 								[
-									$elm_community$typed_svg$TypedSvg$Core$text('In Red: ' + ctry_1)
+									$elm_community$typed_svg$TypedSvg$Core$text(ctry_1)
 								])),
 							A2(
 							$elm_community$typed_svg$TypedSvg$text_,
 							_List_fromArray(
 								[
 									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
-									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(15),
-									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(150)
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(16),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(185)
 								]),
 							_List_fromArray(
 								[
-									$elm_community$typed_svg$TypedSvg$Core$text('In Blue: ' + ctry_2)
+									$elm_community$typed_svg$TypedSvg$Core$text(ctry_2)
 								])),
 							A2(
 							$elm_community$typed_svg$TypedSvg$text_,
@@ -11859,6 +12090,48 @@ var $author$project$Timeseries$ts_plot = F5(
 								[
 									$elm_community$typed_svg$TypedSvg$Core$text('Year')
 								]))
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['redline']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(185),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(7),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(8),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(8)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['blueline']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(185),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(19),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(8),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(8)
+								]),
+							_List_Nil)
 						])),
 					A2(
 					$elm_community$typed_svg$TypedSvg$g,

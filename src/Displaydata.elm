@@ -284,13 +284,26 @@ scatterplot descriptions regions xValues yValues xLabel yLabel =
          -- labels    
         , g[] [text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 10, x 200] [ text ("Western Europe")]
                 , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 25, x 200] [ text ("Central and Eastern Europe")]
-                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 10, x 300] [ text ("North America and ANZ")]
+                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 10, x 350] [ text ("North America and ANZ")]
+                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 25, x 350] [ text ("Latin America and Caribbean")]
+                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 10, x 500] [ text ("Sub-Saharan Africa")]
+                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 25, x 500] [ text ("East Asia")]
+                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 10, x 100] [ text ("Southeast Asia")]
+                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 25, x 100] [ text ("South Asia")]
+                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 10, x 650] [ text ("Middle East and North Africa")]
+                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 25, x 650] [ text ("Commonwealth of Independent States")]
                 ]    
          -- colors        
-        , g[class [ "westerneurope" ]][rect  [ x 185 , y 3, width 8, height 8][]]
+        , g[class [ "southeastasia" ]][rect  [ x 85 , y 3, width 8, height 8][]]
+        , g[class [ "southasia" ]][rect  [ x 85 , y 18, width 8, height 8][]]
+        , g[class [ "westerneurope" ]][rect  [ x 185 , y 3, width 8, height 8][]]       
         , g[class [ "centralandeasterneurope" ]][rect  [ x 185 , y 18, width 8, height 8][]]
-        , g[class [ "northamericaandanz" ]][rect  [ x 285 , y 3, width 8, height 8][]]    
-
+        , g[class [ "northamericaandanz" ]][rect  [ x 335 , y 3, width 8, height 8][]]    
+        , g[class [ "latinamericaandcaribbean" ]][rect  [ x 335 , y 18, width 8, height 8][]]    
+        , g[class [ "sub-saharanafrica" ]][rect  [ x 485 , y 3, width 8, height 8][]]    
+        , g[class [ "eastasia" ]][rect  [ x 485 , y 18, width 8, height 8][]]    
+        , g[class [ "middleeastandnorthafrica" ]][rect  [ x 635 , y 3, width 8, height 8][]]    
+        , g[class [ "commonwealthofindependentstates" ]][rect  [ x 635 , y 18, width 8, height 8][]]    
         , g 
             [ transform [ Translate (padding - 1) (h - padding) ] ]
             [ xAxis xValues

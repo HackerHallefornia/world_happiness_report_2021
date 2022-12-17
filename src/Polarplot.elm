@@ -2,7 +2,7 @@
 module Polarplot exposing (..)
 import Scale exposing (ContinuousScale)
 import Statistics
-import TypedSvg exposing (circle, ellipse, polygon, g, line, style, svg, text_)
+import TypedSvg exposing (circle, ellipse, polygon, g, line, style, svg, text_, rect)
 import TypedSvg.Attributes exposing (class, dy, textAnchor, transform, viewBox, points)
 import TypedSvg.Attributes.InPx exposing (fontSize, r, x,x1, x2,y1,y2, y, cx, cy, rx,ry)
 import TypedSvg.Core exposing (Svg, text)
@@ -99,8 +99,7 @@ drawPolarplot countryname ladderscore listofvalues=
         , g [ class [ "label" ], transform [ Translate (padding * 2) (hp / 2) ] ]
             [ text_ [ fontSize 20 ] [ text countryname]
             , text_ [ fontSize 12, y 20 ] [ text ("Ladder rank: "++(String.fromFloat ladderscore))]
-            ]
-            
+            ]   
             --- drawing the Plot and descriptions
         , g [ transform [ Translate (wp / 2 + mainRadius) (hp / 2) ] ]
             [ List.map drawPlot [20,40,60,80,100] |> g [ class [ "r", "axis" ] ]
@@ -149,7 +148,6 @@ css =
       fill: none;
       stroke: #000;
     }
-
     .axis text {
       font: 10px sans-serif;
     }
