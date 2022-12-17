@@ -67,7 +67,7 @@ paddingt =
 
 xScale : ContinuousScale Float
 xScale =
-    Scale.linear ( 0, wt - 2 * paddingt ) ( 2005, 2020 ) 
+    Scale.linear ( 0, wt - 2 * paddingt ) ( 2006, 2020 ) 
 
 
 yScale : ContinuousScale Float

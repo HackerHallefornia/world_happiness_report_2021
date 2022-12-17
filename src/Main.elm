@@ -57,8 +57,6 @@ viewHappiness : WorldHappData -> Html Msg
 viewHappiness ls = 
   let
     df = ls.data
-    lengt = String.fromInt (List.length ls.data)
-    frst_elment = Maybe.withDefault emptyCountry (List.head ls.data)
     x_values : List Float
     x_values = List.map (get_float_att ls.x_axis) df
     y_values : List Float
@@ -117,7 +115,7 @@ update msg model =
         Ok data ->
           (Success <| {data = (csvString_to_data data), ts_data = [emptyts], 
             y_axis = "ladder_score", x_axis ="life_expectancy", polar_country = "Germany",
-            line_1 = "Germany", line_2 = "Chad", ts_cat = "Life expectancy"}, fetchTsData)
+            line_1 = "Germany", line_2 = "Chad", ts_cat = "Freedom to make life choices"}, fetchTsData)
           
         Err _ ->
           (Failure, Cmd.none) 
@@ -383,7 +381,7 @@ exampleNavbar
       ]
     , navbarMenu False []
       [ navbarStart [] 
-        [ navbarItemLink False [] [ text "Elm Visualisierung World Happiness 2021 "  ]
+        [ navbarItemLink False [] [ text " Project for Information Retrieval and Visualization 2022"  ]
         ]
       ]
     ]

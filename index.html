@@ -7501,7 +7501,7 @@ var $author$project$Main$update = F2(
 								line_1: 'Germany',
 								line_2: 'Chad',
 								polar_country: 'Germany',
-								ts_cat: 'Life expectancy',
+								ts_cat: 'Freedom to make life choices',
 								ts_data: _List_fromArray(
 									[$author$project$Displaydata$emptyts]),
 								x_axis: 'life_expectancy',
@@ -8127,7 +8127,7 @@ var $author$project$Main$exampleNavbar = A3(
 							_List_Nil,
 							_List_fromArray(
 								[
-									$elm$html$Html$text('Elm Visualisierung World Happiness 2021 ')
+									$elm$html$Html$text(' Project for Information Retrieval and Visualization 2022')
 								]))
 						]))
 				]))
@@ -9926,7 +9926,6 @@ var $author$project$Main$dropDown_ts_cat = A2(
 				},
 				$author$project$Main$ts_category))
 		]));
-var $author$project$Displaydata$emptyCountry = {country_name: 'String', freedom_lc: 0, generosity: 0, l_whisker: 0, ladder_score: 0, lg_gdp_pc: 0, life_expectancy: 0, pc_corruption: 0, regional_indicator: 'String', se_ladder: 0, social_support: 0, u_whisker: 0};
 var $author$project$Displaydata$get_float_att = F2(
 	function (_float, cntry) {
 		switch (_float) {
@@ -10000,6 +9999,7 @@ var $author$project$Main$get_ts_data_by_countryname = F2(
 			$author$project$Main$matches_countryname_ts(countrystring),
 			countrylist);
 	});
+var $author$project$Displaydata$emptyCountry = {country_name: 'String', freedom_lc: 0, generosity: 0, l_whisker: 0, ladder_score: 0, lg_gdp_pc: 0, life_expectancy: 0, pc_corruption: 0, regional_indicator: 'String', se_ladder: 0, social_support: 0, u_whisker: 0};
 var $author$project$Displaydata$matches_countryname = F2(
 	function (countrystring, country) {
 		return _Utils_eq(country.country_name, countrystring);
@@ -10074,7 +10074,7 @@ var $author$project$Main$list_ts_data_to_list_float = F2(
 var $elm_community$typed_svg$TypedSvg$Types$Percent = function (a) {
 	return {$: 'Percent', a: a};
 };
-var $author$project$Displaydata$cssbycountry = '\r\n    .westerneurope circle { stroke: rgba(0, 0, 0,0.4); fill: rgba(21, 111, 187, 1); }\r\n    .westerneurope text { display: none; }\r\n    .westerneurope:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .westerneurope:hover text { display: inline; }\r\n\r\n    .northamericaandanz circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 153, 51); }\r\n    .northamericaandanz text { display: none; }\r\n    .northamericaandanz:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .northamericaandanz:hover text { display: inline; }\r\n\r\n    .middleeastandnorthafrica circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 153, 0); }\r\n    .middleeastandnorthafrica text { display: none; }\r\n    .middleeastandnorthafrica:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .middleeastandnorthafrica:hover text { display: inline; }\r\n\r\n    .latinamericaandcaribbean circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(204, 0, 0); }\r\n    .latinamericaandcaribbean text { display: none; }\r\n    .latinamericaandcaribbean:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .latinamericaandcaribbean:hover text { display: inline; }\r\n    \r\n    .centralandeasterneurope circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 204, 255); }\r\n    .centralandeasterneurope text { display: none; }\r\n    .centralandeasterneurope:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .centralandeasterneurope:hover text { display: inline; }\r\n\r\n    .eastasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(153, 51, 255); }\r\n    .eastasia text { display: none; }\r\n    .eastasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .eastasia:hover text { display: inline; }\r\n\r\n    .southeastasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 0); }\r\n    .southeastasia text { display: none; }\r\n    .southeastasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .southeastasia:hover text { display: inline; }\r\n\r\n    .commonwealthofindependentstates circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 255, 102); }\r\n    .commonwealthofindependentstates text { display: none; }\r\n    .commonwealthofindependentstates:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .commonwealthofindependentstates:hover text { display: inline; }\r\n\r\n    .sub-saharanafrica circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 102, 204); }\r\n    .sub-saharanafrica text { display: none; }\r\n    .sub-saharanafrica:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .sub-saharanafrica:hover text { display: inline; }\r\n\r\n    .southasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 204); }\r\n    .southasia text { display: none; }\r\n    .southasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .southasia:hover text { display: inline; }\r\n\r\n    ';
+var $author$project$Displaydata$cssbycountry = '\r\n    .westerneurope circle { stroke: rgba(0, 0, 0,0.4); fill: rgba(21, 111, 187, 1); }\r\n    .westerneurope rect { stroke: rgba(0, 0, 0,0.4); fill: rgba(21, 111, 187, 1); }\r\n    .westerneurope text { display: none; }\r\n    .westerneurope:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .westerneurope:hover text { display: inline; }\r\n\r\n    .northamericaandanz circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 153, 51); }\r\n    .northamericaandanz rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 153, 51); }\r\n    .northamericaandanz text { display: none; }\r\n    .northamericaandanz:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .northamericaandanz:hover text { display: inline; }\r\n\r\n    .middleeastandnorthafrica circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 153, 0); }\r\n    .middleeastandnorthafrica rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 153, 0); }\r\n    .middleeastandnorthafrica text { display: none; }\r\n    .middleeastandnorthafrica:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .middleeastandnorthafrica:hover text { display: inline; }\r\n\r\n    .latinamericaandcaribbean circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(204, 0, 0); }\r\n    .latinamericaandcaribbean rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(204, 0, 0); }\r\n    .latinamericaandcaribbean text { display: none; }\r\n    .latinamericaandcaribbean:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .latinamericaandcaribbean:hover text { display: inline; }\r\n    \r\n    .centralandeasterneurope circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 204, 255); }\r\n    .centralandeasterneurope rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 204, 255); }\r\n    .centralandeasterneurope text { display: none; }\r\n    .centralandeasterneurope:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .centralandeasterneurope:hover text { display: inline; }\r\n\r\n    .eastasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(153, 51, 255); }\r\n    .eastasia rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(153, 51, 255); }\r\n    .eastasia text { display: none; }\r\n    .eastasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .eastasia:hover text { display: inline; }\r\n\r\n    .southeastasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 0); }\r\n    .southeastasia rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 0); }\r\n    .southeastasia text { display: none; }\r\n    .southeastasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .southeastasia:hover text { display: inline; }\r\n\r\n    .commonwealthofindependentstates circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 255, 102); }\r\n    .commonwealthofindependentstates rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 255, 102); }\r\n    .commonwealthofindependentstates text { display: none; }\r\n    .commonwealthofindependentstates:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .commonwealthofindependentstates:hover text { display: inline; }\r\n\r\n    .sub-saharanafrica circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 102, 204); }\r\n    .sub-saharanafrica rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 102, 204); }\r\n    .sub-saharanafrica text { display: none; }\r\n    .sub-saharanafrica:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .sub-saharanafrica:hover text { display: inline; }\r\n\r\n    .southasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 204); }\r\n    .southasia rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 204); }\r\n    .southasia text { display: none; }\r\n    .southasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n    .southasia:hover text { display: inline; }\r\n\r\n    ';
 var $elm_community$typed_svg$TypedSvg$Attributes$fontFamily = function (families) {
 	if (!families.b) {
 		return A2($elm_community$typed_svg$TypedSvg$Core$attribute, 'font-family', 'inherit');
@@ -10091,6 +10091,10 @@ var $elm_community$typed_svg$TypedSvg$Attributes$height = function (length) {
 		$elm_community$typed_svg$TypedSvg$Core$attribute,
 		'height',
 		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
+};
+var $elm_community$typed_svg$TypedSvg$Attributes$InPx$height = function (value) {
+	return $elm_community$typed_svg$TypedSvg$Attributes$height(
+		$elm_community$typed_svg$TypedSvg$Types$px(value));
 };
 var $author$project$Displaydata$padding = 60;
 var $author$project$Displaydata$country_group_to_css = function (region_string) {
@@ -10175,6 +10179,7 @@ var $author$project$Displaydata$point = F5(
 						]))
 				]));
 	});
+var $elm_community$typed_svg$TypedSvg$rect = $elm_community$typed_svg$TypedSvg$Core$node('rect');
 var $author$project$Displaydata$w = 900;
 var $author$project$Displaydata$defaultExtent = _Utils_Tuple2(0, 100);
 var $gampleman$elm_visualization$Statistics$extentBy = F2(
@@ -10241,6 +10246,10 @@ var $elm_community$typed_svg$TypedSvg$Attributes$width = function (length) {
 		$elm_community$typed_svg$TypedSvg$Core$attribute,
 		'width',
 		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
+};
+var $elm_community$typed_svg$TypedSvg$Attributes$InPx$width = function (value) {
+	return $elm_community$typed_svg$TypedSvg$Attributes$width(
+		$elm_community$typed_svg$TypedSvg$Types$px(value));
 };
 var $elm$svg$Svg$Attributes$class = _VirtualDom_attribute('class');
 var $gampleman$elm_visualization$Axis$computeOptions = F2(
@@ -10543,6 +10552,111 @@ var $author$project$Displaydata$scatterplot = F6(
 								['sans-serif']))
 						]),
 					_List_Nil),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_Nil,
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(200)
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Western Europe')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(25),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(200)
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Central and Eastern Europe')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(300)
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('North America and ANZ')
+								]))
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['westerneurope']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(185),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(3),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(8),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(8)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['centralandeasterneurope']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(185),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(18),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(8),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(8)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['northamericaandanz']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(285),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(3),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(8),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(8)
+								]),
+							_List_Nil)
+						])),
 					A2(
 					$elm_community$typed_svg$TypedSvg$g,
 					_List_fromArray(
@@ -11614,7 +11728,7 @@ var $author$project$Timeseries$wt = 600;
 var $author$project$Timeseries$xScale = A2(
 	$gampleman$elm_visualization$Scale$linear,
 	_Utils_Tuple2(0, $author$project$Timeseries$wt - (2 * $author$project$Timeseries$paddingt)),
-	_Utils_Tuple2(2005, 2020));
+	_Utils_Tuple2(2006, 2020));
 var $author$project$Timeseries$transformToLineData = F2(
 	function (yscale, _v0) {
 		var x = _v0.a;
@@ -11829,12 +11943,6 @@ var $author$project$Main$viewHappiness = function (ls) {
 		$author$project$Main$list_ts_data_to_list_float,
 		ls.ts_cat,
 		A2($author$project$Main$get_ts_data_by_countryname, ls.line_1, ls.ts_data));
-	var lengt = $elm$core$String$fromInt(
-		$elm$core$List$length(ls.data));
-	var frst_elment = A2(
-		$elm$core$Maybe$withDefault,
-		$author$project$Displaydata$emptyCountry,
-		$elm$core$List$head(ls.data));
 	var df = ls.data;
 	var p_cntry = A2($author$project$Displaydata$getcountry_by_name, ls.polar_country, df);
 	var scat_desc = A2(

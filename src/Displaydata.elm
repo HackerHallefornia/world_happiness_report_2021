@@ -3,14 +3,14 @@ module Displaydata exposing (..)
 import Browser
 import Html exposing (..)
 import Http
-
+import Color exposing (rgb)
 import Statistics
 import Axis
 import Scale exposing (ContinuousScale)
 import Shape exposing (..)
-import TypedSvg exposing (circle, g, style, svg, text_)
-import TypedSvg.Attributes exposing (class, fontFamily, fontSize, textAnchor, transform, viewBox)
-import TypedSvg.Attributes.InPx exposing (cx, cy, r, x, y)
+import TypedSvg exposing (circle, g, style, svg, text_,rect )
+import TypedSvg.Attributes exposing (class, fontFamily, fontSize, textAnchor, transform, viewBox, fill)
+import TypedSvg.Attributes.InPx exposing (cx, cy, r, x, y, height,width)
 import TypedSvg.Core exposing (Svg)
 import TypedSvg.Types exposing (AnchorAlignment(..), Length(..), Paint(..), Transform(..))
 
@@ -281,15 +281,23 @@ scatterplot descriptions regions xValues yValues xLabel yLabel =
             , fontFamily [ "sans-serif" ]
             ]
             []
-            
+         -- labels    
+        , g[] [text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 10, x 200] [ text ("Western Europe")]
+                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 25, x 200] [ text ("Central and Eastern Europe")]
+                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 10, x 300] [ text ("North America and ANZ")]
+                ]    
+         -- colors        
+        , g[class [ "westerneurope" ]][rect  [ x 185 , y 3, width 8, height 8][]]
+        , g[class [ "centralandeasterneurope" ]][rect  [ x 185 , y 18, width 8, height 8][]]
+        , g[class [ "northamericaandanz" ]][rect  [ x 285 , y 3, width 8, height 8][]]    
+
         , g 
             [ transform [ Translate (padding - 1) (h - padding) ] ]
             [ xAxis xValues
              , text_
-                [ x 300
-                 , y 30                
-                ]
+                [ x 300, y 30]
                 [ text xLabel ]
+             
             ]
         , g 
             [transform [ Translate (padding - 1) padding ] ]
@@ -348,51 +356,61 @@ cssbycountry : String
 cssbycountry =
     """
     .westerneurope circle { stroke: rgba(0, 0, 0,0.4); fill: rgba(21, 111, 187, 1); }
+    .westerneurope rect { stroke: rgba(0, 0, 0,0.4); fill: rgba(21, 111, 187, 1); }
     .westerneurope text { display: none; }
     .westerneurope:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
     .westerneurope:hover text { display: inline; }
 
     .northamericaandanz circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 153, 51); }
+    .northamericaandanz rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 153, 51); }
     .northamericaandanz text { display: none; }
     .northamericaandanz:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
     .northamericaandanz:hover text { display: inline; }
 
     .middleeastandnorthafrica circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 153, 0); }
+    .middleeastandnorthafrica rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 153, 0); }
     .middleeastandnorthafrica text { display: none; }
     .middleeastandnorthafrica:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
     .middleeastandnorthafrica:hover text { display: inline; }
 
     .latinamericaandcaribbean circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(204, 0, 0); }
+    .latinamericaandcaribbean rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(204, 0, 0); }
     .latinamericaandcaribbean text { display: none; }
     .latinamericaandcaribbean:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
     .latinamericaandcaribbean:hover text { display: inline; }
     
     .centralandeasterneurope circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 204, 255); }
+    .centralandeasterneurope rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 204, 255); }
     .centralandeasterneurope text { display: none; }
     .centralandeasterneurope:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
     .centralandeasterneurope:hover text { display: inline; }
 
     .eastasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(153, 51, 255); }
+    .eastasia rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(153, 51, 255); }
     .eastasia text { display: none; }
     .eastasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
     .eastasia:hover text { display: inline; }
 
     .southeastasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 0); }
+    .southeastasia rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 0); }
     .southeastasia text { display: none; }
     .southeastasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
     .southeastasia:hover text { display: inline; }
 
     .commonwealthofindependentstates circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 255, 102); }
+    .commonwealthofindependentstates rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 255, 102); }
     .commonwealthofindependentstates text { display: none; }
     .commonwealthofindependentstates:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
     .commonwealthofindependentstates:hover text { display: inline; }
 
     .sub-saharanafrica circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 102, 204); }
+    .sub-saharanafrica rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 102, 204); }
     .sub-saharanafrica text { display: none; }
     .sub-saharanafrica:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
     .sub-saharanafrica:hover text { display: inline; }
 
     .southasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 204); }
+    .southasia rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 204); }
     .southasia text { display: none; }
     .southasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
     .southasia:hover text { display: inline; }
