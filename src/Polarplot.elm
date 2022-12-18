@@ -127,7 +127,7 @@ radiusScale2 =
 
 scalesListed: List (ContinuousScale Float)
 scalesListed = [
-    Scale.linear ( 0, mainRadius ) ( 0, 20),  --Logged Gdp
+    Scale.linear ( 0, mainRadius ) ( 0, 12),  --Logged Gdp
     Scale.linear ( 0, mainRadius ) ( 0, 1), -- Social support
     Scale.linear ( 0, mainRadius ) ( 0, 80), -- Life expectancy
     Scale.linear ( 0, mainRadius ) ( 0, 1), -- Freedom
