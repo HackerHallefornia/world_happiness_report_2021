@@ -1,0 +1,56 @@
+\section{Daten}
+Beschreiben Sie vorhandenen Daten. Gehen sie kritisch darauf ein, in wie weit sich die Daten für die Bearbeitung der Fragestellungen und dem Erreichen von Lösungen für die oben beschriebene Zielgruppen eignen. Haben sie die Daten sinnvoll mit weiteren Datenquellen ergänzt? Wenn ja, wie?
+Erklären sie die technische Bereitstellung der Daten.
+Wie sind die Daten zugänglich? Welche Formate werden genutzt. Gibt es Besonderheiten beim Lesen der Formate?
+Beschreiben sie die Datenvorverarbeitung.
+Welche Datenvorverarbeitungsschritte sind notwendig? Beschreiben Sie die einzelnen Schritte und begründen sie sie, z.B. warum werden manche Daten weggelassen, über welche Mengen werden Durchschnitte berechnet, warum sind die so berechneten Werte aussagekräftiger als andere Werte. Wenn möglich sollen sie die Datenvorverarbeitung in Elm programmieren, so dass ihre Anwendung auf eine Änderung der Rohdaten reagieren kann.  \\
+
+\subsection{Datengrundlage}
+
+Die verwendeten Daten sind aus dem Kaggle-Datensatz World Happiness Report 2021, die enthaltenen Daten wurden durch den World Happiness Report erfasst. Sie beeinhalten zwei seperate Datensätze. Einen Datensatz mit historischen Daten, die für manche Länder bis 2005 zurückreichen, mit 9 gemessenen Größen für jedes Jahr. Und einen Datensatz der einen Vergleich der Länder für den Zeitraum 2018 - 2020 erstellt mit zusätzlichen Größen. Diese sind die ausgerechneten Faktoren für die gemessenen Größen und wie viel stark diese die Zufriedenheit in dem jeweiligen Land beeinflussen. \\
+
+Nutzen für das Erreichen einer Lösung???
+
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|}
+\hline
+\rowcolor[HTML]{EFEFEF} 
+Spaltenname &
+  Beschreibung \\ \hline
+Country name &
+  Name des Landes \\ \hline
+Regional indicator &
+  Region zu welcher das Land gehört \\ \hline
+Ladder score &
+  \begin{tabular}[c]{@{}l@{}}Der Zufriedenheits Wert. Durchschnittliche Antwort auf die Frage: {[}Please imagine a ladder, with steps numbered from 0 at the\\ bottom to 10 at the top. The top of the ladder represents the best possible life\\ for you and the bottom of the ladder represents the worst possible life for you.\\ On which step of the ladder would you say you personally feel you stand at this\\ time?{]}\end{tabular} \\ \hline
+Logged GDP per capita &
+  Log umgewandeltes Bruttoinslandseinkommen pro Kopf \\ \hline
+Social support &
+  \begin{tabular}[c]{@{}l@{}}Nationaler Durchschnitt auf die Binäre Frage: {[}If you\\ were in trouble, do you have relatives or friends you can count on to help you\\ whenever you need them, or not?{]}\end{tabular} \\ \hline
+Healthy life expectancy &
+  Daten von der WHO über die gesunde Lebenserwartung im Land. \\ \hline
+Freedom to make life choices &
+  Nationaler Durchschnitt auf die Frage: {[}Are you satised or dissatised with your freedom to choose what
+you do with your life?{]} \\ \hline
+Generosity &
+  Nationaler Durchschnitt auf die Frage, {[}Have you donated money to a charity in the past month?{]}, regressiert auf das Bruttoinlandsprodukt pro Kopf. \\ \hline
+Perceptions of corruption &
+  \begin{tabular}[c]{@{}l@{}}Nationaler Durchschnitt auf die Fragen: {[}Is corruption widespread throughout\\ the government or not{]} und {[}Is corruption widespread within businesses or not?{]}\end{tabular} \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+
+
+\subsection{Datenvorverarbeitung}
+
+Die Daten wurden zuerst auf Vollständigkeit geprüft. Die Zusammengefassten Daten waren bereits vollständigkeit und wiesen keine fehlenden Einträge auf. Bei den Zeitreihendaten gab es einige fehlenden Einträge. Immer wieder wurden in einem Jahr nur wenige Werte eingetragen, oder es fehlten ganze Jahre. Als erster Schritt wurden alle Länder entfernt, welche nnicht in den Zusammenfassungsdaten vorhanden waren um eine Vergleichsbasis zu schaffen. Anschließend wurden noch unvollständige Jahreseinträge entfernt. Fehlende Einträge kompletter Jahre wurden nicht ergänzt und die entsprechenden Länder aber auch nicht aus der Liste genommen. Dies hätte den Datensatz sonst stark dezimiert. 
+
+Die Daten aufbereitung fand in Python statt. 
+[CODE]
+
+\subsection{Datenbereitstellung}
+
+Nach der Datenaufbereitung wurden die Daten in das Github Repository hochgeladen, welches auch die ELM Visualisierung enthält. Da es sich hier um zwei Datensätze handelt müssen auch zwei HTTP Get request gestellt werden. Dies wurde durch eine zusätzliche Command Message gelöst welche aufgerufen wird sobald der erste Datensatz erfolgreich geladen wurde. So werden die Daten in Sequenz geladen. 
