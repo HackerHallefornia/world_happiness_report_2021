@@ -1,17 +1,10 @@
 \section{Daten}
-Beschreiben Sie vorhandenen Daten. Gehen sie kritisch darauf ein, in wie weit sich die Daten für die Bearbeitung der Fragestellungen und dem Erreichen von Lösungen für die oben beschriebene Zielgruppen eignen. Haben sie die Daten sinnvoll mit weiteren Datenquellen ergänzt? Wenn ja, wie?
-Erklären sie die technische Bereitstellung der Daten.
-Wie sind die Daten zugänglich? Welche Formate werden genutzt. Gibt es Besonderheiten beim Lesen der Formate?
-Beschreiben sie die Datenvorverarbeitung.
-Welche Datenvorverarbeitungsschritte sind notwendig? Beschreiben Sie die einzelnen Schritte und begründen sie sie, z.B. warum werden manche Daten weggelassen, über welche Mengen werden Durchschnitte berechnet, warum sind die so berechneten Werte aussagekräftiger als andere Werte. Wenn möglich sollen sie die Datenvorverarbeitung in Elm programmieren, so dass ihre Anwendung auf eine Änderung der Rohdaten reagieren kann.  \\
 
-\subsection{Datengrundlage}
+Die verwendeten Daten sind aus dem Kaggle-Datensatz \textit{World Happiness Report 2021}, die enthaltenen Daten wurden durch den World Happiness Report erfasst. Ajaypal Singh, der Ersteller des Kaggle Datensatzes hat keine Veränderungen an den gegebenen Daten vorgenommen, das Format wurde nur zu \textit{.csv} geändert. Man erhält die gleichen Daten wenn man sie von der \textit{World Happiness Report 2021} Seite herunterlädt. \cite{helliwell_world_2021}  \\
 
-Die verwendeten Daten sind aus dem Kaggle-Datensatz World Happiness Report 2021, die enthaltenen Daten wurden durch den World Happiness Report erfasst. Sie beeinhalten zwei seperate Datensätze. Einen Datensatz mit historischen Daten, die für manche Länder bis 2005 zurückreichen, mit 9 gemessenen Größen für jedes Jahr. Und einen Datensatz der einen Vergleich der Länder für den Zeitraum 2018 - 2020 erstellt mit zusätzlichen Größen. Diese sind die ausgerechneten Faktoren für die gemessenen Größen und wie viel stark diese die Zufriedenheit in dem jeweiligen Land beeinflussen. \\
+Die bereitgestellten Daten beeinhalten zwei separate Datensätze. Einen Datensatz mit historischen Daten, die für manche Länder bis 2005 zurückreichen, mit 9 gemessenen Größen für jedes Jahr. Und einen Datensatz der einen Vergleich der Länder für den Zeitraum 2018 - 2020 erstellt mit zusätzlichen Größen. Diese sind die ausgerechneten Faktoren für die gemessenen Größen und wie viel stark diese die Zufriedenheit in dem jeweiligen Land beeinflussen. \\
 
-Nutzen für das Erreichen einer Lösung???
-
-\begin{table}[]
+\begin{table}[h]
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|l|}
@@ -40,7 +33,16 @@ Perceptions of corruption &
   \begin{tabular}[c]{@{}l@{}}Nationaler Durchschnitt auf die Fragen: {[}Is corruption widespread throughout\\ the government or not{]} und {[}Is corruption widespread within businesses or not?{]}\end{tabular} \\ \hline
 \end{tabular}%
 }
+\caption{Der erste Datensatz, Durchschnittswerte aus 2018-2020}
+\label{Tab:dat_1}
 \end{table}
+
+Nutzen für erreichen der Lösung???
+
+Tabelle \ref{Tab:dat_1} enthält die Größen des ersten Datensatzes und deren Beschreibungen. Allerdings wurden einiger Variablen weggelassen. Jede der Variablen nach \textit{Ladder score} hatte eine weiter Instanz mit einer statischen Verechnung dieser um eine \textit{Explained by} Größe zu bilden. Diese stellen dar wie stark diese Größe wohl den erreichten Ladder Score erklärt. Da diese Variablen eher komplex sind und bereits im \textit{World Happiness Report}  ausführlich dargestellt werden, wurden sie nicht verwendet. Die verwendeten Fragen für die Variablenerfassung wurden nicht aus dem Englischen Übersetzt um deren Bedeutung nicht zu verzerren. Weiter Statistische Größen die ausgelassen wurden, sind der \textit{Standard Error}, \textit{lower whisker} und \textit{upper whisker}. \\
+
+Der zweite Datensatz enthält alle der in Tabelle \ref{Tab:dat_1} enthaltenen numerischen Größen und zusätzlich noch die Größen \textit{positive affect} und \textit{negative affect}
+
 
 
 
