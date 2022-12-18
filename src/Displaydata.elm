@@ -290,8 +290,8 @@ scatterplot descriptions regions xValues yValues xLabel yLabel =
                 , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 25, x 500] [ text ("East Asia")]
                 , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 10, x 100] [ text ("Southeast Asia")]
                 , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 25, x 100] [ text ("South Asia")]
-                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 10, x 650] [ text ("Middle East and North Africa")]
-                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 25, x 650] [ text ("Commonwealth of Independent States")]
+                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 10, x 610] [ text ("Middle East and North Africa")]
+                , text_ [ TypedSvg.Attributes.InPx.fontSize 10 , y 25, x 610] [ text ("Commonwealth of Independent States")]
                 ]    
          -- colors        
         , g[class [ "southeastasia" ]][rect  [ x 85 , y 3, width 8, height 8][]]
@@ -302,8 +302,8 @@ scatterplot descriptions regions xValues yValues xLabel yLabel =
         , g[class [ "latinamericaandcaribbean" ]][rect  [ x 335 , y 18, width 8, height 8][]]    
         , g[class [ "sub-saharanafrica" ]][rect  [ x 485 , y 3, width 8, height 8][]]    
         , g[class [ "eastasia" ]][rect  [ x 485 , y 18, width 8, height 8][]]    
-        , g[class [ "middleeastandnorthafrica" ]][rect  [ x 635 , y 3, width 8, height 8][]]    
-        , g[class [ "commonwealthofindependentstates" ]][rect  [ x 635 , y 18, width 8, height 8][]]    
+        , g[class [ "middleeastandnorthafrica" ]][rect  [ x 595 , y 3, width 8, height 8][]]    
+        , g[class [ "commonwealthofindependentstates" ]][rect  [ x 595 , y 18, width 8, height 8][]]    
         , g 
             [ transform [ Translate (padding - 1) (h - padding) ] ]
             [ xAxis xValues
