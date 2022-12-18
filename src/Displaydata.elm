@@ -9,10 +9,10 @@ import Axis
 import Scale exposing (ContinuousScale)
 import Shape exposing (..)
 import TypedSvg exposing (circle, g, style, svg, text_,rect )
-import TypedSvg.Attributes exposing (class, fontFamily, fontSize, textAnchor, transform, viewBox, fill)
+import TypedSvg.Attributes exposing (class, fontFamily, fontSize, textAnchor, fontWeight, transform, viewBox, fill)
 import TypedSvg.Attributes.InPx exposing (cx, cy, r, x, y, height,width)
 import TypedSvg.Core exposing (Svg)
-import TypedSvg.Types exposing (AnchorAlignment(..), Length(..), Paint(..), Transform(..))
+import TypedSvg.Types exposing (AnchorAlignment(..), Length(..), Paint(..), Transform(..), FontWeight(..))
 
 
 import Csv.Decode exposing (..)
@@ -323,7 +323,10 @@ scatterplot descriptions regions xValues yValues xLabel yLabel =
             ]
          , g 
              [transform [ Translate padding padding ] ]
-                (List.map3 (point xScaleLocal yScaleLocal) descriptions regions xyPoints)      
+                (List.map3 (point xScaleLocal yScaleLocal) descriptions regions xyPoints)   
+         , g 
+             [transform [ Translate padding padding ] ]
+                (List.map3 (point_hover xScaleLocal yScaleLocal) descriptions regions xyPoints)      
         ]
 
 point : ContinuousScale Float -> ContinuousScale Float -> String -> String -> (Float, Float)  -> Svg msg
@@ -341,6 +344,17 @@ point scaleX scaleY description region_id xyPoint   =
                     , r radius               
                     ]
                     [] 
+                ]
+                 
+point_hover : ContinuousScale Float -> ContinuousScale Float -> String -> String -> (Float, Float)  -> Svg msg
+point_hover scaleX scaleY description region_id xyPoint   =
+        g [ class [ "ontop" ], fontSize <| Px 12.0, fontFamily [ "Helvetica", "sans-serif" ], fontWeight FontWeightBold ]       
+            [ circle
+                    [ cx (Scale.convert scaleX (Tuple.first xyPoint))
+                    , cy (Scale.convert scaleY (Tuple.second xyPoint))
+                    , r radius               
+                    ]
+                    [] 
                     , text_
                     [ x (Scale.convert scaleX (Tuple.first xyPoint))
                     , y (Scale.convert scaleY (Tuple.second xyPoint) - (radius + 3))
@@ -348,7 +362,6 @@ point scaleX scaleY description region_id xyPoint   =
                     ]
                     [Html.text description]
                 ]
-                 
 
 country_group_to_css : String -> String
 country_group_to_css region_string = 
@@ -364,68 +377,53 @@ country_group_to_css region_string =
         "Sub-Saharan Africa" -> "sub-saharanafrica"
         "South Asia" -> "southasia"
         _  -> " "
-        
+
 cssbycountry : String
 cssbycountry =
     """
+    .ontop circle { fill: rgba(0, 0, 0, 0);}
+    .ontop text { display: none; }
+    .ontop:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
+    .ontop:hover text { display: inline; font-family:  sans-serif;}
+
     .westerneurope circle { stroke: rgba(0, 0, 0,0.4); fill: rgba(21, 111, 187, 1); }
     .westerneurope rect { stroke: rgba(0, 0, 0,0.4); fill: rgba(21, 111, 187, 1); }
     .westerneurope text { display: none; }
-    .westerneurope:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
-    .westerneurope:hover text { display: inline; }
 
     .northamericaandanz circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 153, 51); }
     .northamericaandanz rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 153, 51); }
     .northamericaandanz text { display: none; }
-    .northamericaandanz:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
-    .northamericaandanz:hover text { display: inline; }
 
     .middleeastandnorthafrica circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 153, 0); }
     .middleeastandnorthafrica rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 153, 0); }
     .middleeastandnorthafrica text { display: none; }
-    .middleeastandnorthafrica:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
-    .middleeastandnorthafrica:hover text { display: inline; }
 
     .latinamericaandcaribbean circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(204, 0, 0); }
     .latinamericaandcaribbean rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(204, 0, 0); }
     .latinamericaandcaribbean text { display: none; }
-    .latinamericaandcaribbean:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
-    .latinamericaandcaribbean:hover text { display: inline; }
     
     .centralandeasterneurope circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 204, 255); }
     .centralandeasterneurope rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 204, 255); }
     .centralandeasterneurope text { display: none; }
-    .centralandeasterneurope:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
-    .centralandeasterneurope:hover text { display: inline; }
 
     .eastasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(153, 51, 255); }
     .eastasia rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(153, 51, 255); }
     .eastasia text { display: none; }
-    .eastasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
-    .eastasia:hover text { display: inline; }
 
-    .southeastasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 0); }
-    .southeastasia rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 0); }
+    .southeastasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(230, 230, 230); }
+    .southeastasia rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(230, 230, 230); }
     .southeastasia text { display: none; }
-    .southeastasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
-    .southeastasia:hover text { display: inline; }
 
     .commonwealthofindependentstates circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 255, 102); }
     .commonwealthofindependentstates rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 255, 102); }
     .commonwealthofindependentstates text { display: none; }
-    .commonwealthofindependentstates:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
-    .commonwealthofindependentstates:hover text { display: inline; }
 
     .sub-saharanafrica circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 102, 204); }
     .sub-saharanafrica rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 102, 204); }
     .sub-saharanafrica text { display: none; }
-    .sub-saharanafrica:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
-    .sub-saharanafrica:hover text { display: inline; }
 
     .southasia circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 204); }
     .southasia rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(51, 51, 204); }
     .southasia text { display: none; }
-    .southasia:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
-    .southasia:hover text { display: inline; }
 
     """
