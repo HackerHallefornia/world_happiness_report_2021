@@ -15,3 +15,37 @@ Um die Länder und deren erfasste Variablen miteinander Vergleichen zu können m
 
 Um auch einen direkten Vergleich aller Attribute zu ermöglichen ist es sinnvoll die Möglichkeit zu bieten jeweils nur ein Land zu betrachten, für dieses jedoch alle Attribute zu zeigen. Hier muss auf einen Blick erkennbar sein wie die Attribute zueinander aufgestellt sind. Auch hier muss Nutzerinteraktion ermöglicht werden um alle Länder in dieser Weise einzeln zu betrachten. \\
 
+\subsubsection{Visualisierung 1: Scatterplot}
+
+Der Scatterplot soll möglich Muster in den Daten aufzeigen können und die Verteilung der Länder sichtbar machen. Um dies für alle Dimensionen zu ermöglichen lassen sich die X und Y - Achse durch die Dropdown Menüs anpassen. so lassen sich zwei Größen direkt miteinanden Vergleichen. Zusätzlich sind die Punkt nach Länderregionen, welche im Datensatz gegeben waren, eingefärbt. Die Legende über dem Plot beschreibt welche Farbe welche Region darstellt. So lassen sich auch Muster in Bezug auf die Ländergruppen identifizieren. \\
+
+Im Beispiel der Abbildung \ref{fig:scatterplot} lassen sich Varianten der Musteerkennung gut ausmachen. Man sieht wie mit zunehmenden Happiness Score auch die Größe Social Support zunimmt. Es lässt sich hier keine genaue Korrelation auslesen, das ist aber auch nicht der Anspruch für die Zielgruppe. Zusätzlich ist klar zu erkennen wie manche Ländergruppen sich in bestimmten Regionen des Plots ballen. So ist Westeuropa fast ausschließlich in der oberen rechten Ecke vertreten während Sub Sahara Africa sich im linken unteren viertel aufhält. 
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[width = \textwidth]{img/scatterplot.jpg}
+ \caption{Scatterplot mit Bedienelementen}
+ \label{fig:scatterplot}
+\end{figure}
+
+Möchte man einen Punkt identifizieren kann man mit dem Mauszeiger über diesem schweben, dann erscheint wie in Abbildung \ref{fig:scatterplot} der Landesname über dem Punkt. In diesem Beispiel ist es Zimbabwe. 
+
+
+\subsubsection{Visualisierung 2: Polarplot}
+
+Der Polarplot soll es ermöglichen alle Details über ein Land auf einen Blick sichtbar zu machen. Alle Dimensionen befinden sich auf im Kreis angeordneten Achsen. Diese sind dabei jeweils auf die verschieden Größen skaliert und mit Beschriftungen versehen. Das Maximum der jeweiligen Gruppe liegt dabei jeweils am Kreisrand. So lässt sich jedes Land schnell einordnen. \\
+
+Der Happiness Score wird hier nicht innerhalb des Plots abgebildet. Er wird in Textform unter dem augewählten Land angezeigt, wie in Abbildung \ref{fig:polarplot} zu sehen. Mit dem links oben platzierten Dropdown lässt sich ein Land aussuchen, welches den Nutzer interessiert. Es handelt sich hier um insgesamt 149 Länder, was im Dropdown doch recht viel ist. Allerding ist es möglich das Dropdown zu durchsuchen sobald man es angeklickt hat. Um den Nutzer darauf aufmerksam zu machen ist ein Hinweis hierzu am Beginn der Visualisierungsseite. 
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[width = \textwidth]{img/polarplot.jpg}
+ \caption{Polarplot mit Bedienelementen}
+ \label{fig:polarplot}
+\end{figure}
+
+Auch hier ist es möglich mit der Visualisierung selbst zu interagieren, durch hovern wird hier der genaue Wert für den jeweiligen Punkt angezeigt. Der Polarplot ist vermutlich eine Darstellung die nicht jeder schoneinmal gesehen hat, allerdings ist die Strukur sehr simpel gehalten worden. Die visuelle Klarheit sollte es den Nutzer leicht machen die Daten schnell erfassen zu können. \\
+
+Eine Alternative Visualisierung währen hier Parallel Koordinaten gewesen. Diese sind auch in der Lage mehrere Dimensionen gleichzeitig darzustellen. Allerdings sind sie visuell möglicherweise etwas unklarer, die verbundenen Punkte auf den verschiedenen Achsen suggerieren eine Abfolge oder einen festen Zusammenhang dieser. Das ist für diesen Polarplot nicht der Fall. Ein möglicher Vorteil des Parallelplots ist Möglichkeit viele Instanzen, in diesem Fall Länder, gleichzeitig darzustellen. Je nach Einstellung der Verbindungslinien lässt sich dann auch eine Verteilung ausmachen. 
+
+\subsubsection{Visualisierung 3: Timeseries}
