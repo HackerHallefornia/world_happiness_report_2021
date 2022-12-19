@@ -383,7 +383,7 @@ cssbycountry =
     """
     .ontop circle { fill: rgba(0, 0, 0, 0);}
     .ontop text { display: none; }
-    .ontop:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
+    .ontop:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgba(256, 256, 256, 0.5); }
     .ontop:hover text { display: inline; font-family:  sans-serif;}
 
     .westerneurope circle { stroke: rgba(0, 0, 0,0.4); fill: rgba(21, 111, 187, 1); }
