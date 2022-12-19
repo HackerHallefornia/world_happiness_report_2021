@@ -3,8 +3,8 @@ import Displaydata exposing(..)
 import Polarplot exposing(..)
 import Timeseries exposing (..)
 import Browser
+import Bulma.Modifiers exposing (Size(..),Color(..))
 import Bulma.CDN exposing (..)
-import Bulma.Modifiers exposing (..)
 import Bulma.Modifiers.Typography exposing (textCentered)
 import Bulma.Form exposing (..)
 import Bulma.Elements exposing (..)
@@ -17,19 +17,9 @@ import Html.Attributes exposing ( attribute, style, src, placeholder, type_, hre
 import Html.Events exposing (onClick, on)
 import Html.Events.Extra exposing (targetValueIntParse)
 import Json.Decode as Json
+
+import My_types exposing (..)
 -- VIEW
-
-type alias WorldHappData = 
-    { data : List Country_2021,
-      ts_data : List Ts_data,
-      y_axis : String,
-      x_axis : String,
-      polar_country : String,
-      line_1 : String,
-      line_2 : String,
-      ts_cat : String
-    }
-
 
 
 view : Model -> Html Msg
@@ -41,7 +31,7 @@ view model =
     Loading ->
       text "Loading..."
 
-    Success fullText ->
+    Loaded fullText ->
       main_ []
       [ stylesheet
         , fontAwesomeCDN
@@ -114,7 +104,7 @@ update msg model =
     GotText result ->
       case result of
         Ok data ->
-          (Success <| {data = (csvString_to_data data), ts_data = [emptyts], 
+          (Loaded <| {data = (csvString_to_data data), ts_data = [emptyts], 
             y_axis = "Happiness Score", x_axis ="Life expectancy", polar_country = "Germany",
             line_1 = "Germany", line_2 = "Chad", ts_cat = "Freedom to make life choices"}, fetchTsData)
           
@@ -125,68 +115,55 @@ update msg model =
       case result of
         Ok tsdata ->
           case model of
-            Success d -> 
-              (Success <| { d | ts_data = csvString_to_data_ts tsdata}, Cmd.none)
+            Loaded d -> 
+              (Loaded <| { d | ts_data = csvString_to_data_ts tsdata}, Cmd.none)
             _ -> 
               (model, Cmd.none)
         Err _ ->
           (Failure, Cmd.none)      
     -- Changetext ->
-    --     (Success <| { data = "Here is some text"}, Cmd.none)   
+    --     (Loaded <| { data = "Here is some text"}, Cmd.none)   
     Scatterplot_yaxis id ->
       case model of
-        Success d -> 
-            (Success <| { d | y_axis = idToAxis id}, Cmd.none)
+        Loaded d -> 
+            (Loaded <| { d | y_axis = idToAxis id}, Cmd.none)
         _ -> 
             (model, Cmd.none)
     Scatterplot_xaxis id ->
       case model of
-        Success d -> 
-            (Success <| { d | x_axis = idToAxis id}, Cmd.none)
+        Loaded d -> 
+            (Loaded <| { d | x_axis = idToAxis id}, Cmd.none)
         _ -> 
             (model, Cmd.none)
     Polarplot_country id ->
       case model of
-        Success d -> 
-            (Success <| { d | polar_country = idToCountryPolar id}, Cmd.none)
+        Loaded d -> 
+            (Loaded <| { d | polar_country = idToCountryPolar id}, Cmd.none)
         _ -> 
             (model, Cmd.none)
     Timeseries_1 id ->
       case model of
-        Success d -> 
-            (Success <| { d | line_1 = id_to_ctry_ts id}, Cmd.none)
+        Loaded d -> 
+            (Loaded <| { d | line_1 = id_to_ctry_ts id}, Cmd.none)
         _ -> 
             (model, Cmd.none)
     Timeseries_2 id ->
       case model of
-        Success d -> 
-            (Success <| { d | line_2 = id_to_ctry_ts id}, Cmd.none)
+        Loaded d -> 
+            (Loaded <| { d | line_2 = id_to_ctry_ts id}, Cmd.none)
         _ -> 
             (model, Cmd.none)
     Timeseries_cat id ->
       case model of
-        Success d -> 
-            (Success <| { d | ts_cat = id_to_ts_category id}, Cmd.none)
+        Loaded d -> 
+            (Loaded <| { d | ts_cat = id_to_ts_category id}, Cmd.none)
         _ -> 
             (model, Cmd.none)   
 
 
 
 
-type Model 
-  =  Failure
-  | Loading
-  | Success WorldHappData
 
-type Msg
-  = GotText (Result Http.Error String)
-  | GotTsdata (Result Http.Error String)
-  | Scatterplot_yaxis Int
-  | Scatterplot_xaxis Int
-  | Polarplot_country Int
-  | Timeseries_1 Int
-  | Timeseries_2 Int
-  | Timeseries_cat Int
 fetchData : Cmd Msg
 fetchData =
     Http.get

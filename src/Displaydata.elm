@@ -12,27 +12,15 @@ import TypedSvg exposing (circle, g, style, svg, text_,rect )
 import TypedSvg.Attributes exposing (class, fontFamily, fontSize, textAnchor, fontWeight, transform, viewBox, fill)
 import TypedSvg.Attributes.InPx exposing (cx, cy, r, x, y, height,width)
 import TypedSvg.Core exposing (Svg)
+import TypedSvg.Events exposing (onClick)
 import TypedSvg.Types exposing (AnchorAlignment(..), Length(..), Paint(..), Transform(..), FontWeight(..))
-
-
+import Html.Events.Extra exposing (targetValueIntParse)
+-- import Html.Events exposing (onClick)
 import Csv.Decode exposing (..)
 import Csv exposing (..)
+import My_types exposing (..)
+import Json.Decode as Json
 
-
-type alias Country_2021 =
-    { country_name : String
-    , regional_indicator : String
-    , ladder_score :  Float
-    , se_ladder :  Float
-    , u_whisker :  Float
-    , l_whisker :  Float
-    , lg_gdp_pc :  Float
-    , social_support :  Float
-    , life_expectancy :  Float
-    , freedom_lc :  Float
-    , generosity :  Float
-    , pc_corruption :  Float
-    }
 
 emptyCountry : Country_2021
 emptyCountry = {
@@ -67,20 +55,7 @@ emptyts = {
     , negative_affect = 0 
     }
 
-type alias Ts_data = 
-      { country_name : String
-    -- add country indicator later
-    , year : Float
-    , ladder_score :  Float
-    , lg_gdp_pc :  Float
-    , social_support :  Float
-    , life_expectancy :  Float
-    , freedom_lc :  Float
-    , generosity :  Float
-    , pc_corruption :  Float
-    , positive_affect : Float
-    , negative_affect : Float 
-    }
+
 
 matches_countryname : String -> Country_2021 -> Bool
 matches_countryname countrystring country =
@@ -244,7 +219,7 @@ defaultExtent =
 ----- Scatterplot 
 
 
-scatterplot : List String -> List String -> List Float -> List Float -> String -> String -> Svg msg
+scatterplot : List String -> List String -> List Float -> List Float -> String -> String -> Svg Msg
 scatterplot descriptions regions xValues yValues xLabel yLabel =
     let
 
@@ -329,7 +304,7 @@ scatterplot descriptions regions xValues yValues xLabel yLabel =
                 (List.map3 (point_hover xScaleLocal yScaleLocal) descriptions regions xyPoints)      
         ]
 
-point : ContinuousScale Float -> ContinuousScale Float -> String -> String -> (Float, Float)  -> Svg msg
+point : ContinuousScale Float -> ContinuousScale Float -> String -> String -> (Float, Float)  -> Svg Msg
 point scaleX scaleY description region_id xyPoint   =
         let
             
@@ -345,16 +320,20 @@ point scaleX scaleY description region_id xyPoint   =
                     ]
                     [] 
                 ]
-                 
-point_hover : ContinuousScale Float -> ContinuousScale Float -> String -> String -> (Float, Float)  -> Svg msg
+
+
+
+
+point_hover : ContinuousScale Float -> ContinuousScale Float -> String -> String -> (Float, Float)  -> Svg Msg
 point_hover scaleX scaleY description region_id xyPoint   =
         g [ class [ "ontop" ], fontSize <| Px 12.0, fontFamily [ "Helvetica", "sans-serif" ], fontWeight FontWeightBold ]       
             [ circle
                     [ cx (Scale.convert scaleX (Tuple.first xyPoint))
                     , cy (Scale.convert scaleY (Tuple.second xyPoint))
-                    , r radius               
+                    , r radius
+                    , onClick (Polarplot_country <| Maybe.withDefault 0 (String.toInt <| countryPolarToid description))               
                     ]
-                    [] 
+                    []
                     , text_
                     [ x (Scale.convert scaleX (Tuple.first xyPoint))
                     , y (Scale.convert scaleY (Tuple.second xyPoint) - (radius + 3))
