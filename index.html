@@ -7464,7 +7464,7 @@ var $author$project$Timeseries$id_to_ctry_ts = function (id) {
 var $author$project$Main$id_to_ts_category = function (id) {
 	switch (id) {
 		case 1:
-			return 'Ladder Score';
+			return 'Happiness Score';
 		case 2:
 			return 'Log GDP per capita';
 		case 3:
@@ -7623,31 +7623,7 @@ var $author$project$Main$update = F2(
 				}
 		}
 	});
-var $author$project$Main$Scatterplot_xaxis = function (a) {
-	return {$: 'Scatterplot_xaxis', a: a};
-};
-var $author$project$Main$axislist = _List_fromArray(
-	['Happiness Score', 'Logged GDP per capita', 'Social support', 'Life expectancy', 'Freedom to make life choices', 'Generosity', 'Perceived corruption']);
-var $author$project$Main$axisname_to_id = function (name) {
-	switch (name) {
-		case 'Happiness Score':
-			return '1';
-		case 'Logged GDP per capita':
-			return '5';
-		case 'Social support':
-			return '6';
-		case 'Life expectancy':
-			return '7';
-		case 'Freedom to make life choices':
-			return '8';
-		case 'Generosity':
-			return '9';
-		case 'Perceived corruption':
-			return '10';
-		default:
-			return ' ';
-	}
-};
+var $elm$html$Html$img = _VirtualDom_node('img');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -7657,146 +7633,6 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
-var $surprisetalk$elm_bulma$Bulma$Classes$container = $elm$html$Html$Attributes$class('container');
-var $elm$virtual_dom$VirtualDom$node = function (tag) {
-	return _VirtualDom_node(
-		_VirtualDom_noScript(tag));
-};
-var $elm$html$Html$node = $elm$virtual_dom$VirtualDom$node;
-var $surprisetalk$elm_bulma$Helpers$node = F3(
-	function (tag, attrs_, attrs) {
-		return A2(
-			$elm$html$Html$node,
-			tag,
-			_Utils_ap(attrs, attrs_));
-	});
-var $surprisetalk$elm_bulma$Bulma$Layout$container = A2(
-	$surprisetalk$elm_bulma$Helpers$node,
-	'div',
-	_List_fromArray(
-		[$surprisetalk$elm_bulma$Bulma$Classes$container]));
-var $elm$virtual_dom$VirtualDom$Normal = function (a) {
-	return {$: 'Normal', a: a};
-};
-var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
-var $elm$html$Html$Events$on = F2(
-	function (event, decoder) {
-		return A2(
-			$elm$virtual_dom$VirtualDom$on,
-			event,
-			$elm$virtual_dom$VirtualDom$Normal(decoder));
-	});
-var $elm$html$Html$option = _VirtualDom_node('option');
-var $elm$html$Html$select = _VirtualDom_node('select');
-var $elm$json$Json$Decode$andThen = _Json_andThen;
-var $elm$json$Json$Decode$fail = _Json_fail;
-var $elm_community$html_extra$Html$Events$Extra$customDecoder = F2(
-	function (d, f) {
-		var resultDecoder = function (x) {
-			if (x.$ === 'Ok') {
-				var a = x.a;
-				return $elm$json$Json$Decode$succeed(a);
-			} else {
-				var e = x.a;
-				return $elm$json$Json$Decode$fail(e);
-			}
-		};
-		return A2(
-			$elm$json$Json$Decode$andThen,
-			resultDecoder,
-			A2($elm$json$Json$Decode$map, f, d));
-	});
-var $elm_community$html_extra$Html$Events$Extra$maybeStringToResult = $elm$core$Result$fromMaybe('could not convert string');
-var $elm$json$Json$Decode$field = _Json_decodeField;
-var $elm$json$Json$Decode$at = F2(
-	function (fields, decoder) {
-		return A3($elm$core$List$foldr, $elm$json$Json$Decode$field, decoder, fields);
-	});
-var $elm$json$Json$Decode$string = _Json_decodeString;
-var $elm$html$Html$Events$targetValue = A2(
-	$elm$json$Json$Decode$at,
-	_List_fromArray(
-		['target', 'value']),
-	$elm$json$Json$Decode$string);
-var $elm_community$html_extra$Html$Events$Extra$targetValueIntParse = A2(
-	$elm_community$html_extra$Html$Events$Extra$customDecoder,
-	$elm$html$Html$Events$targetValue,
-	A2($elm$core$Basics$composeR, $elm$core$String$toInt, $elm_community$html_extra$Html$Events$Extra$maybeStringToResult));
-var $arowM$elm_html_extra_internal$Batchable$Html$Events$Extra$targetValueIntParse = $elm_community$html_extra$Html$Events$Extra$targetValueIntParse;
-var $arowM$html_extra$Html$Events$Extra$targetValueIntParse = $arowM$elm_html_extra_internal$Batchable$Html$Events$Extra$targetValueIntParse;
-var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
-var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
-var $author$project$Main$dropDown_x = A2(
-	$surprisetalk$elm_bulma$Bulma$Layout$container,
-	_List_Nil,
-	_List_fromArray(
-		[
-			$elm$html$Html$text('X Axis   '),
-			A2(
-			$elm$html$Html$select,
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$Events$on,
-					'change',
-					A2($elm$json$Json$Decode$map, $author$project$Main$Scatterplot_xaxis, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
-				]),
-			A2(
-				$elm$core$List$map,
-				function (axisname) {
-					return A2(
-						$elm$html$Html$option,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$value(
-								$author$project$Main$axisname_to_id(axisname))
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text(axisname)
-							]));
-				},
-				$author$project$Main$axislist))
-		]));
-var $author$project$Main$Scatterplot_yaxis = function (a) {
-	return {$: 'Scatterplot_yaxis', a: a};
-};
-var $elm$html$Html$br = _VirtualDom_node('br');
-var $author$project$Main$dropDown_y = A2(
-	$surprisetalk$elm_bulma$Bulma$Layout$container,
-	_List_Nil,
-	_List_fromArray(
-		[
-			$elm$html$Html$text('Y Axis   '),
-			A2(
-			$elm$html$Html$select,
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$Events$on,
-					'change',
-					A2($elm$json$Json$Decode$map, $author$project$Main$Scatterplot_yaxis, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
-				]),
-			A2(
-				$elm$core$List$map,
-				function (axisname) {
-					return A2(
-						$elm$html$Html$option,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$value(
-								$author$project$Main$axisname_to_id(axisname))
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text(axisname)
-							]));
-				},
-				$author$project$Main$axislist)),
-			A2($elm$html$Html$br, _List_Nil, _List_Nil)
-		]));
-var $elm$html$Html$img = _VirtualDom_node('img');
 var $surprisetalk$elm_bulma$Bulma$Classes$isBlack = $elm$html$Html$Attributes$class('is-black');
 var $surprisetalk$elm_bulma$Bulma$Classes$isDanger = $elm$html$Html$Attributes$class('is-danger');
 var $surprisetalk$elm_bulma$Bulma$Classes$isDark = $elm$html$Html$Attributes$class('is-dark');
@@ -7809,6 +7645,18 @@ var $surprisetalk$elm_bulma$Bulma$Classes$isTransparent = $elm$html$Html$Attribu
 var $surprisetalk$elm_bulma$Bulma$Classes$isWarning = $elm$html$Html$Attributes$class('is-warning');
 var $surprisetalk$elm_bulma$Bulma$Classes$isWhite = $elm$html$Html$Attributes$class('is-white');
 var $surprisetalk$elm_bulma$Bulma$Classes$navbar = $elm$html$Html$Attributes$class('navbar');
+var $elm$virtual_dom$VirtualDom$node = function (tag) {
+	return _VirtualDom_node(
+		_VirtualDom_noScript(tag));
+};
+var $elm$html$Html$node = $elm$virtual_dom$VirtualDom$node;
+var $surprisetalk$elm_bulma$Helpers$node = F3(
+	function (tag, attrs_, attrs) {
+		return A2(
+			$elm$html$Html$node,
+			tag,
+			_Utils_ap(attrs, attrs_));
+	});
 var $surprisetalk$elm_bulma$Bulma$Classes$none = $elm$html$Html$Attributes$class('');
 var $surprisetalk$elm_bulma$Bulma$Components$navbar = function (_v0) {
 	var color = _v0.color;
@@ -7929,6 +7777,8 @@ var $elm$html$Html$Attributes$src = function (url) {
 		'src',
 		_VirtualDom_noJavaScriptOrHtmlUri(url));
 };
+var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
+var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $author$project$Main$exampleNavbar = A3(
 	$surprisetalk$elm_bulma$Bulma$Components$navbar,
 	$surprisetalk$elm_bulma$Bulma$Components$navbarModifiers,
@@ -8006,6 +7856,12 @@ var $author$project$Main$fontAwesomeCDN = A3(
 var $surprisetalk$elm_bulma$Bulma$Elements$H2 = {$: 'H2'};
 var $surprisetalk$elm_bulma$Bulma$Modifiers$Small = {$: 'Small'};
 var $surprisetalk$elm_bulma$Bulma$Modifiers$White = {$: 'White'};
+var $surprisetalk$elm_bulma$Bulma$Classes$container = $elm$html$Html$Attributes$class('container');
+var $surprisetalk$elm_bulma$Bulma$Layout$container = A2(
+	$surprisetalk$elm_bulma$Helpers$node,
+	'div',
+	_List_fromArray(
+		[$surprisetalk$elm_bulma$Bulma$Classes$container]));
 var $surprisetalk$elm_bulma$Bulma$Classes$hero = $elm$html$Html$Attributes$class('hero');
 var $surprisetalk$elm_bulma$Bulma$Classes$isBold = $elm$html$Html$Attributes$class('is-bold');
 var $surprisetalk$elm_bulma$Bulma$Classes$isFullHeight = $elm$html$Html$Attributes$class('is-fullheight');
@@ -8231,6 +8087,7 @@ var $surprisetalk$elm_bulma$Bulma$CDN$stylesheet = A3(
 			$elm$html$Html$Attributes$href('https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css')
 		]),
 	_List_Nil);
+var $elm$html$Html$br = _VirtualDom_node('br');
 var $elm_community$typed_svg$TypedSvg$Types$Translate = F2(
 	function (a, b) {
 		return {$: 'Translate', a: a, b: b};
@@ -9121,7 +8978,7 @@ var $author$project$Polarplot$drawPolarplot = F3(
 							_List_fromArray(
 								[
 									$elm_community$typed_svg$TypedSvg$Core$text(
-									'Ladder rank: ' + $elm$core$String$fromFloat(ladderscore))
+									'Happiness Score: ' + $elm$core$String$fromFloat(ladderscore))
 								]))
 						])),
 					A2(
@@ -9161,7 +9018,7 @@ var $author$project$Polarplot$drawPolarplot = F3(
 								$elm$core$List$map2,
 								$author$project$Polarplot$spoke,
 								_List_fromArray(
-									['Log GDP per Capita', 'Social Support', 'Life expectancy', 'Freedom', 'Generosity', 'perceived corruption']),
+									['Log GDP per Capita', 'Social Support', 'Life expectancy', 'Freedom', 'Generosity', 'Perceived corruption']),
 								A3($gampleman$elm_visualization$Statistics$range, 0, 360, 60)))
 						])),
 					A2(
@@ -9477,39 +9334,103 @@ var $author$project$Polarplot$countryPolarToid = function (name) {
 			return ' ';
 	}
 };
+var $elm$virtual_dom$VirtualDom$Normal = function (a) {
+	return {$: 'Normal', a: a};
+};
+var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
+var $elm$html$Html$Events$on = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$Normal(decoder));
+	});
+var $elm$html$Html$option = _VirtualDom_node('option');
 var $author$project$Polarplot$polarlist = _List_fromArray(
 	['Afghanistan', 'Albania', 'Algeria', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahrain', 'Bangladesh', 'Belarus', 'Belgium', 'Benin', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo (Brazzaville)', 'Costa Rica', 'Croatia', 'Cyprus', 'Czech Republic', 'Denmark', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Estonia', 'Ethiopia', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Guatemala', 'Guinea', 'Haiti', 'Honduras', 'Hong Kong S.A.R. of China', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Ivory Coast', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kosovo', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Lithuania', 'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Mauritania', 'Mauritius', 'Mexico', 'Moldova', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Cyprus', 'North Macedonia', 'Norway', 'Pakistan', 'Palestinian Territories', 'Panama', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Romania', 'Russia', 'Rwanda', 'Saudi Arabia', 'Senegal', 'Serbia', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'South Africa', 'South Korea', 'Spain', 'Sri Lanka', 'Swaziland', 'Sweden', 'Switzerland', 'Taiwan Province of China', 'Tajikistan', 'Tanzania', 'Thailand', 'Togo', 'Tunisia', 'Turkey', 'Turkmenistan', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe']);
-var $author$project$Main$dropDown_polar = A2(
-	$surprisetalk$elm_bulma$Bulma$Layout$container,
-	_List_Nil,
+var $elm$html$Html$select = _VirtualDom_node('select');
+var $elm$json$Json$Encode$bool = _Json_wrap;
+var $elm$html$Html$Attributes$boolProperty = F2(
+	function (key, bool) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			$elm$json$Json$Encode$bool(bool));
+	});
+var $elm$html$Html$Attributes$selected = $elm$html$Html$Attributes$boolProperty('selected');
+var $elm$json$Json$Decode$andThen = _Json_andThen;
+var $elm$json$Json$Decode$fail = _Json_fail;
+var $elm_community$html_extra$Html$Events$Extra$customDecoder = F2(
+	function (d, f) {
+		var resultDecoder = function (x) {
+			if (x.$ === 'Ok') {
+				var a = x.a;
+				return $elm$json$Json$Decode$succeed(a);
+			} else {
+				var e = x.a;
+				return $elm$json$Json$Decode$fail(e);
+			}
+		};
+		return A2(
+			$elm$json$Json$Decode$andThen,
+			resultDecoder,
+			A2($elm$json$Json$Decode$map, f, d));
+	});
+var $elm_community$html_extra$Html$Events$Extra$maybeStringToResult = $elm$core$Result$fromMaybe('could not convert string');
+var $elm$json$Json$Decode$field = _Json_decodeField;
+var $elm$json$Json$Decode$at = F2(
+	function (fields, decoder) {
+		return A3($elm$core$List$foldr, $elm$json$Json$Decode$field, decoder, fields);
+	});
+var $elm$json$Json$Decode$string = _Json_decodeString;
+var $elm$html$Html$Events$targetValue = A2(
+	$elm$json$Json$Decode$at,
 	_List_fromArray(
-		[
-			A2(
-			$elm$html$Html$select,
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$Events$on,
-					'change',
-					A2($elm$json$Json$Decode$map, $author$project$Main$Polarplot_country, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
-				]),
-			A2(
-				$elm$core$List$map,
-				function (ctry) {
-					return A2(
-						$elm$html$Html$option,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$value(
-								$author$project$Polarplot$countryPolarToid(ctry))
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text(ctry)
-							]));
-				},
-				$author$project$Polarplot$polarlist))
-		]));
+		['target', 'value']),
+	$elm$json$Json$Decode$string);
+var $elm_community$html_extra$Html$Events$Extra$targetValueIntParse = A2(
+	$elm_community$html_extra$Html$Events$Extra$customDecoder,
+	$elm$html$Html$Events$targetValue,
+	A2($elm$core$Basics$composeR, $elm$core$String$toInt, $elm_community$html_extra$Html$Events$Extra$maybeStringToResult));
+var $arowM$elm_html_extra_internal$Batchable$Html$Events$Extra$targetValueIntParse = $elm_community$html_extra$Html$Events$Extra$targetValueIntParse;
+var $arowM$html_extra$Html$Events$Extra$targetValueIntParse = $arowM$elm_html_extra_internal$Batchable$Html$Events$Extra$targetValueIntParse;
+var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
+var $author$project$Main$dropDown_polar = function (dat) {
+	return A2(
+		$surprisetalk$elm_bulma$Bulma$Layout$container,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$text('Country   '),
+				A2(
+				$elm$html$Html$select,
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$Events$on,
+						'change',
+						A2($elm$json$Json$Decode$map, $author$project$Main$Polarplot_country, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
+					]),
+				A2(
+					$elm$core$List$map,
+					function (ctry) {
+						return A2(
+							$elm$html$Html$option,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$value(
+									$author$project$Polarplot$countryPolarToid(ctry)),
+									$elm$html$Html$Attributes$selected(
+									_Utils_eq(dat.polar_country, ctry))
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text(ctry)
+								]));
+					},
+					$author$project$Polarplot$polarlist))
+			]));
+};
 var $author$project$Main$Timeseries_1 = function (a) {
 	return {$: 'Timeseries_1', a: a};
 };
@@ -9807,77 +9728,87 @@ var $author$project$Timeseries$countryTsToid = function (name) {
 };
 var $author$project$Timeseries$ts_list = _List_fromArray(
 	['Afghanistan', 'Albania', 'Algeria', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahrain', 'Bangladesh', 'Belarus', 'Belgium', 'Benin', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Chad', 'Chile', 'Colombia', 'Comoros', 'Congo (Brazzaville)', 'Costa Rica', 'Croatia', 'Cyprus', 'Czech Republic', 'Denmark', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Estonia', 'Ethiopia', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Guatemala', 'Guinea', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Ivory Coast', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Lithuania', 'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 'Mali', 'Malta', 'Mauritania', 'Mauritius', 'Mexico', 'Moldova', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Macedonia', 'Norway', 'Pakistan', 'Palestinian Territories', 'Panama', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Romania', 'Russia', 'Rwanda', 'Saudi Arabia', 'Senegal', 'Serbia', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'South Africa', 'South Korea', 'Spain', 'Sri Lanka', 'Swaziland', 'Sweden', 'Switzerland', 'Taiwan Province of China', 'Tajikistan', 'Tanzania', 'Thailand', 'Togo', 'Tunisia', 'Turkey', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe']);
-var $author$project$Main$dropDown_ts1 = A2(
-	$surprisetalk$elm_bulma$Bulma$Layout$container,
-	_List_Nil,
-	_List_fromArray(
-		[
-			A2(
-			$elm$html$Html$select,
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$Events$on,
-					'change',
-					A2($elm$json$Json$Decode$map, $author$project$Main$Timeseries_1, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
-				]),
-			A2(
-				$elm$core$List$map,
-				function (ctry) {
-					return A2(
-						$elm$html$Html$option,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$value(
-								$author$project$Timeseries$countryTsToid(ctry))
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text(ctry)
-							]));
-				},
-				$author$project$Timeseries$ts_list))
-		]));
+var $author$project$Main$dropDown_ts1 = function (dat) {
+	return A2(
+		$surprisetalk$elm_bulma$Bulma$Layout$container,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$text('Country 1   '),
+				A2(
+				$elm$html$Html$select,
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$Events$on,
+						'change',
+						A2($elm$json$Json$Decode$map, $author$project$Main$Timeseries_1, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
+					]),
+				A2(
+					$elm$core$List$map,
+					function (ctry) {
+						return A2(
+							$elm$html$Html$option,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$value(
+									$author$project$Timeseries$countryTsToid(ctry)),
+									$elm$html$Html$Attributes$selected(
+									_Utils_eq(dat.line_1, ctry))
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text(ctry)
+								]));
+					},
+					$author$project$Timeseries$ts_list))
+			]));
+};
 var $author$project$Main$Timeseries_2 = function (a) {
 	return {$: 'Timeseries_2', a: a};
 };
-var $author$project$Main$dropDown_ts2 = A2(
-	$surprisetalk$elm_bulma$Bulma$Layout$container,
-	_List_Nil,
-	_List_fromArray(
-		[
-			A2(
-			$elm$html$Html$select,
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$Events$on,
-					'change',
-					A2($elm$json$Json$Decode$map, $author$project$Main$Timeseries_2, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
-				]),
-			A2(
-				$elm$core$List$map,
-				function (ctry) {
-					return A2(
-						$elm$html$Html$option,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$value(
-								$author$project$Timeseries$countryTsToid(ctry))
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text(ctry)
-							]));
-				},
-				$author$project$Timeseries$ts_list))
-		]));
+var $author$project$Main$dropDown_ts2 = function (dat) {
+	return A2(
+		$surprisetalk$elm_bulma$Bulma$Layout$container,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$text('Country 2   '),
+				A2(
+				$elm$html$Html$select,
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$Events$on,
+						'change',
+						A2($elm$json$Json$Decode$map, $author$project$Main$Timeseries_2, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
+					]),
+				A2(
+					$elm$core$List$map,
+					function (ctry) {
+						return A2(
+							$elm$html$Html$option,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$value(
+									$author$project$Timeseries$countryTsToid(ctry)),
+									$elm$html$Html$Attributes$selected(
+									_Utils_eq(dat.line_2, ctry))
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text(ctry)
+								]));
+					},
+					$author$project$Timeseries$ts_list))
+			]));
+};
 var $author$project$Main$Timeseries_cat = function (a) {
 	return {$: 'Timeseries_cat', a: a};
 };
 var $author$project$Main$category_ts_to_id = function (cat) {
 	switch (cat) {
-		case 'Ladder Score':
+		case 'Happiness Score':
 			return '1';
 		case 'Log GDP per capita':
 			return '2';
@@ -9900,38 +9831,144 @@ var $author$project$Main$category_ts_to_id = function (cat) {
 	}
 };
 var $author$project$Main$ts_category = _List_fromArray(
-	['Ladder Score', 'Log GDP per capita', 'Social Support', 'Life expectancy', 'Freedom to make life choices', 'Generosity', 'Perceived Corruption', 'Positive Affect', 'Negative Affect']);
-var $author$project$Main$dropDown_ts_cat = A2(
-	$surprisetalk$elm_bulma$Bulma$Layout$container,
-	_List_Nil,
-	_List_fromArray(
-		[
-			A2(
-			$elm$html$Html$select,
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$Events$on,
-					'change',
-					A2($elm$json$Json$Decode$map, $author$project$Main$Timeseries_cat, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
-				]),
-			A2(
-				$elm$core$List$map,
-				function (ctry) {
-					return A2(
-						$elm$html$Html$option,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$value(
-								$author$project$Main$category_ts_to_id(ctry))
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text(ctry)
-							]));
-				},
-				$author$project$Main$ts_category))
-		]));
+	['Happiness Score', 'Log GDP per capita', 'Social Support', 'Life expectancy', 'Freedom to make life choices', 'Generosity', 'Perceived Corruption', 'Positive Affect', 'Negative Affect']);
+var $author$project$Main$dropDown_ts_cat = function (dat) {
+	return A2(
+		$surprisetalk$elm_bulma$Bulma$Layout$container,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$text('Category   '),
+				A2(
+				$elm$html$Html$select,
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$Events$on,
+						'change',
+						A2($elm$json$Json$Decode$map, $author$project$Main$Timeseries_cat, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
+					]),
+				A2(
+					$elm$core$List$map,
+					function (ctry) {
+						return A2(
+							$elm$html$Html$option,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$value(
+									$author$project$Main$category_ts_to_id(ctry)),
+									$elm$html$Html$Attributes$selected(
+									_Utils_eq(dat.ts_cat, ctry))
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text(ctry)
+								]));
+					},
+					$author$project$Main$ts_category))
+			]));
+};
+var $author$project$Main$Scatterplot_xaxis = function (a) {
+	return {$: 'Scatterplot_xaxis', a: a};
+};
+var $author$project$Main$axislist = _List_fromArray(
+	['Happiness Score', 'Logged GDP per capita', 'Social support', 'Life expectancy', 'Freedom to make life choices', 'Generosity', 'Perceived corruption']);
+var $author$project$Main$axisname_to_id = function (name) {
+	switch (name) {
+		case 'Happiness Score':
+			return '1';
+		case 'Logged GDP per capita':
+			return '5';
+		case 'Social support':
+			return '6';
+		case 'Life expectancy':
+			return '7';
+		case 'Freedom to make life choices':
+			return '8';
+		case 'Generosity':
+			return '9';
+		case 'Perceived corruption':
+			return '10';
+		default:
+			return ' ';
+	}
+};
+var $author$project$Main$dropDown_x = function (dat) {
+	return A2(
+		$surprisetalk$elm_bulma$Bulma$Layout$container,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$text('X Axis   '),
+				A2(
+				$elm$html$Html$select,
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$Events$on,
+						'change',
+						A2($elm$json$Json$Decode$map, $author$project$Main$Scatterplot_xaxis, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
+					]),
+				A2(
+					$elm$core$List$map,
+					function (axisname) {
+						return A2(
+							$elm$html$Html$option,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$value(
+									$author$project$Main$axisname_to_id(axisname)),
+									$elm$html$Html$Attributes$selected(
+									_Utils_eq(dat.x_axis, axisname))
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text(axisname)
+								]));
+					},
+					$author$project$Main$axislist))
+			]));
+};
+var $author$project$Main$Scatterplot_yaxis = function (a) {
+	return {$: 'Scatterplot_yaxis', a: a};
+};
+var $author$project$Main$dropDown_y = function (dat) {
+	return A2(
+		$surprisetalk$elm_bulma$Bulma$Layout$container,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$text('Y Axis   '),
+				A2(
+				$elm$html$Html$select,
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$Events$on,
+						'change',
+						A2($elm$json$Json$Decode$map, $author$project$Main$Scatterplot_yaxis, $arowM$html_extra$Html$Events$Extra$targetValueIntParse))
+					]),
+				A2(
+					$elm$core$List$map,
+					function (axisname) {
+						return A2(
+							$elm$html$Html$option,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$value(
+									$author$project$Main$axisname_to_id(axisname)),
+									$elm$html$Html$Attributes$selected(
+									_Utils_eq(dat.y_axis, axisname))
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text(axisname)
+								]));
+					},
+					$author$project$Main$axislist)),
+				A2($elm$html$Html$br, _List_Nil, _List_Nil)
+			]));
+};
 var $author$project$Displaydata$get_float_att = F2(
 	function (_float, cntry) {
 		switch (_float) {
@@ -10024,7 +10061,7 @@ var $author$project$Displaydata$getcountry_by_name = F2(
 var $author$project$Main$get_tsfloat_att = F2(
 	function (_float, cntry) {
 		switch (_float) {
-			case 'Ladder Score':
+			case 'Happiness Score':
 				return function ($) {
 					return $.ladder_score;
 				}(cntry);
@@ -11883,7 +11920,7 @@ var $elm_community$typed_svg$TypedSvg$Attributes$fill = A2(
 var $author$project$Timeseries$get_scale = F2(
 	function (selecter, cntry) {
 		switch (selecter) {
-			case 'Ladder Score':
+			case 'Happiness Score':
 				return function ($) {
 					return $.ladder;
 				}(cntry);
@@ -12347,18 +12384,21 @@ var $author$project$Main$viewHappiness = function (ls) {
 		_List_fromArray(
 			[
 				A2($elm$html$Html$br, _List_Nil, _List_Nil),
+				$author$project$Main$dropDown_x(ls),
+				$author$project$Main$dropDown_y(ls),
+				A2($elm$html$Html$br, _List_Nil, _List_Nil),
 				A6($author$project$Displaydata$scatterplot, scat_desc, country_category, x_values, y_values, ls.x_axis, ls.y_axis),
 				$author$project$Main$textPolar,
-				$author$project$Main$dropDown_polar,
+				$author$project$Main$dropDown_polar(ls),
 				A3(
 				$author$project$Polarplot$drawPolarplot,
 				p_cntry.country_name,
 				p_cntry.ladder_score,
 				_List_fromArray(
 					[p_cntry.lg_gdp_pc, p_cntry.social_support, p_cntry.life_expectancy, p_cntry.freedom_lc, p_cntry.generosity, p_cntry.pc_corruption])),
-				$author$project$Main$dropDown_ts1,
-				$author$project$Main$dropDown_ts2,
-				$author$project$Main$dropDown_ts_cat,
+				$author$project$Main$dropDown_ts1(ls),
+				$author$project$Main$dropDown_ts2(ls),
+				$author$project$Main$dropDown_ts_cat(ls),
 				A5($author$project$Timeseries$ts_plot, ts_data_ctry1, ts_data_ctry2, ls.line_1, ls.line_2, ls.ts_cat)
 			]));
 };
@@ -12379,8 +12419,6 @@ var $author$project$Main$view = function (model) {
 						$author$project$Main$fontAwesomeCDN,
 						$author$project$Main$exampleNavbar,
 						$author$project$Main$headerText,
-						$author$project$Main$dropDown_x,
-						$author$project$Main$dropDown_y,
 						$author$project$Main$viewHappiness(fullText),
 						$author$project$Main$myfooter
 					]));

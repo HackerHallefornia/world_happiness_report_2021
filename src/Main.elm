@@ -13,7 +13,7 @@ import Bulma.Columns as Columns exposing (..)
 import Bulma.Layout exposing (..)
 import Http
 import Html exposing ( Html, Attribute, main_,  span, a, p, img ,br, text, strong, option, small, input, i , select, label)
-import Html.Attributes exposing ( attribute, style, src, placeholder, type_, href, rel, class , value)
+import Html.Attributes exposing ( attribute, style, src, placeholder, type_, href, rel, class , value, selected)
 import Html.Events exposing (onClick, on)
 import Html.Events.Extra exposing (targetValueIntParse)
 import Json.Decode as Json
@@ -47,8 +47,6 @@ view model =
         , fontAwesomeCDN
         , exampleNavbar
         , headerText
-        , dropDown_x
-        , dropDown_y
         , (viewHappiness fullText)
         , myfooter
         ]
@@ -78,15 +76,18 @@ viewHappiness ls =
   in     
     container []
         [ br[][]
+          , dropDown_x ls
+          , dropDown_y ls
+          ,br[][]
           ,scatterplot scat_desc country_category x_values y_values ls.x_axis ls.y_axis ,
           textPolar,
-          dropDown_polar,
+          dropDown_polar ls,
           drawPolarplot  p_cntry.country_name p_cntry.ladder_score [p_cntry.lg_gdp_pc, 
                 p_cntry.social_support,p_cntry.life_expectancy,p_cntry.freedom_lc,
                 p_cntry.generosity,p_cntry.pc_corruption],
-          dropDown_ts1,
-          dropDown_ts2,
-          dropDown_ts_cat,
+          dropDown_ts1 ls,
+          dropDown_ts2 ls,
+          dropDown_ts_cat ls,
           ts_plot ts_data_ctry1 ts_data_ctry2 ls.line_1 ls.line_2 ls.ts_cat
           ]
 
@@ -200,60 +201,64 @@ fetchTsData =
         , expect = Http.expectString <| GotTsdata
         }
 --- dropdown function
-dropDown_y : Html Msg
-dropDown_y =
+dropDown_y : WorldHappData -> Html Msg
+dropDown_y dat =
   container []
     [ text "Y Axis   "
      ,select
         [ on "change" (Json.map Scatterplot_yaxis targetValueIntParse)
         ]
-         (List.map(\axisname -> option[value (axisname_to_id axisname)][ Html.text axisname]) axislist)
+         (List.map(\axisname -> option[value (axisname_to_id axisname), selected (dat.y_axis == axisname)][ Html.text axisname]) axislist)
       , br[] [ ]
     ]
-dropDown_x : Html Msg
-dropDown_x =
+dropDown_x : WorldHappData -> Html Msg
+dropDown_x dat =
   container []
     [ text "X Axis   "
       ,select
         [ on "change" (Json.map Scatterplot_xaxis targetValueIntParse)
         ]
-         (List.map(\axisname -> option[value (axisname_to_id axisname)][ Html.text axisname]) axislist)
+         (List.map(\axisname -> option[value (axisname_to_id axisname), selected (dat.x_axis == axisname)][ Html.text axisname]) axislist)
 
     ]
 -- , selected (-- == )
-dropDown_polar : Html Msg
-dropDown_polar =
+dropDown_polar : WorldHappData -> Html Msg
+dropDown_polar dat =
   container []
-    [ select
+    [ text "Country   "
+      ,select
         [ on "change" (Json.map Polarplot_country targetValueIntParse)
         ]
-         (List.map(\ctry -> option[value (countryPolarToid ctry)][ Html.text ctry]) polarlist)
+         (List.map(\ctry -> option[value (countryPolarToid ctry), selected (dat.polar_country == ctry)][ Html.text ctry]) polarlist)
     ]
 
-dropDown_ts1 : Html Msg
-dropDown_ts1 =
+dropDown_ts1 : WorldHappData -> Html Msg
+dropDown_ts1 dat=
   container []
-    [ select
+    [ text "Country 1   "
+      ,select
         [ on "change" (Json.map Timeseries_1 targetValueIntParse)
         ]
-         (List.map(\ctry -> option[value (countryTsToid ctry)][ Html.text ctry]) ts_list)
+         (List.map(\ctry -> option[value (countryTsToid ctry), selected (dat.line_1 == ctry)][ Html.text ctry]) ts_list)
     ]
-dropDown_ts2 : Html Msg
-dropDown_ts2 =
+dropDown_ts2 : WorldHappData -> Html Msg
+dropDown_ts2 dat=
   container []
-    [ select
+    [ text "Country 2   "
+      ,select
         [ on "change" (Json.map Timeseries_2 targetValueIntParse)
         ]
-         (List.map(\ctry -> option[value (countryTsToid ctry)][ Html.text ctry]) ts_list)
+         (List.map(\ctry -> option[value (countryTsToid ctry), selected (dat.line_2 == ctry)][ Html.text ctry]) ts_list)
     ]
 
-dropDown_ts_cat : Html Msg
-dropDown_ts_cat =
+dropDown_ts_cat : WorldHappData -> Html Msg
+dropDown_ts_cat dat=
   container []
-    [ select
+    [ text "Category   "
+      ,select
         [ on "change" (Json.map Timeseries_cat targetValueIntParse)
         ]
-         (List.map(\ctry -> option[value (category_ts_to_id ctry)][ Html.text ctry]) ts_category)
+         (List.map(\ctry -> option[value (category_ts_to_id ctry), selected (dat.ts_cat == ctry)][ Html.text ctry]) ts_category)
     ]
 
 list_ts_data_to_list_float : String -> List Ts_data  -> List (Float, Float)
@@ -274,7 +279,7 @@ matches_countryname_ts countrystring country =
 get_tsfloat_att : String -> Ts_data -> Float
 get_tsfloat_att float cntry = 
     case float of
-        "Ladder Score" ->  .ladder_score cntry
+        "Happiness Score" ->  .ladder_score cntry
         "Log GDP per capita" ->  .lg_gdp_pc cntry
         "Social Support" ->  .social_support cntry
         "Life expectancy" ->  .life_expectancy cntry
@@ -287,7 +292,7 @@ get_tsfloat_att float cntry =
 
 ts_category: List String
 ts_category = [
-        "Ladder Score",
+        "Happiness Score",
         "Log GDP per capita",
         "Social Support",
         "Life expectancy" ,
@@ -300,7 +305,7 @@ ts_category = [
 id_to_ts_category: Int -> String
 id_to_ts_category id = 
     case id of 
-      1 -> "Ladder Score"
+      1 -> "Happiness Score"
       2 -> "Log GDP per capita"
       3 -> "Social Support"
       4 -> "Life expectancy" 
@@ -314,7 +319,7 @@ id_to_ts_category id =
 category_ts_to_id : String -> String
 category_ts_to_id cat = 
     case cat of 
-       "Ladder Score" -> "1"
+       "Happiness Score" -> "1"
        "Log GDP per capita" -> "2"
        "Social Support" -> "3"
        "Life expectancy" -> "4"

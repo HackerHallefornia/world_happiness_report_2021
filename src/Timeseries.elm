@@ -27,7 +27,7 @@ type alias Ts_scale =
 get_scale : String -> Ts_scale -> ContinuousScale Float
 get_scale selecter cntry = 
     case selecter of
-        "Ladder Score" ->  .ladder cntry
+        "Happiness Score" ->  .ladder cntry
         "Log GDP per capita" ->  .lg_gdp cntry
         "Social Support" ->  .social cntry
         "Life expectancy" ->  .life cntry

@@ -98,14 +98,14 @@ drawPolarplot countryname ladderscore listofvalues=
         [ style [] [ text css ]
         , g [ class [ "label" ], transform [ Translate (padding * 2) (hp / 2) ] ]
             [ text_ [ fontSize 20 ] [ text countryname]
-            , text_ [ fontSize 12, y 20 ] [ text ("Ladder rank: "++(String.fromFloat ladderscore))]
+            , text_ [ fontSize 12, y 20 ] [ text ("Happiness Score: "++(String.fromFloat ladderscore))]
             ]   
             --- drawing the Plot and descriptions
         , g [ transform [ Translate (wp / 2 + mainRadius) (hp / 2) ] ]
             [ List.map drawPlot [20,40,60,80,100] |> g [ class [ "r", "axis" ] ]
             , Statistics.range 0 360 60
                 |> List.map2 spoke ["Log GDP per Capita","Social Support", 
-                                    "Life expectancy","Freedom","Generosity","perceived corruption"]
+                                    "Life expectancy","Freedom","Generosity","Perceived corruption"]
                 |> g [ class [ "a", "axis" ] ]
             ]
             --- calculating the ticks and drawing them onto the plot
