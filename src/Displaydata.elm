@@ -331,7 +331,7 @@ point_hover scaleX scaleY description region_id xyPoint   =
                     [ cx (Scale.convert scaleX (Tuple.first xyPoint))
                     , cy (Scale.convert scaleY (Tuple.second xyPoint))
                     , r radius
-                    , onClick (Polarplot_country <| Maybe.withDefault 0 (String.toInt <| countryPolarToid description))               
+                    , onClick (Click_Scat <| Maybe.withDefault 0 (String.toInt <| countryPolarToid description))               
                     ]
                     []
                     , text_

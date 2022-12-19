@@ -159,6 +159,12 @@ update msg model =
             (Loaded <| { d | ts_cat = id_to_ts_category id}, Cmd.none)
         _ -> 
             (model, Cmd.none)   
+    Click_Scat id ->
+      case model of
+        Loaded d -> 
+            (Loaded <| { d | line_1 = id_to_ctry_ts id , polar_country = idToCountryPolar id }, Cmd.none)
+        _ -> 
+            (model, Cmd.none)   
 
 
 
