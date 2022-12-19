@@ -6848,19 +6848,19 @@ var $author$project$Main$fetchTsData = $elm$http$Http$get(
 var $author$project$Main$idToAxis = function (id) {
 	switch (id) {
 		case 1:
-			return 'ladder_score';
+			return 'Happiness Score';
 		case 5:
-			return 'lg_gdp_pc';
+			return 'Logged GDP per capita';
 		case 6:
-			return 'social_support';
+			return 'Social support';
 		case 7:
-			return 'life_expectancy';
+			return 'Life expectancy';
 		case 8:
-			return 'freedom_lc';
+			return 'Freedom to make life choices';
 		case 9:
-			return 'generosity';
+			return 'Generosity';
 		case 10:
-			return 'pc_corruption';
+			return 'Perceived corruption';
 		default:
 			return ' ';
 	}
@@ -7504,8 +7504,8 @@ var $author$project$Main$update = F2(
 								ts_cat: 'Freedom to make life choices',
 								ts_data: _List_fromArray(
 									[$author$project$Displaydata$emptyts]),
-								x_axis: 'life_expectancy',
-								y_axis: 'ladder_score'
+								x_axis: 'Life expectancy',
+								y_axis: 'Happiness Score'
 							}),
 						$author$project$Main$fetchTsData);
 				} else {
@@ -7732,6 +7732,7 @@ var $author$project$Main$dropDown_x = A2(
 	_List_Nil,
 	_List_fromArray(
 		[
+			$elm$html$Html$text('X Axis   '),
 			A2(
 			$elm$html$Html$select,
 			_List_fromArray(
@@ -7761,11 +7762,13 @@ var $author$project$Main$dropDown_x = A2(
 var $author$project$Main$Scatterplot_yaxis = function (a) {
 	return {$: 'Scatterplot_yaxis', a: a};
 };
+var $elm$html$Html$br = _VirtualDom_node('br');
 var $author$project$Main$dropDown_y = A2(
 	$surprisetalk$elm_bulma$Bulma$Layout$container,
 	_List_Nil,
 	_List_fromArray(
 		[
+			$elm$html$Html$text('Y Axis   '),
 			A2(
 			$elm$html$Html$select,
 			_List_fromArray(
@@ -7790,172 +7793,23 @@ var $author$project$Main$dropDown_y = A2(
 								$elm$html$Html$text(axisname)
 							]));
 				},
-				$author$project$Main$axislist))
-		]));
-var $surprisetalk$elm_bulma$Bulma$Elements$H2 = {$: 'H2'};
-var $surprisetalk$elm_bulma$Bulma$Modifiers$Small = {$: 'Small'};
-var $surprisetalk$elm_bulma$Bulma$Modifiers$White = {$: 'White'};
-var $surprisetalk$elm_bulma$Bulma$Classes$hero = $elm$html$Html$Attributes$class('hero');
-var $surprisetalk$elm_bulma$Bulma$Classes$isBlack = $elm$html$Html$Attributes$class('is-black');
-var $surprisetalk$elm_bulma$Bulma$Classes$isBold = $elm$html$Html$Attributes$class('is-bold');
-var $surprisetalk$elm_bulma$Bulma$Classes$isDanger = $elm$html$Html$Attributes$class('is-danger');
-var $surprisetalk$elm_bulma$Bulma$Classes$isDark = $elm$html$Html$Attributes$class('is-dark');
-var $surprisetalk$elm_bulma$Bulma$Classes$isFullHeight = $elm$html$Html$Attributes$class('is-fullheight');
-var $surprisetalk$elm_bulma$Bulma$Classes$isInfo = $elm$html$Html$Attributes$class('is-info');
-var $surprisetalk$elm_bulma$Bulma$Classes$isLarge = $elm$html$Html$Attributes$class('is-large');
-var $surprisetalk$elm_bulma$Bulma$Classes$isLight = $elm$html$Html$Attributes$class('is-light');
-var $surprisetalk$elm_bulma$Bulma$Classes$isLink = $elm$html$Html$Attributes$class('is-link');
-var $surprisetalk$elm_bulma$Bulma$Classes$isMedium = $elm$html$Html$Attributes$class('is-medium');
-var $surprisetalk$elm_bulma$Bulma$Classes$isPrimary = $elm$html$Html$Attributes$class('is-primary');
-var $surprisetalk$elm_bulma$Bulma$Classes$isSuccess = $elm$html$Html$Attributes$class('is-success');
-var $surprisetalk$elm_bulma$Bulma$Classes$isWarning = $elm$html$Html$Attributes$class('is-warning');
-var $surprisetalk$elm_bulma$Bulma$Classes$isWhite = $elm$html$Html$Attributes$class('is-white');
-var $surprisetalk$elm_bulma$Bulma$Classes$none = $elm$html$Html$Attributes$class('');
-var $surprisetalk$elm_bulma$Bulma$Layout$hero = function (_v0) {
-	var bold = _v0.bold;
-	var size = _v0.size;
-	var color = _v0.color;
-	return A2(
-		$surprisetalk$elm_bulma$Helpers$node,
-		'section',
-		_List_fromArray(
-			[
-				$surprisetalk$elm_bulma$Bulma$Classes$hero,
-				function () {
-				if (bold) {
-					return $surprisetalk$elm_bulma$Bulma$Classes$isBold;
-				} else {
-					return $surprisetalk$elm_bulma$Bulma$Classes$none;
-				}
-			}(),
-				function () {
-				switch (size.$) {
-					case 'Small':
-						return $surprisetalk$elm_bulma$Bulma$Classes$none;
-					case 'Standard':
-						return $surprisetalk$elm_bulma$Bulma$Classes$isMedium;
-					case 'Medium':
-						return $surprisetalk$elm_bulma$Bulma$Classes$isLarge;
-					default:
-						return $surprisetalk$elm_bulma$Bulma$Classes$isFullHeight;
-				}
-			}(),
-				function () {
-				switch (color.$) {
-					case 'Default':
-						return $surprisetalk$elm_bulma$Bulma$Classes$none;
-					case 'White':
-						return $surprisetalk$elm_bulma$Bulma$Classes$isWhite;
-					case 'Black':
-						return $surprisetalk$elm_bulma$Bulma$Classes$isBlack;
-					case 'Light':
-						return $surprisetalk$elm_bulma$Bulma$Classes$isLight;
-					case 'Dark':
-						return $surprisetalk$elm_bulma$Bulma$Classes$isDark;
-					case 'Primary':
-						return $surprisetalk$elm_bulma$Bulma$Classes$isPrimary;
-					case 'Info':
-						return $surprisetalk$elm_bulma$Bulma$Classes$isInfo;
-					case 'Success':
-						return $surprisetalk$elm_bulma$Bulma$Classes$isSuccess;
-					case 'Warning':
-						return $surprisetalk$elm_bulma$Bulma$Classes$isWarning;
-					case 'Danger':
-						return $surprisetalk$elm_bulma$Bulma$Classes$isDanger;
-					default:
-						return $surprisetalk$elm_bulma$Bulma$Classes$isLink;
-				}
-			}()
-			]));
-};
-var $surprisetalk$elm_bulma$Bulma$Classes$heroBody = $elm$html$Html$Attributes$class('hero-body');
-var $surprisetalk$elm_bulma$Bulma$Layout$heroBody = A2(
-	$surprisetalk$elm_bulma$Helpers$node,
-	'div',
-	_List_fromArray(
-		[$surprisetalk$elm_bulma$Bulma$Classes$heroBody]));
-var $surprisetalk$elm_bulma$Bulma$Modifiers$Default = {$: 'Default'};
-var $surprisetalk$elm_bulma$Bulma$Layout$heroModifiers = {bold: false, color: $surprisetalk$elm_bulma$Bulma$Modifiers$Default, size: $surprisetalk$elm_bulma$Bulma$Modifiers$Small};
-var $surprisetalk$elm_bulma$Bulma$Classes$is1 = $elm$html$Html$Attributes$class('is-1');
-var $surprisetalk$elm_bulma$Bulma$Classes$is2 = $elm$html$Html$Attributes$class('is-2');
-var $surprisetalk$elm_bulma$Bulma$Classes$is3 = $elm$html$Html$Attributes$class('is-3');
-var $surprisetalk$elm_bulma$Bulma$Classes$is4 = $elm$html$Html$Attributes$class('is-4');
-var $surprisetalk$elm_bulma$Bulma$Classes$is5 = $elm$html$Html$Attributes$class('is-5');
-var $surprisetalk$elm_bulma$Bulma$Classes$is6 = $elm$html$Html$Attributes$class('is-6');
-var $surprisetalk$elm_bulma$Bulma$Classes$title = $elm$html$Html$Attributes$class('title');
-var $surprisetalk$elm_bulma$Bulma$Elements$title = function (size) {
-	return A2(
-		$surprisetalk$elm_bulma$Helpers$node,
-		function () {
-			switch (size.$) {
-				case 'H1':
-					return 'h1';
-				case 'H2':
-					return 'h2';
-				case 'H3':
-					return 'h3';
-				case 'H4':
-					return 'h4';
-				case 'H5':
-					return 'h5';
-				default:
-					return 'h6';
-			}
-		}(),
-		_List_fromArray(
-			[
-				$surprisetalk$elm_bulma$Bulma$Classes$title,
-				function () {
-				switch (size.$) {
-					case 'H1':
-						return $surprisetalk$elm_bulma$Bulma$Classes$is1;
-					case 'H2':
-						return $surprisetalk$elm_bulma$Bulma$Classes$is2;
-					case 'H3':
-						return $surprisetalk$elm_bulma$Bulma$Classes$is3;
-					case 'H4':
-						return $surprisetalk$elm_bulma$Bulma$Classes$is4;
-					case 'H5':
-						return $surprisetalk$elm_bulma$Bulma$Classes$is5;
-					default:
-						return $surprisetalk$elm_bulma$Bulma$Classes$is6;
-				}
-			}()
-			]));
-};
-var $author$project$Main$exampleHero = A3(
-	$surprisetalk$elm_bulma$Bulma$Layout$hero,
-	_Utils_update(
-		$surprisetalk$elm_bulma$Bulma$Layout$heroModifiers,
-		{color: $surprisetalk$elm_bulma$Bulma$Modifiers$White, size: $surprisetalk$elm_bulma$Bulma$Modifiers$Small}),
-	_List_Nil,
-	_List_fromArray(
-		[
-			A2(
-			$surprisetalk$elm_bulma$Bulma$Layout$heroBody,
-			_List_Nil,
-			_List_fromArray(
-				[
-					A2(
-					$surprisetalk$elm_bulma$Bulma$Layout$container,
-					_List_Nil,
-					_List_fromArray(
-						[
-							A3(
-							$surprisetalk$elm_bulma$Bulma$Elements$title,
-							$surprisetalk$elm_bulma$Bulma$Elements$H2,
-							_List_Nil,
-							_List_fromArray(
-								[
-									$elm$html$Html$text('World Happiness 2021')
-								])),
-							$elm$html$Html$text('Summarising findings on World Happiness with the data from World Happiness Report 2021. The data are until 2020, all non timeseries plots are about 2020.')
-						]))
-				]))
+				$author$project$Main$axislist)),
+			A2($elm$html$Html$br, _List_Nil, _List_Nil)
 		]));
 var $elm$html$Html$img = _VirtualDom_node('img');
+var $surprisetalk$elm_bulma$Bulma$Classes$isBlack = $elm$html$Html$Attributes$class('is-black');
+var $surprisetalk$elm_bulma$Bulma$Classes$isDanger = $elm$html$Html$Attributes$class('is-danger');
+var $surprisetalk$elm_bulma$Bulma$Classes$isDark = $elm$html$Html$Attributes$class('is-dark');
+var $surprisetalk$elm_bulma$Bulma$Classes$isInfo = $elm$html$Html$Attributes$class('is-info');
+var $surprisetalk$elm_bulma$Bulma$Classes$isLight = $elm$html$Html$Attributes$class('is-light');
+var $surprisetalk$elm_bulma$Bulma$Classes$isLink = $elm$html$Html$Attributes$class('is-link');
+var $surprisetalk$elm_bulma$Bulma$Classes$isPrimary = $elm$html$Html$Attributes$class('is-primary');
+var $surprisetalk$elm_bulma$Bulma$Classes$isSuccess = $elm$html$Html$Attributes$class('is-success');
 var $surprisetalk$elm_bulma$Bulma$Classes$isTransparent = $elm$html$Html$Attributes$class('is-transparent');
+var $surprisetalk$elm_bulma$Bulma$Classes$isWarning = $elm$html$Html$Attributes$class('is-warning');
+var $surprisetalk$elm_bulma$Bulma$Classes$isWhite = $elm$html$Html$Attributes$class('is-white');
 var $surprisetalk$elm_bulma$Bulma$Classes$navbar = $elm$html$Html$Attributes$class('navbar');
+var $surprisetalk$elm_bulma$Bulma$Classes$none = $elm$html$Html$Attributes$class('');
 var $surprisetalk$elm_bulma$Bulma$Components$navbar = function (_v0) {
 	var color = _v0.color;
 	var transparent = _v0.transparent;
@@ -8060,6 +7914,7 @@ var $surprisetalk$elm_bulma$Bulma$Components$navbarMenu = F2(
 				]),
 			attrs);
 	});
+var $surprisetalk$elm_bulma$Bulma$Modifiers$Default = {$: 'Default'};
 var $surprisetalk$elm_bulma$Bulma$Components$navbarModifiers = {color: $surprisetalk$elm_bulma$Bulma$Modifiers$Default, transparent: false};
 var $surprisetalk$elm_bulma$Bulma$Classes$navbarStart = $elm$html$Html$Attributes$class('navbar-start');
 var $surprisetalk$elm_bulma$Bulma$Components$navbarStart = A2(
@@ -8148,6 +8003,157 @@ var $author$project$Main$fontAwesomeCDN = A3(
 			$elm$html$Html$Attributes$href('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
 		]),
 	_List_Nil);
+var $surprisetalk$elm_bulma$Bulma$Elements$H2 = {$: 'H2'};
+var $surprisetalk$elm_bulma$Bulma$Modifiers$Small = {$: 'Small'};
+var $surprisetalk$elm_bulma$Bulma$Modifiers$White = {$: 'White'};
+var $surprisetalk$elm_bulma$Bulma$Classes$hero = $elm$html$Html$Attributes$class('hero');
+var $surprisetalk$elm_bulma$Bulma$Classes$isBold = $elm$html$Html$Attributes$class('is-bold');
+var $surprisetalk$elm_bulma$Bulma$Classes$isFullHeight = $elm$html$Html$Attributes$class('is-fullheight');
+var $surprisetalk$elm_bulma$Bulma$Classes$isLarge = $elm$html$Html$Attributes$class('is-large');
+var $surprisetalk$elm_bulma$Bulma$Classes$isMedium = $elm$html$Html$Attributes$class('is-medium');
+var $surprisetalk$elm_bulma$Bulma$Layout$hero = function (_v0) {
+	var bold = _v0.bold;
+	var size = _v0.size;
+	var color = _v0.color;
+	return A2(
+		$surprisetalk$elm_bulma$Helpers$node,
+		'section',
+		_List_fromArray(
+			[
+				$surprisetalk$elm_bulma$Bulma$Classes$hero,
+				function () {
+				if (bold) {
+					return $surprisetalk$elm_bulma$Bulma$Classes$isBold;
+				} else {
+					return $surprisetalk$elm_bulma$Bulma$Classes$none;
+				}
+			}(),
+				function () {
+				switch (size.$) {
+					case 'Small':
+						return $surprisetalk$elm_bulma$Bulma$Classes$none;
+					case 'Standard':
+						return $surprisetalk$elm_bulma$Bulma$Classes$isMedium;
+					case 'Medium':
+						return $surprisetalk$elm_bulma$Bulma$Classes$isLarge;
+					default:
+						return $surprisetalk$elm_bulma$Bulma$Classes$isFullHeight;
+				}
+			}(),
+				function () {
+				switch (color.$) {
+					case 'Default':
+						return $surprisetalk$elm_bulma$Bulma$Classes$none;
+					case 'White':
+						return $surprisetalk$elm_bulma$Bulma$Classes$isWhite;
+					case 'Black':
+						return $surprisetalk$elm_bulma$Bulma$Classes$isBlack;
+					case 'Light':
+						return $surprisetalk$elm_bulma$Bulma$Classes$isLight;
+					case 'Dark':
+						return $surprisetalk$elm_bulma$Bulma$Classes$isDark;
+					case 'Primary':
+						return $surprisetalk$elm_bulma$Bulma$Classes$isPrimary;
+					case 'Info':
+						return $surprisetalk$elm_bulma$Bulma$Classes$isInfo;
+					case 'Success':
+						return $surprisetalk$elm_bulma$Bulma$Classes$isSuccess;
+					case 'Warning':
+						return $surprisetalk$elm_bulma$Bulma$Classes$isWarning;
+					case 'Danger':
+						return $surprisetalk$elm_bulma$Bulma$Classes$isDanger;
+					default:
+						return $surprisetalk$elm_bulma$Bulma$Classes$isLink;
+				}
+			}()
+			]));
+};
+var $surprisetalk$elm_bulma$Bulma$Classes$heroBody = $elm$html$Html$Attributes$class('hero-body');
+var $surprisetalk$elm_bulma$Bulma$Layout$heroBody = A2(
+	$surprisetalk$elm_bulma$Helpers$node,
+	'div',
+	_List_fromArray(
+		[$surprisetalk$elm_bulma$Bulma$Classes$heroBody]));
+var $surprisetalk$elm_bulma$Bulma$Layout$heroModifiers = {bold: false, color: $surprisetalk$elm_bulma$Bulma$Modifiers$Default, size: $surprisetalk$elm_bulma$Bulma$Modifiers$Small};
+var $surprisetalk$elm_bulma$Bulma$Classes$is1 = $elm$html$Html$Attributes$class('is-1');
+var $surprisetalk$elm_bulma$Bulma$Classes$is2 = $elm$html$Html$Attributes$class('is-2');
+var $surprisetalk$elm_bulma$Bulma$Classes$is3 = $elm$html$Html$Attributes$class('is-3');
+var $surprisetalk$elm_bulma$Bulma$Classes$is4 = $elm$html$Html$Attributes$class('is-4');
+var $surprisetalk$elm_bulma$Bulma$Classes$is5 = $elm$html$Html$Attributes$class('is-5');
+var $surprisetalk$elm_bulma$Bulma$Classes$is6 = $elm$html$Html$Attributes$class('is-6');
+var $surprisetalk$elm_bulma$Bulma$Classes$title = $elm$html$Html$Attributes$class('title');
+var $surprisetalk$elm_bulma$Bulma$Elements$title = function (size) {
+	return A2(
+		$surprisetalk$elm_bulma$Helpers$node,
+		function () {
+			switch (size.$) {
+				case 'H1':
+					return 'h1';
+				case 'H2':
+					return 'h2';
+				case 'H3':
+					return 'h3';
+				case 'H4':
+					return 'h4';
+				case 'H5':
+					return 'h5';
+				default:
+					return 'h6';
+			}
+		}(),
+		_List_fromArray(
+			[
+				$surprisetalk$elm_bulma$Bulma$Classes$title,
+				function () {
+				switch (size.$) {
+					case 'H1':
+						return $surprisetalk$elm_bulma$Bulma$Classes$is1;
+					case 'H2':
+						return $surprisetalk$elm_bulma$Bulma$Classes$is2;
+					case 'H3':
+						return $surprisetalk$elm_bulma$Bulma$Classes$is3;
+					case 'H4':
+						return $surprisetalk$elm_bulma$Bulma$Classes$is4;
+					case 'H5':
+						return $surprisetalk$elm_bulma$Bulma$Classes$is5;
+					default:
+						return $surprisetalk$elm_bulma$Bulma$Classes$is6;
+				}
+			}()
+			]));
+};
+var $author$project$Main$topText = '\r\nSummarising findings on World Happiness with the data from World Happiness Report 2021.\r\nThe data are until 2020, all non timeseries plots are a mean of the years 2018-2020.\r\nYou can interact with the plots via the dropdowns, once you click on them they are also searchable.\r\nThis first graph below, the scatterplot compares two selected attributes for all Countries. \r\nThey are grouped into region by color. You can find out which country a point represents by hovering your mouse above it.\r\n\r\n';
+var $author$project$Main$headerText = A3(
+	$surprisetalk$elm_bulma$Bulma$Layout$hero,
+	_Utils_update(
+		$surprisetalk$elm_bulma$Bulma$Layout$heroModifiers,
+		{color: $surprisetalk$elm_bulma$Bulma$Modifiers$White, size: $surprisetalk$elm_bulma$Bulma$Modifiers$Small}),
+	_List_Nil,
+	_List_fromArray(
+		[
+			A2(
+			$surprisetalk$elm_bulma$Bulma$Layout$heroBody,
+			_List_Nil,
+			_List_fromArray(
+				[
+					A2(
+					$surprisetalk$elm_bulma$Bulma$Layout$container,
+					_List_Nil,
+					_List_fromArray(
+						[
+							A3(
+							$surprisetalk$elm_bulma$Bulma$Elements$title,
+							$surprisetalk$elm_bulma$Bulma$Elements$H2,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$elm$html$Html$text('World Happiness 2021')
+								])),
+							A2($elm$html$Html$span, _List_Nil, _List_Nil),
+							$elm$html$Html$text($author$project$Main$topText)
+						]))
+				]))
+		]));
 var $elm$html$Html$main_ = _VirtualDom_node('main');
 var $surprisetalk$elm_bulma$Bulma$Modifiers$Standard = {$: 'Standard'};
 var $surprisetalk$elm_bulma$Bulma$Classes$content = $elm$html$Html$Attributes$class('content');
@@ -9929,7 +9935,7 @@ var $author$project$Main$dropDown_ts_cat = A2(
 var $author$project$Displaydata$get_float_att = F2(
 	function (_float, cntry) {
 		switch (_float) {
-			case 'ladder_score':
+			case 'Happiness Score':
 				return function ($) {
 					return $.ladder_score;
 				}(cntry);
@@ -9945,27 +9951,27 @@ var $author$project$Displaydata$get_float_att = F2(
 				return function ($) {
 					return $.l_whisker;
 				}(cntry);
-			case 'lg_gdp_pc':
+			case 'Logged GDP per capita':
 				return function ($) {
 					return $.lg_gdp_pc;
 				}(cntry);
-			case 'social_support':
+			case 'Social support':
 				return function ($) {
 					return $.social_support;
 				}(cntry);
-			case 'life_expectancy':
+			case 'Life expectancy':
 				return function ($) {
 					return $.life_expectancy;
 				}(cntry);
-			case 'freedom_lc':
+			case 'Freedom to make life choices':
 				return function ($) {
 					return $.freedom_lc;
 				}(cntry);
-			case 'generosity':
+			case 'Generosity':
 				return function ($) {
 					return $.generosity;
 				}(cntry);
-			case 'pc_corruption':
+			case 'Perceived corruption':
 				return function ($) {
 					return $.pc_corruption;
 				}(cntry);
@@ -11036,6 +11042,28 @@ var $author$project$Displaydata$scatterplot = F6(
 						xyPoints))
 				]));
 	});
+var $author$project$Main$textPolar = A3(
+	$surprisetalk$elm_bulma$Bulma$Layout$hero,
+	_Utils_update(
+		$surprisetalk$elm_bulma$Bulma$Layout$heroModifiers,
+		{color: $surprisetalk$elm_bulma$Bulma$Modifiers$White, size: $surprisetalk$elm_bulma$Bulma$Modifiers$Small}),
+	_List_Nil,
+	_List_fromArray(
+		[
+			A2(
+			$surprisetalk$elm_bulma$Bulma$Layout$heroBody,
+			_List_Nil,
+			_List_fromArray(
+				[
+					A2(
+					$surprisetalk$elm_bulma$Bulma$Layout$container,
+					_List_Nil,
+					_List_fromArray(
+						[
+							$elm$html$Html$text(' This following Visualization shows you all attributes for a single country on a circular plot. Each atttribute has its own axis at a different angle with its own scaling. ')
+						]))
+				]))
+		]));
 var $elm_community$typed_svg$TypedSvg$Types$Paint = function (a) {
 	return {$: 'Paint', a: a};
 };
@@ -12318,16 +12346,9 @@ var $author$project$Main$viewHappiness = function (ls) {
 		_List_Nil,
 		_List_fromArray(
 			[
-				A2(
-				$elm$html$Html$p,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$elm$html$Html$text(
-						$elm$core$String$fromInt(
-							$elm$core$List$length(ls.ts_data)))
-					])),
+				A2($elm$html$Html$br, _List_Nil, _List_Nil),
 				A6($author$project$Displaydata$scatterplot, scat_desc, country_category, x_values, y_values, ls.x_axis, ls.y_axis),
+				$author$project$Main$textPolar,
 				$author$project$Main$dropDown_polar,
 				A3(
 				$author$project$Polarplot$drawPolarplot,
@@ -12357,7 +12378,7 @@ var $author$project$Main$view = function (model) {
 						$surprisetalk$elm_bulma$Bulma$CDN$stylesheet,
 						$author$project$Main$fontAwesomeCDN,
 						$author$project$Main$exampleNavbar,
-						$author$project$Main$exampleHero,
+						$author$project$Main$headerText,
 						$author$project$Main$dropDown_x,
 						$author$project$Main$dropDown_y,
 						$author$project$Main$viewHappiness(fullText),

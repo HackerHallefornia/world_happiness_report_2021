@@ -101,16 +101,16 @@ get_str_att str cntry =
 get_float_att : String -> Country_2021 -> Float
 get_float_att float cntry = 
     case float of
-        "ladder_score" ->  .ladder_score cntry
+        "Happiness Score" ->  .ladder_score cntry
         "se_ladder" ->  .se_ladder cntry
         "u_whisker" ->  .u_whisker cntry
         "l_whisker" ->  .l_whisker cntry
-        "lg_gdp_pc" ->  .lg_gdp_pc cntry
-        "social_support" ->  .social_support cntry
-        "life_expectancy" ->  .life_expectancy cntry
-        "freedom_lc" ->  .freedom_lc cntry
-        "generosity" ->  .generosity cntry
-        "pc_corruption" ->  .pc_corruption cntry
+        "Logged GDP per capita" ->  .lg_gdp_pc cntry
+        "Social support" ->  .social_support cntry
+        "Life expectancy" ->  .life_expectancy cntry
+        "Freedom to make life choices" ->  .freedom_lc cntry
+        "Generosity" ->  .generosity cntry
+        "Perceived corruption" ->  .pc_corruption cntry
         _ -> 0
 
 csvString_to_data : String -> List Country_2021

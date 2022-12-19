@@ -46,7 +46,7 @@ view model =
       [ stylesheet
         , fontAwesomeCDN
         , exampleNavbar
-        , exampleHero
+        , headerText
         , dropDown_x
         , dropDown_y
         , (viewHappiness fullText)
@@ -77,9 +77,9 @@ viewHappiness ls =
 
   in     
     container []
-        [ p [] [text <| String.fromInt <|List.length ls.ts_data], 
-          --p [] [text (get_str_att "country_name" frst_elment)], 
-          scatterplot scat_desc country_category x_values y_values ls.x_axis ls.y_axis ,
+        [ br[][]
+          ,scatterplot scat_desc country_category x_values y_values ls.x_axis ls.y_axis ,
+          textPolar,
           dropDown_polar,
           drawPolarplot  p_cntry.country_name p_cntry.ladder_score [p_cntry.lg_gdp_pc, 
                 p_cntry.social_support,p_cntry.life_expectancy,p_cntry.freedom_lc,
@@ -114,7 +114,7 @@ update msg model =
       case result of
         Ok data ->
           (Success <| {data = (csvString_to_data data), ts_data = [emptyts], 
-            y_axis = "ladder_score", x_axis ="life_expectancy", polar_country = "Germany",
+            y_axis = "Happiness Score", x_axis ="Life expectancy", polar_country = "Germany",
             line_1 = "Germany", line_2 = "Chad", ts_cat = "Freedom to make life choices"}, fetchTsData)
           
         Err _ ->
@@ -203,18 +203,22 @@ fetchTsData =
 dropDown_y : Html Msg
 dropDown_y =
   container []
-    [ select
+    [ text "Y Axis   "
+     ,select
         [ on "change" (Json.map Scatterplot_yaxis targetValueIntParse)
         ]
          (List.map(\axisname -> option[value (axisname_to_id axisname)][ Html.text axisname]) axislist)
+      , br[] [ ]
     ]
 dropDown_x : Html Msg
 dropDown_x =
   container []
-    [ select
+    [ text "X Axis   "
+      ,select
         [ on "change" (Json.map Scatterplot_xaxis targetValueIntParse)
         ]
          (List.map(\axisname -> option[value (axisname_to_id axisname)][ Html.text axisname]) axislist)
+
     ]
 -- , selected (-- == )
 dropDown_polar : Html Msg
@@ -349,13 +353,13 @@ axisname_to_id name =
 idToAxis : Int -> String
 idToAxis id = 
       case id of
-       1 -> "ladder_score"
-       5 -> "lg_gdp_pc"
-       6 -> "social_support" 
-       7 -> "life_expectancy"
-       8 -> "freedom_lc" 
-       9 -> "generosity"
-       10 -> "pc_corruption" 
+       1 -> "Happiness Score"
+       5 -> "Logged GDP per capita"
+       6 -> "Social support" 
+       7 -> "Life expectancy"
+       8 -> "Freedom to make life choices" 
+       9 -> "Generosity"
+       10 -> "Perceived corruption" 
        _  -> " "
 
 fontAwesomeCDN
@@ -401,13 +405,34 @@ myBox
       [ text "I'm the box ghost!" ]
     ]
 
-exampleHero : Html Msg
-exampleHero
+headerText : Html Msg
+headerText
   = hero { heroModifiers | color = White, size = Small } []
     [ heroBody []
       [ container []
         [ title H2 [] [ text "World Happiness 2021" ]
-        , text "Summarising findings on World Happiness with the data from World Happiness Report 2021. The data are until 2020, all non timeseries plots are about 2020."]
+        , span [] []
+        , text topText]
+        -- , Html.button [ onClick Changetext ] [ text "Click me" ]]
+      ]
+    ]
+
+topText: String
+topText= """
+Summarising findings on World Happiness with the data from World Happiness Report 2021.
+The data are until 2020, all non timeseries plots are a mean of the years 2018-2020.
+You can interact with the plots via the dropdowns, once you click on them they are also searchable.
+This first graph below, the scatterplot compares two selected attributes for all Countries. 
+They are grouped into region by color. You can find out which country a point represents by hovering your mouse above it.
+
+"""
+
+textPolar : Html Msg
+textPolar
+  = hero { heroModifiers | color = White, size = Small } []
+    [ heroBody []
+      [ container []
+        [ text " This following Visualization shows you all attributes for a single country on a circular plot. Each atttribute has its own axis at a different angle with its own scaling. "]
         -- , Html.button [ onClick Changetext ] [ text "Click me" ]]
       ]
     ]
