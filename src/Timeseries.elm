@@ -52,7 +52,7 @@ ts_scalesListed = {
 
 wt : Float
 wt =
-    600
+    900
 
 
 ht : Float
