@@ -4,19 +4,17 @@ Die Elm Applikation ist in vier verschiedene Dateien/Module aufgeteilt. \texttt{
 Sie greift auf die Module \texttt{Displaydata.elm}, \texttt{Polarplot.elm} und \texttt{Timeseries.elm} zu. 
 Dabei enthält \texttt{Displaydata.elm} die Datenverarbeitungs Funktionalität sowie die Funktionen für die erste Visualisierung, den Scatterplot. 
 Die \texttt{Polarplot.elm} Datei enthält die Funktionen für den Polarplot 
-und die \break \texttt{Timeseries.elm} jene für die Timeseries.\\
-
-In der \texttt{Main.elm} ist die Model View Update Struktur zu finden. 
-Hier wird in der init Funktion der command fetchData aufgerufen welcher die erste HTTP Get anfrage an die Datenseite im Github Repository schickt. 
-Wird diese erfolgreich abgerufen wird ein Model erstellt welches den Datentyp \textit{WorldHappData} hat. 
-Hier werden sowohl die Daten für die Visualisierungen gespeichert, als auch die Einstellungen für diese. Da zu diesem Zeitpunkt erst einer von zwei Datensätzen geladen ist, wird für den zweiten zunächst ein leerer Default abgespeichert. \\
-
-Diese Speicherung löst den zweiten command aus, fetchTsData, dieser stellt den zweiten HTTP get request, dieses Mal für die historischen Daten. Wenn auch diese geladen sind alle Daten für die Seite vorhanden. Im View wird nun die Visualisierung aufgerufen. Hierzu zählen einige Elemente aus dem Bulma Modul welche Textboxen und Styling von HTML in Elm vereinfachen. Die Visualisierungen befinden sich alle in der viewHappiness Funktion. Diese nimmt die Daten und Einstellungen und generiert daraus die Visualisierungen. \\
+und die \break \texttt{Timeseries.elm} jene für die Timeseries.  Zusätzlich besteht noch \texttt{My\_types.elm} Datei, dies enthält die definierten Typen welche von den Modulen geteilt werden. Sie sind ausgesondert um Importschleifen innerhalb der Module zu verhindern.\\
 
 \begin{figure}[ht]
 \centering
 \begin{mdframed}[backgroundcolor=backcolour]
 \begin{minted}[breaklines, linenos, tabsize=2]{Elm}
+
+type Model 
+  =  Failure
+  | Loading
+  | Loaded WorldHappData
 
 type Msg
   = GotText (Result Http.Error String)
@@ -27,11 +25,7 @@ type Msg
   | Timeseries_1 Int
   | Timeseries_2 Int
   | Timeseries_cat Int
-
-type Model 
-  =  Failure
-  | Loading
-  | Success WorldHappData
+  | Click_Scat Int
   
 \end{minted}
 \end{mdframed}
@@ -39,7 +33,40 @@ type Model
     \label{fig:Msg_Model}
 \end{figure}
 
-Wie in  Abbildung.\ref{fig:Msg_Model} zu sehen gibt es zwei Msg Typen die jeweils einen Result HTTP erzeugen. Dies sind die beiden HTTP get Requests die wie vorher genannt zuerst ausgeführt werden. Die restlichen Typen sind die Messages welche die Visualisierungen aktualisiert wenn ein Nutzer mit ihnen interagiert. Dabei wird jeweils aus einem Dropdown ein Element auswählt welches die Msg auslöst und so ein Update erzwingt, hierbei wird ein Int mitgereicht welcher zu einer Änderung der Einstellungen der jeweiligen Visualisierung korrespondiert. Die Einstellung wird im WorldHappData Model aktualisiert.
+In der \texttt{Main.elm} ist die Model View Update Struktur zu finden. 
+Hier wird in der init Funktion der command fetchData aufgerufen welcher die erste HTTP Get anfrage an die Datenseite im Github Repository schickt. 
+Wird diese erfolgreich abgerufen wird ein Model erstellt welches den Datentyp \textit{WorldHappData} hat. 
+Hier werden sowohl die Daten für die Visualisierungen gespeichert, als auch die Einstellungen für diese. Da zu diesem Zeitpunkt erst einer von zwei Datensätzen geladen ist, wird für den zweiten zunächst ein leerer Default abgespeichert. \\
+
+Diese Speicherung löst den zweiten command aus, fetchTsData, dieser stellt den zweiten HTTP get request, dieses Mal für die historischen Daten. Wenn auch diese geladen wurden, sind alle Daten für die Seite vorhanden. Im View wird nun die Visualisierung aufgerufen. Hierzu zählen einige Elemente aus dem Bulma Modul\cite{elm-bulma} welche Textboxen und Styling von HTML in Elm vereinfachen. Die Visualisierungen befinden sich alle in der viewHappiness Funktion. Diese nimmt die Daten und Einstellungen und generiert daraus die Visualisierungen. \\
+
+
+Wie in  Abbildung.\ref{fig:Msg_Model} zu sehen gibt es zwei Msg Typen die jeweils einen Result HTTP erzeugen. Dies sind die beiden HTTP get Requests die wie vorher genannt zuerst ausgeführt werden. Die restlichen Typen sind die Messages welche die Visualisierungen aktualisiert wenn ein Nutzer mit ihnen interagiert. Dabei wird jeweils aus einem Dropdown ein Element auswählt welches die Msg auslöst und so ein Update erzwingt, hierbei wird ein Int mitgereicht welcher zu einer Änderung der Einstellungen der jeweiligen Visualisierung korrespondiert. Die Einstellung wird im WorldHappData Model aktualisiert. \\
+
+\begin{figure}[ht]
+\centering
+\begin{mdframed}[backgroundcolor=backcolour]
+\begin{minted}[breaklines, linenos, tabsize=2]{Elm}
+
+type alias WorldHappData = 
+    { data : List Country_2021,
+      ts_data : List Ts_data,
+      y_axis : String,
+      x_axis : String,
+      polar_country : String,
+      line_1 : String,
+      line_2 : String,
+      ts_cat : String
+    }
+  
+\end{minted}
+\end{mdframed}
+    \caption{WorldHappData, Datentyp des Models}
+    \label{fig:Worldhapp}
+\end{figure}
+
+Hier in Abbildung.\ref{fig:Worldhapp} ist der definierte Datentype des Models abgebildet. Er enthält jegliche Zustände des Modells welche durch die \textit{Type Msg} in Abbildung.\ref{fig:Msg_Model} aktualisiert werden. \\
+
 \newpage
 \subsection{Scatterplot}
 
