@@ -1,8 +1,6 @@
 
 module Displaydata exposing (..)
-import Browser
 import Html exposing (..)
-import Http
 import Color exposing (rgb)
 import Statistics
 import Axis

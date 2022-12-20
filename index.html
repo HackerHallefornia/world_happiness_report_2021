@@ -7458,7 +7458,7 @@ var $author$project$My_types$id_to_ctry_ts = function (id) {
 		case 149:
 			return 'Zimbabwe';
 		default:
-			return 'No historic Data for this country, sorry';
+			return ' ';
 	}
 };
 var $author$project$Main$id_to_ts_category = function (id) {
@@ -7994,7 +7994,7 @@ var $surprisetalk$elm_bulma$Bulma$Elements$title = function (size) {
 			}()
 			]));
 };
-var $author$project$Main$topText = '\r\nSummarising findings on World Happiness with the data from World Happiness Report 2021.\r\nThe data are until 2020, all non timeseries plots are a mean of the years 2018-2020.\r\nYou can interact with the plots via the dropdowns, once you click on them they are also searchable.\r\nThis first graph below, the scatterplot compares two selected attributes for all Countries. \r\nThey are grouped into region by color. You can find out which country a point represents by hovering your mouse above it.\r\n\r\n';
+var $author$project$Main$topText = '\r\nSummarising findings on World Happiness with the data from World Happiness Report 2021.\r\nThe data are until 2020, all non timeseries plots are a mean of the years 2018-2020.\r\nYou can interact with the plots via the dropdowns, once you click on them they are also searchable.\r\nThis first graph below, the scatterplot compares two selected attributes for all Countries. \r\nThey are grouped into region by color. You can find out which country a point represents by hovering your mouse above it.\r\nClick on the point to select this country in the following Plots. \r\n';
 var $author$project$Main$headerText = A3(
 	$surprisetalk$elm_bulma$Bulma$Layout$hero,
 	_Utils_update(
@@ -11116,6 +11116,7 @@ var $author$project$Displaydata$scatterplot = F6(
 						xyPoints))
 				]));
 	});
+var $author$project$Main$polarString = ' This following Visualization shows you all attributes for a single country on a circular plot. \r\nEach atttribute has its own axis at a different angle with its own scaling. \r\nIf you want to know the precise values for an attribute, hover your mouse over the corresponding point. \r\n';
 var $author$project$Main$textPolar = A3(
 	$surprisetalk$elm_bulma$Bulma$Layout$hero,
 	_Utils_update(
@@ -11134,7 +11135,30 @@ var $author$project$Main$textPolar = A3(
 					_List_Nil,
 					_List_fromArray(
 						[
-							$elm$html$Html$text(' This following Visualization shows you all attributes for a single country on a circular plot. Each atttribute has its own axis at a different angle with its own scaling. ')
+							$elm$html$Html$text($author$project$Main$polarString)
+						]))
+				]))
+		]));
+var $author$project$Main$timeseriesString = ' \r\nThis final visualisation alows you to explore historic data for two countries at the same time.\r\nSelect the category and and countries you are interested in. For the historic data there are two more attributes\r\nyou can choose from, positive affect and negative affect. They represent the mood for the country.\r\nIf you used the Scatterplot to select a country the top line might disappear, this just means there is no \r\nhistorical data for this country, try another one. \r\n\r\n\r\n';
+var $author$project$Main$textTimeseries = A3(
+	$surprisetalk$elm_bulma$Bulma$Layout$hero,
+	_Utils_update(
+		$surprisetalk$elm_bulma$Bulma$Layout$heroModifiers,
+		{color: $surprisetalk$elm_bulma$Bulma$Modifiers$White, size: $surprisetalk$elm_bulma$Bulma$Modifiers$Small}),
+	_List_Nil,
+	_List_fromArray(
+		[
+			A2(
+			$surprisetalk$elm_bulma$Bulma$Layout$heroBody,
+			_List_Nil,
+			_List_fromArray(
+				[
+					A2(
+					$surprisetalk$elm_bulma$Bulma$Layout$container,
+					_List_Nil,
+					_List_fromArray(
+						[
+							$elm$html$Html$text($author$project$Main$timeseriesString)
 						]))
 				]))
 		]));
@@ -12433,6 +12457,7 @@ var $author$project$Main$viewHappiness = function (ls) {
 				p_cntry.ladder_score,
 				_List_fromArray(
 					[p_cntry.lg_gdp_pc, p_cntry.social_support, p_cntry.life_expectancy, p_cntry.freedom_lc, p_cntry.generosity, p_cntry.pc_corruption])),
+				$author$project$Main$textTimeseries,
 				$author$project$Main$dropDown_ts1(ls),
 				$author$project$Main$dropDown_ts2(ls),
 				$author$project$Main$dropDown_ts_cat(ls),

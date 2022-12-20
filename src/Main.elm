@@ -9,12 +9,11 @@ import Bulma.Modifiers.Typography exposing (textCentered)
 import Bulma.Form exposing (..)
 import Bulma.Elements exposing (..)
 import Bulma.Components exposing (..)
-import Bulma.Columns as Columns exposing (..)
 import Bulma.Layout exposing (..)
 import Http
-import Html exposing ( Html, Attribute, main_,  span, a, p, img ,br, text, strong, option, small, input, i , select, label)
-import Html.Attributes exposing ( attribute, style, src, placeholder, type_, href, rel, class , value, selected)
-import Html.Events exposing (onClick, on)
+import Html exposing ( Html,  main_,  span, p, img ,br, text, strong, option, select)
+import Html.Attributes exposing ( src, href, rel, value, selected)
+import Html.Events exposing ( on)
 import Html.Events.Extra exposing (targetValueIntParse)
 import Json.Decode as Json
 
@@ -75,6 +74,7 @@ viewHappiness ls =
           drawPolarplot  p_cntry.country_name p_cntry.ladder_score [p_cntry.lg_gdp_pc, 
                 p_cntry.social_support,p_cntry.life_expectancy,p_cntry.freedom_lc,
                 p_cntry.generosity,p_cntry.pc_corruption],
+          textTimeseries,
           dropDown_ts1 ls,
           dropDown_ts2 ls,
           dropDown_ts_cat ls,
@@ -412,7 +412,7 @@ The data are until 2020, all non timeseries plots are a mean of the years 2018-2
 You can interact with the plots via the dropdowns, once you click on them they are also searchable.
 This first graph below, the scatterplot compares two selected attributes for all Countries. 
 They are grouped into region by color. You can find out which country a point represents by hovering your mouse above it.
-
+Click on the point to select this country in the following Plots. 
 """
 
 textPolar : Html Msg
@@ -420,11 +420,38 @@ textPolar
   = hero { heroModifiers | color = White, size = Small } []
     [ heroBody []
       [ container []
-        [ text " This following Visualization shows you all attributes for a single country on a circular plot. Each atttribute has its own axis at a different angle with its own scaling. "]
+        [ text polarString]
         -- , Html.button [ onClick Changetext ] [ text "Click me" ]]
       ]
     ]
 
+polarString: String
+polarString = """ This following Visualization shows you all attributes for a single country on a circular plot. 
+Each atttribute has its own axis at a different angle with its own scaling. 
+If you want to know the precise values for an attribute, hover your mouse over the corresponding point. 
+"""
+
+
+textTimeseries: Html Msg
+textTimeseries
+  = hero { heroModifiers | color = White, size = Small } []
+    [ heroBody []
+      [ container []
+        [ text timeseriesString]
+        -- , Html.button [ onClick Changetext ] [ text "Click me" ]]
+      ]
+    ]
+
+timeseriesString: String
+timeseriesString = """ 
+This final visualisation alows you to explore historic data for two countries at the same time.
+Select the category and and countries you are interested in. For the historic data there are two more attributes
+you can choose from, positive affect and negative affect. They represent the mood for the country.
+If you used the Scatterplot to select a country the top line might disappear, this just means there is no 
+historical data for this country, try another one. 
+
+
+"""
 
 myfooter : Html Msg
 myfooter
