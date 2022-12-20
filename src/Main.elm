@@ -11,7 +11,7 @@ import Bulma.Elements exposing (..)
 import Bulma.Components exposing (..)
 import Bulma.Layout exposing (..)
 import Http
-import Html exposing ( Html,  main_,  span, p, img ,br, text, strong, option, select)
+import Html exposing ( Html,  main_, a, span, p, img ,br, text, strong, option, select)
 import Html.Attributes exposing ( src, href, rel, value, selected)
 import Html.Events exposing ( on)
 import Html.Events.Extra exposing (targetValueIntParse)
@@ -400,10 +400,10 @@ headerText
       [ container []
         [ title H2 [] [ text "World Happiness 2021" ]
         , span [] []
-        , text topText]
+        , text topText      
         -- , Html.button [ onClick Changetext ] [ text "Click me" ]]
       ]
-    ]
+    ]]
 
 topText: String
 topText= """
@@ -437,10 +437,13 @@ textTimeseries
   = hero { heroModifiers | color = White, size = Small } []
     [ heroBody []
       [ container []
-        [ text timeseriesString]
+        [ text timeseriesString
+        , br [][]
+        , a [href "https://worldhappiness.report/"][text "Click here if you want to learn more about the World Happiness Report"]]
+        ]
         -- , Html.button [ onClick Changetext ] [ text "Click me" ]]
       ]
-    ]
+    
 
 timeseriesString: String
 timeseriesString = """ 

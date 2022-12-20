@@ -17,7 +17,7 @@ Country name &
 Regional indicator &
   Region zu welcher das Land gehört \\ \hline
 Ladder score &
-  \begin{tabular}[c]{@{}l@{}}Der Zufriedenheits Wert. Durchschnittliche Antwort auf die Frage: {[}Please imagine a ladder, with steps numbered from 0 at the\\ bottom to 10 at the top. The top of the ladder represents the best possible life\\ for you and the bottom of the ladder represents the worst possible life for you.\\ On which step of the ladder would you say you personally feel you stand at this\\ time?{]}\end{tabular} \\ \hline
+  \begin{tabular}[c]{@{}l@{}}Der Zufriedenheits Wert.\end{tabular} \\ \hline
 Logged GDP per capita &
   Log umgewandeltes Bruttoinslandseinkommen pro Kopf \\ \hline
 Social support &
@@ -25,33 +25,34 @@ Social support &
 Healthy life expectancy &
   Daten von der WHO über die gesunde Lebenserwartung im Land. \\ \hline
 Freedom to make life choices &
-  Nationaler Durchschnitt auf die Frage: {[}Are you satised or dissatised with your freedom to choose what
-you do with your life?{]} \\ \hline
+  \begin{tabular}[c]{@{}l@{}}Nationaler Durchschnitt auf die Frage: {[}Are you satisfied or dissatisfied \\
+    with your freedom to choose what you do with your life?{]} \end{tabular}\\ \hline
 Generosity &
-  Nationaler Durchschnitt auf die Frage, {[}Have you donated money to a charity in the past month?{]}, regressiert auf das Bruttoinlandsprodukt pro Kopf. \\ \hline
+  \begin{tabular}[c]{@{}l@{}}Nationaler Durchschnitt auf die Frage, {[}Have you donated money to a charity in the \\ past month?{]}, regressiert auf das Bruttoinlandsprodukt pro Kopf\end{tabular} \\ 
+\hline 
 Perceptions of corruption &
   \begin{tabular}[c]{@{}l@{}}Nationaler Durchschnitt auf die Fragen: {[}Is corruption widespread throughout\\ the government or not{]} und {[}Is corruption widespread within businesses or not?{]}\end{tabular} \\ \hline
 \end{tabular}%
 }
-\caption{Der erste Datensatz, Durchschnittswerte aus 2018-2020}
+\caption{Größen aus dem ersten Datensatz.}
 \label{Tab:dat_1}
 \end{table}
 
-Nutzen für erreichen der Lösung???
+Tabelle \ref{Tab:dat_1} enthält die Größen des ersten Datensatzes und deren grobe Beschreibungen. Der \textit{Ladder Score} ist der Zufriedenheitswert oder Happiness Score. Der Kernwert des World Happiness Reports. Er wird \textit{Ladder Score} genannt aufgrund der Frage mit der er in Umfragen erfasst wird. Diese lautet unübersetzt: \textit{Please imagine a ladder, with steps numbered from 0 at the
+bottom to 10 at the top. The top of the ladder represents the best possible life
+for you and the bottom of the ladder represents the worst possible life for you.
+On which step of the ladder would you say you personally feel you stand at this
+time?"} \cite{helliwell_world_2021}. Der nationale Durchschnitt aus Antworten auf dies Frage bildet dann den Happiness Score. \\
 
-Tabelle \ref{Tab:dat_1} enthält die Größen des ersten Datensatzes und deren Beschreibungen. Allerdings wurden einiger Variablen weggelassen. Jede der Variablen nach \textit{Ladder score} hatte eine weiter Instanz mit einer statischen Verechnung dieser um eine \textit{Explained by} Größe zu bilden. Diese stellen dar wie stark diese Größe wohl den erreichten Ladder Score erklärt. Da diese Variablen eher komplex sind und bereits im \textit{World Happiness Report}  ausführlich dargestellt werden, wurden sie nicht verwendet. Die verwendeten Fragen für die Variablenerfassung wurden nicht aus dem Englischen Übersetzt um deren Bedeutung nicht zu verzerren. Weiter Statistische Größen die ausgelassen wurden, sind der \textit{Standard Error}, \textit{lower whisker} und \textit{upper whisker}. \\
+Allerdings wurden einiger Variablen weggelassen. Jede der Variablen nach \textit{Ladder score} hatte eine weiter Instanz mit einer statischen Verechnung dieser um eine \textit{Explained by} Größe zu bilden. Diese stellen dar wie stark diese Größe wohl den erreichten Ladder Score erklärt. Da diese Variablen eher komplex sind und bereits im \textit{World Happiness Report}  ausführlich dargestellt werden, wurden sie nicht verwendet. Die verwendeten Fragen für die Variablenerfassung wurden nicht aus dem Englischen Übersetzt um deren Bedeutung nicht zu verzerren. Weiter Statistische Größen die ausgelassen wurden, sind der \textit{Standard Error}, \textit{lower whisker} und \textit{upper whisker}. \\
 
-Der zweite Datensatz enthält alle der in Tabelle \ref{Tab:dat_1} enthaltenen numerischen Größen und zusätzlich noch die Größen \textit{positive affect} und \textit{negative affect}
-
-
-
+Der zweite Datensatz enthält alle der in Tabelle \ref{Tab:dat_1} enthaltenen numerischen Größen und zusätzlich noch die Größen \textit{positive affect} und \textit{negative affect}. Diese stellen Durchschnittswerte auf eine weiter Befragung dar. Für \textit{positive affect} ist sind es drei Fragen. Ob man innerhalb des Tages häufig Glücksgefühle erlebt, häufig lacht oder häufig zufrieden ist. Dies werden getrennt gestellt dann zusammen gefasst es ergibt sich eine Zahl zwischen 0 und 1. Das gleiche Prinzip gilt für \textit{negative affect}. Hier sind die erfragten Emotionen Sorge, Trauer und Wut. 
 
 \subsection{Datenvorverarbeitung}
 
 Die Daten wurden zuerst auf Vollständigkeit geprüft. Die Zusammengefassten Daten waren bereits vollständigkeit und wiesen keine fehlenden Einträge auf. Bei den Zeitreihendaten gab es einige fehlenden Einträge. Immer wieder wurden in einem Jahr nur wenige Werte eingetragen, oder es fehlten ganze Jahre. Als erster Schritt wurden alle Länder entfernt, welche nnicht in den Zusammenfassungsdaten vorhanden waren um eine Vergleichsbasis zu schaffen. Anschließend wurden noch unvollständige Jahreseinträge entfernt. Fehlende Einträge kompletter Jahre wurden nicht ergänzt und die entsprechenden Länder aber auch nicht aus der Liste genommen. Dies hätte den Datensatz sonst stark dezimiert. Die fehlenden Jahresdaten werden im Scatterplot einfach interpoliert. 
 
-Die Daten Aufbereitung fand in Python statt. 
-[CODE]
+Die überflüssigen Spalten aus der \texttt{world-happiness-report-2021.csv} wurden mit einem addon der IDE VSCode entfernt. Das waren die Daten Felder, welche \textit{Explained by:} enhielten, dies wurden absichtlich ausgelassen, wie zuvor erwähnt . Die Verarbeitung der Zeitreihendaten fand durch einen kurzen Pythonskript statt. Die Einträge mit fehlenden Werte wurden entfernt und so eine gekürzt Version geschaffen. Eine alternative wäre es gewesen die Daten hier zu interpolieren, davon wurde abgesehen, da innerhalb der Zeitreihenvisualisierung ohnehin zwischen Datenpunkten interpoliert wird. Fehlt ein Eintrag in einem Jahr wird direkt eine Linie zum nächsten Jahr gezeichnet. 
 
 \subsection{Datenbereitstellung}
 
