@@ -70,6 +70,17 @@ Hier in Abbildung.\ref{fig:Worldhapp} ist der definierte Datentype des Models ab
 \newpage
 \subsection{Scatterplot}
 
-Der Scatterplot baut in großen Teilen auf die bereits in den Übungen verwendeten Elemente auf. Hier werden auch dynamisch skalierte Achsen und nach Klassen angepasste Punkte eingesetzt. Um die Ländergruppen identifizieren zu können wurde eine Legende über dem Scatterplot hinzugefügt, diese besteht aus Rechtecken aus dem Typed.Svg Modul und zugehörigem Text. Die Funktion selbst nimmt 6 Argumente entgegen. Zwei Stringlisten, das sind die Ländernamen für jeden Punkt und die Region zu welcher sie gehören. Zwei \texttt{List Float} welche die x und y Werte für die jeweilig ausgewählten Attribute enthalten und noch zwei String welche die zugehörigen x-Achsen und y-Achsen Labels enthalten. 
+Der Scatterplot baut in großen Teilen auf die bereits in den Übungen verwendeten Elemente auf. Hier werden auch dynamisch skalierte Achsen und nach Klassen angepasste Punkte eingesetzt. Um die Ländergruppen identifizieren zu können wurde eine Legende über dem Scatterplot hinzugefügt, diese besteht aus Rechtecken aus dem Typed.Svg Modul und zugehörigem Text. Die Funktion selbst nimmt 6 Argumente entgegen. Zwei Stringlisten, das sind die Ländernamen für jeden Punkt und die Region zu welcher sie gehören. Zwei \texttt{List Float} welche die x und y Werte für die jeweilig ausgewählten Attribute enthalten und noch zwei String welche die zugehörigen x-Achsen und y-Achsen Labels enthalten. \\
 
-Diese 
+Die größte Änderung und Schwierigkeit und Abweichung vom in der Übung erstellten Scatterplots ist die Klick-Interaktion. Nutzer können die einzelnen Punkt anklicken und so die anderen Plots beeinflussen. Hierfür wurde ein onClick Event aus dem \textbf{TypedSvg} Modul verwendet \cite{typedsvg}. Dieses greift auf die in Abbildung.\ref{fig:Msg_Model} dargestellten Msg Types zu und löst den Typ \textit{Click\_scat} aus. 
+Dieser aktualisiert dann die Auswahl des Landes im Polarplot und die erste Landesauswahl im Zeitreihen Plot. 
+
+\subsection{Polarplot}
+
+Der Polarplot basiert nicht auf den Übungsaufgaben, sondern auf einer Beispielvisualisierung von Gampleman \cite{polarplot}. Diese musste stark modifiziert werden um die finale Darstellung zu erhalten. Gampleman bietet keine Funktion mit der sich Punkte einzeichnen lassen, allerdings bieten die gezeichneten Achsen auf dem Beispiel eine gute Grundlage hierfür. Mittels eines winkels und einem skalierten y Wert lassen sich Koordinaten ansteuern. Dieses Prinzio wurde übernommen und sechs Achsen geschaffen die den Kreis in gleichgroße Teile teilen. \\
+
+Die Polarplot Funktion nimmt eine Liste von 6 Floats und zeichnet für jeden von ihnen auf einer der Achsen einen Punkt. Die Reihenfolge der Punkte korrespondiert hierbei mit der Reihenfolge der Achsen. Jede der Achsen hat eine angepasste Skalierung auf den Zahlenraum der darzustellenden Größe. Daher gibt es auf ein Liste von Skalen auf die hier zurückgegriffen wird. 
+
+\subsection{Zeitreihe}
+
+Diese Darstellung war wohl mit am einfachsten Umzusetzen, auch hier ist die Basis eine Gampleman Visualisierung, diese musste jedoch nicht ganz so stark modifiziert werden. Es handelt sich hier um den \textit{Lineplot} von Gampleman.\cite{linechart} Diese implementiert bereits eine zeitlich geordnete X-Achse. Für die gegebenen Daten war es allerdings nicht notwendig die komplexität von Zeitbasierten Datentypen zu verwenden. Die Jahreszahlen als Float zu verwenden war hier ausreichend und vereinfachte auch die Umsetzung der Visualisierung. 
