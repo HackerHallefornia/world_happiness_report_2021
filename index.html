@@ -2,7 +2,8 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Main</title>
+  <title>World Happiness Visualization</title>
+  <link rel="icon" type="image/png" href="https://worldhappiness.report/assets/images/icons/favicon-32x32.png">  <style>body { padding: 0; margin: 0; }</style>
   <style>body { padding: 0; margin: 0; }</style>
 </head>
 
@@ -7848,7 +7849,7 @@ var $author$project$Main$exampleNavbar = A3(
 							_List_Nil,
 							_List_fromArray(
 								[
-									$elm$html$Html$text(' Project for Information Retrieval and Visualization 2022')
+									$elm$html$Html$text(' Project for Information Retrieval and Visualization 2022, Johannes Boldt')
 								]))
 						]))
 				]))
@@ -8028,6 +8029,7 @@ var $author$project$Main$headerText = A3(
 		]));
 var $elm$html$Html$main_ = _VirtualDom_node('main');
 var $surprisetalk$elm_bulma$Bulma$Modifiers$Standard = {$: 'Standard'};
+var $elm$html$Html$a = _VirtualDom_node('a');
 var $surprisetalk$elm_bulma$Bulma$Classes$content = $elm$html$Html$Attributes$class('content');
 var $surprisetalk$elm_bulma$Bulma$Classes$isSmall = $elm$html$Html$Attributes$class('is-small');
 var $surprisetalk$elm_bulma$Bulma$Elements$content = function (size) {
@@ -8057,8 +8059,6 @@ var $surprisetalk$elm_bulma$Bulma$Layout$footer = A2(
 	'footer',
 	_List_fromArray(
 		[$surprisetalk$elm_bulma$Bulma$Classes$footer]));
-var $elm$html$Html$p = _VirtualDom_node('p');
-var $elm$html$Html$strong = _VirtualDom_node('strong');
 var $surprisetalk$elm_bulma$Bulma$Classes$hasTextCentered = $elm$html$Html$Attributes$class('has-text-centered');
 var $surprisetalk$elm_bulma$Bulma$Modifiers$Typography$textCentered = $surprisetalk$elm_bulma$Bulma$Classes$hasTextCentered;
 var $author$project$Main$myfooter = A2(
@@ -8079,17 +8079,32 @@ var $author$project$Main$myfooter = A2(
 					_List_fromArray(
 						[
 							A2(
-							$elm$html$Html$p,
-							_List_Nil,
+							$elm$html$Html$a,
 							_List_fromArray(
 								[
-									A2(
-									$elm$html$Html$strong,
-									_List_Nil,
-									_List_fromArray(
-										[
-											$elm$html$Html$text('Johannes Boldt')
-										]))
+									$elm$html$Html$Attributes$href('https://worldhappiness.report/')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('World Happiness Report')
+								]))
+						])),
+					A3(
+					$surprisetalk$elm_bulma$Bulma$Elements$content,
+					$surprisetalk$elm_bulma$Bulma$Modifiers$Standard,
+					_List_fromArray(
+						[$surprisetalk$elm_bulma$Bulma$Modifiers$Typography$textCentered]),
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$a,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$href('https://github.com/HackerHallefornia/world_happiness_report_2021')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Github Repo')
 								]))
 						]))
 				]))
@@ -11139,7 +11154,6 @@ var $author$project$Main$textPolar = A3(
 						]))
 				]))
 		]));
-var $elm$html$Html$a = _VirtualDom_node('a');
 var $author$project$Main$timeseriesString = ' \r\nThis final visualisation alows you to explore historic data for two countries at the same time.\r\nSelect the category and and countries you are interested in. For the historic data there are two more attributes\r\nyou can choose from, positive affect and negative affect. They represent the mood for the country.\r\nIf you used the Scatterplot to select a country the top line might disappear, this just means there is no \r\nhistorical data for this country, try another one. \r\n\r\n\r\n';
 var $author$project$Main$textTimeseries = A3(
 	$surprisetalk$elm_bulma$Bulma$Layout$hero,
@@ -11160,17 +11174,7 @@ var $author$project$Main$textTimeseries = A3(
 					_List_fromArray(
 						[
 							$elm$html$Html$text($author$project$Main$timeseriesString),
-							A2($elm$html$Html$br, _List_Nil, _List_Nil),
-							A2(
-							$elm$html$Html$a,
-							_List_fromArray(
-								[
-									$elm$html$Html$Attributes$href('https://worldhappiness.report/')
-								]),
-							_List_fromArray(
-								[
-									$elm$html$Html$text('Click here if you want to learn more about the World Happiness Report')
-								]))
+							A2($elm$html$Html$br, _List_Nil, _List_Nil)
 						]))
 				]))
 		]));

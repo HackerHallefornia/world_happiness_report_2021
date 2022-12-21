@@ -373,25 +373,11 @@ exampleNavbar
       ]
     , navbarMenu False []
       [ navbarStart [] 
-        [ navbarItemLink False [] [ text " Project for Information Retrieval and Visualization 2022"  ]
+        [ navbarItemLink False [] [ text " Project for Information Retrieval and Visualization 2022, Johannes Boldt"  ]
         ]
       ]
     ]
 
-
-myFluidContainer : Html msg
-myFluidContainer
-  = container []
-    [ p [] [ text "This container fills the screen-width..." ]
-    , p [] [ text "...until it hits the widescreen breakpoint." ]
-    ]
-
-myBox : Html msg
-myBox 
-  = box []
-    [ p [] 
-      [ text "I'm the box ghost!" ]
-    ]
 
 headerText : Html Msg
 headerText
@@ -439,11 +425,10 @@ textTimeseries
       [ container []
         [ text timeseriesString
         , br [][]
-        , a [href "https://worldhappiness.report/"][text "Click here if you want to learn more about the World Happiness Report"]]
         ]
         -- , Html.button [ onClick Changetext ] [ text "Click me" ]]
       ]
-    
+    ]
 
 timeseriesString: String
 timeseriesString = """ 
@@ -460,11 +445,7 @@ myfooter : Html Msg
 myfooter
   = footer []
     [ container []
-      [ content Standard [ textCentered ]
-        [ p []
-          [ strong [] [ text "Johannes Boldt" ]
-          ]
+      [ content Standard [ textCentered ] [ a [href "https://worldhappiness.report/"][text "World Happiness Report"]]
+         , content Standard [ textCentered ][a [href "https://github.com/HackerHallefornia/world_happiness_report_2021"][text "Github Repo"] ]
         ]
-      ]
     ]
-      
