@@ -3,23 +3,19 @@ In diesem Kapitel werden die Anwendungsaufgaben die zu lösen sind analysiert un
 
 \subsection{Analyse}
 
-Das Ziel der Visualisierungen ist es die \textit{World Happiness Report} Daten intuitiv und einfach zugänglich zu machen und es der Zielgruppe zu ermöglichen Länder und deren Ranking zu identifizieren. Auch einzelne Länder und deren Variablen sollen schnell zugänglich sein. Zudem sollen sie in der Lage sein Zusammenhänge in den Daten identifizieren zu können und die zeitliche Entwicklung der Daten zu verfolgen. \\
+Das Ziel der Visualisierungen ist es die \textit{World Happiness Report} Daten intuitiv und einfach zugänglich zu machen und es der Zielgruppe zu ermöglichen Länder und deren Happiness Score zu identifizieren. Auch einzelne Länder und deren Variablen sollen schnell zugänglich sein. Zudem sollen sie in der Lage sein Zusammenhänge in den Daten identifizieren zu können und die zeitliche Entwicklung der Daten zu verfolgen. \\
 
-Hierfür ist es entscheidend, die einzelnen Anwendungsaufgaben durch verschiedene Visualisierungen abzudecken und möglichst klar die benötigten Informationen zu vermitteln. 
-Am sinnvollsten ist es vermutlich mit einem Überblick in die Daten also einer allgemeineren Visualisierung zu beginnen um einen Eindruck für die Daten und deren Zusammenhänge zu vermitteln. \\
+Hierfür ist es entscheidend, die einzelnen Anwendungsaufgaben durch verschiedene Visualisierungen abzudecken und möglichst klar die benötigten Informationen zu vermitteln.
+Am sinnvollsten ist es mit einem Überblick in die Daten also einer allgemeineren Visualisierung zu beginnen um einen Eindruck für die Daten und deren Zusammenhänge zu vermitteln. Im Anschluss sollten die Visualisierungen Folgen welche Detailierte Daten über einzelne Länder darstellen. \\
 
 \subsection{Anforderungen}
-Die Anforderungen an die Visualisierungen sind vielfältig. Sie werden fallen für jede der Zielprobleme leicht unterschiedlich aus. Allgemein ist die Anforderung einfach verständliche Visualierungen zu verwenden, welche wenig bis gar kein Hintergrundwissen über Datenvisualisierungsmethoden erfordern. Damit fallen bereits einige Methoden weg. Die Anforderungen werden nach Visualisierungszielen auf die drei Vorgegebenen Visualisierungen verteilt.\\
+Die Anforderungen an die Visualisierungen sind vielfältig. Sie werden fallen für jedes der Zielprobleme leicht unterschiedlich aus. Allgemein ist die Anforderung einfach verständliche Visualierungen zu verwenden, welche wenig bis gar kein Hintergrundwissen über Datenvisualisierungsmethoden erfordern. Damit fallen bereits einige Methoden weg. Die Anforderungen werden nach Visualisierungszielen auf die drei Vorgegebenen Visualisierungen verteilt.\\
 
-1st vis: größen vergleichen, lesbarkeit, Ländergruppen und Länder identifizieren, Muster sichtbar machen
+Um die Länder und deren erfasste Variablen miteinander Vergleichen zu können muss ein Auswahl von Variablen und Identifizierung der Länder möglich sein. Dies liegt daran das sich 6 Variablen kaum visuell deutlich gleichzeitig für alle Länder darstellen lassen. Daher ist es sinnvoller jeweils nur ein oder zwei Attribute darzustellen. Die Wahl zwischen den Attributen soll durch Nutzerinteraktion geschehen. Zusätzlich sollten Nutzer in der Lage sein das Land mit dem ein Datenpunkt verknüpft ist herausfinden zu können. So wird die Visualisierung Aussagekräftiger und Interaktiver.\\
 
-2nd vis: Alle Variablen für ein Land auf einem Blick, Suche eines Landes, Einordnung im Vergleich zum Datenraum. 
+Um auch einen direkten Vergleich aller Attribute zu ermöglichen ist es sinnvoll die Möglichkeit zu bieten jeweils nur ein Land zu betrachten, für dieses jedoch alle Attribute zu zeigen. Hier muss auf einen Blick erkennbar sein wie die Attribute zueinander aufgestellt sind. Zudem sollten die Daten in einem festen visuellen Raum dargestellt werden sodass ein visueller Kontext für jedes Attribut besteht. Auch hier muss Nutzerinteraktion ermöglicht werden um alle Länder in dieser Weise einzeln zu betrachten. Wichtig ist, das der Nutzer in der Lage ist ein Land zu suchen, da er wahrscheinlich daran interessiert ist bestimmte Länder zu betrachten die ihn interessieren.\\
 
-3rd: historische daten imKontext anzeigen, entwicklungen sichtbar machen, vergleich ermöglichen. 
-
-Um die Länder und deren erfasste Variablen miteinander Vergleichen zu können muss ein Auswahl von Variablen und Identifizierung der Länder möglich sein. Dies liegt daran das sich 6 Variablen kaum visuell deutlich gleichzeitig für alle Länder darstellen lassen. Daher ist es sinnvoller jeweils nur ein oder zwei Attribute darzustellen. Dies soll durch Nutzerinteraktion geschehen. \\
-
-Um auch einen direkten Vergleich aller Attribute zu ermöglichen ist es sinnvoll die Möglichkeit zu bieten jeweils nur ein Land zu betrachten, für dieses jedoch alle Attribute zu zeigen. Hier muss auf einen Blick erkennbar sein wie die Attribute zueinander aufgestellt sind. Auch hier muss Nutzerinteraktion ermöglicht werden um alle Länder in dieser Weise einzeln zu betrachten. \\
+Für die Darstellung der historischen Daten ist natürlich notwendig die Zeit als Größe in der Visualisierung darzustellen. Diese sollte dabei so in die Visualisierung einfließen, das Entwicklungen sichtbar werden. Zudem sollte ein Vergleich zwischen verschiedenen Ländern möglich sein. Auch hier ist eine festgelegte Dimensionierung notwendig um den Kontext zu allen anderen Ländern zu erhalten während nicht alle Länder angezeigt werden.  
 
 \subsubsection{Visualisierung 1: Scatterplot}
 
@@ -31,8 +27,9 @@ Der Scatterplot soll möglich Muster in den Daten aufzeigen können und die Vert
  \caption{Scatterplot mit Bedienelementen}
  \label{fig:scatterplot}
 \end{figure}
+\vspace{0.5cm}
 
-Möchte man einen Punkt identifizieren kann man mit dem Mauszeiger über diesem schweben, dann erscheint wie in Abbildung \ref{fig:scatterplot} der Landesname über dem Punkt. In diesem Beispiel ist es Zimbabwe. 
+Der Scatterplot skaliert die jeweils angezeigten Größen dynamisch, sodass möglichst viel des verfügbaren Raumes mit Datenpunkten ausgefüllt ist. Dies hilft dabei Muster und einzelne Datenpunkte besser sichtbar zu machen. Die Daten bieten sich für diese Art der Visualisierung an. Es nicht zu viele Datenpunkte um den Plot unübersichtlich zu machen, wie in Abbildung.\ref{fig:scatterplot} zu sehen gibt es nur wenige stark überlappende Punkte. Es sind gleichzeitig ausreichend Datenpunkte um Muster leicht zu identifizieren. Möchte man einen einzelnen Punkt identifizieren kann man mit dem Mauszeiger über diesem schweben, dann erscheint wie in Abbildung \ref{fig:scatterplot} der Landesname über dem Punkt. In diesem Beispiel ist es Zimbabwe. 
 
 
 \subsubsection{Visualisierung 2: Polarplot}
@@ -53,9 +50,9 @@ Eine Alternative Visualisierung währen hier Parallel Koordinaten gewesen. Diese
 
 \subsubsection{Visualisierung 3: Zeitreihe}
 
-Die letzte Darstellung verwendet den zweiten Datensatz aus dem World Happiness Report auf Kaggle. Hier werden die historischen Daten dargestellt. Der Nutzer hat die Möglichkeit hier eine Größe zweier Länder zeitlich zu betrachten. Dies ermöglicht den Vergleich der Länder über einen Zeitraum von ca. 15 Jahren. Es lässt sich hier ein Eindruck darüber zu gewinnen wie statisch die verschiedenen Größen in verschiedenen Ländern verhalten. \\
+Die letzte Darstellung verwendet den zweiten Datensatz aus dem World Happiness Report auf Kaggle. Hier werden die historischen Daten dargestellt. Der Nutzer hat die Möglichkeit hier eine Größe zweier Länder zeitlich zu betrachten. Dies ermöglicht den Vergleich der Länder über einen Zeitraum von ca. 15 Jahren. Es lässt sich hier ein Eindruck darüber zu gewinnen wie statisch die verschiedenen Größen in verschiedenen Ländern verhalten. 
 
-Hier gibt es kaum andere Möglichkeiten diese Zeitliche Entwicklung darzustellen. Möglicherweise hätte man die Jahreswerte auch mittels eines Balkendiagrammes für die jeweils ausgewählten Länder darstellen können. Allerdings wird hier der Zusammenhang, beziehungsweise die zeitliche Entwicklung nicht klar dargestellt. 
+Hier gibt es kaum andere Möglichkeiten diese Zeitliche Entwicklung darzustellen. Möglicherweise hätte man die Jahreswerte auch mittels eines Balkendiagrammes für die jeweils ausgewählten Länder darstellen können. Allerdings wird hier der Zusammenhang, beziehungsweise die zeitliche Entwicklung nicht klar dargestellt. \\
 
 \begin{figure}[h]
  \centering
@@ -64,7 +61,9 @@ Hier gibt es kaum andere Möglichkeiten diese Zeitliche Entwicklung darzustellen
  \label{fig:timeseries}
 \end{figure}
 
-Zu beachten ist bei dieser Darstellung, dass sie mit etwas unvollständigen Daten arbeitet. Die beiden vorherigen Darstellungen haben für jedes Land und jede Größe einen Wert. Hier fehlen bei einigen Länder Werte in einigen Jahren. Die fehlenden Jahre wurden hier durch das Zeichnen der Linien interpoliert. Dadurch haben alle Länder ununterbrochene Linien, sie starten und Enden aber in unterschiedlichen Jahren. Es wurde keine Extrapolation durchgeführt um Jahre zu ergänzen. Jedoch sind hier auch zwei weitere Größen verfügbar welche im ersteen Datensatz nicht enthalten sind. \textit{Positive Affect} und \textit{Negative Affect}. Sozusagen die Stimmung des jeweiligen Landes. Leider waren diese für die Durchschnitte nicht gegeben. Von einer nachträglichen ergänzung wurde abgesehen. 
+Für diese Darstellung war die Wahl eines passenden Aspect Ratios entscheidend. Dieses hat großen Einfluss darauf wie deutlich Veränderungen zu sehen sind und wie vergleichbar sie untereinander sind. Hier wäre es möglich gewesen eine  Methode wie \textit{Banking to 45 degree} anzuwenden. Allerding wären die Ergebnisse für jedes paar von Ländern etwas unterschiedlich ausgefallen und somit eine Darstellung entstanden die immer ihre Größe ändert. Daher wurden einige Aspect Ratios ausprobiert und eines dann als Standard festgelegt.\\
+
+Zu beachten ist bei dieser Darstellung, dass sie mit etwas unvollständigen Daten arbeitet. Die beiden vorherigen Darstellungen haben für jedes Land und jede Größe einen Wert. Hier fehlen bei einigen Länder Werte in einigen Jahren. Die fehlenden Jahre wurden hier durch das Zeichnen der Linien interpoliert. Dadurch haben alle Länder ununterbrochene Linien, sie starten und Enden aber in unterschiedlichen Jahren. Es wurde keine Extrapolation durchgeführt um Jahre zu ergänzen. Jedoch sind hier auch zwei weitere Größen verfügbar welche im ersten Datensatz nicht enthalten sind. \textit{Positive Affect} und \textit{Negative Affect}. Sozusagen die Stimmung des jeweiligen Landes. Leider waren diese für die Durchschnitte nicht gegeben. Von einer nachträglichen Ergänzung wurde abgesehen. 
 
 \subsection{Interaktion}
 
@@ -73,6 +72,4 @@ Der Scatterplot weist die meisten Interaktionsmöglichkeiten auf. Es lassen sich
 Allerdings ist hier nicht nur die Information über den Landesnamen enthalten. Klickt der Nutzer auf den Datenpunkt werden die beiden anderen Plots angepasst. Der Polarplot wechselt auf das angeklickte Land. So lässt sich das Land im Detail mit allen zur Verfügung stehenden Größen betrachten. Die Zeitreihen Darstellung setzt das angeklickte Land als \textbf{Land 1} fest. Hier sind nun auch die historischen Daten schnell zugänglich. Diese Mechanik soll das Erforschen des Datensatzes intuitiver machen. Hier ist noch anzumerken, dass es ein paar wenige Länder gibt bei denen die erste Linie verschwinden wird. Diese Länder fehlen in den historischen Daten. Es wurde sich bewusst dazu entschieden hier auf eine leere Linie zu wechseln. So wird klar, dass für diesen Wert keine Daten bestehen. Andernfalls würde wohl auf einen Programmfehler geschlossen.\\
 
 Auch mit dem Polarplot ist es möglich zu interagieren, durch  über den Datenpunkten wird hier der genaue Wert für den jeweiligen Punkt angezeigt. 
-Mit dem links oben platzierten Dropdown lässt sich ein Land aussuchen, welches den Nutzer interessiert. Es handelt sich hier um insgesamt 149 Länder, was im Dropdown unübersichtlich wird. Allerdings ist es möglich das Dropdown zu durchsuchen sobald man es angeklickt hat. Um den Nutzer darauf aufmerksam zu machen ist hierzu ein Hinweis  am Beginn der Visualisierungsseite platziert. \\
-
-Für die Zeitreihe sind drei Dropdowns verfügbar es lassen sich zwei Länder aus den historischen Datensets aussuchen, wie auch beim Polarplot lassen sich die Dropdowns durchsuchen. Das dritte Dropdown Menü ist für die Betrachtete Kategorie.
+Mit dem links oben platzierten Dropdown lässt sich ein Land aussuchen, welches den Nutzer interessiert. Es handelt sich hier um insgesamt 149 Länder, was im Dropdown unübersichtlich wird. Allerdings ist es möglich das Dropdown zu durchsuchen sobald man es angeklickt hat. Um den Nutzer darauf aufmerksam zu machen ist hierzu ein Hinweis  am Beginn der Visualisierungsseite platziert. Für die Zeitreihe sind drei Dropdowns verfügbar es lassen sich zwei Länder aus den historischen Datensets aussuchen, wie auch beim Polarplot lassen sich die Dropdowns durchsuchen. Das dritte Dropdown Menü ist für die Betrachtete Kategorie.

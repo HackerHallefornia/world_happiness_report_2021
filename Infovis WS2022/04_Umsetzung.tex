@@ -34,7 +34,7 @@ type Msg
 \end{figure}
 
 In der \texttt{Main.elm} ist die Model View Update Struktur zu finden. 
-Hier wird in der init Funktion der command fetchData aufgerufen welcher die erste HTTP Get anfrage an die Datenseite im Github Repository schickt. 
+Hier wird in der init Funktion der command fetchData aufgerufen welcher die erste HTTP Get Anfrage an die Datenseite im Github Repository schickt. 
 Wird diese erfolgreich abgerufen wird ein Model erstellt welches den Datentyp \textit{WorldHappData} hat. 
 Hier werden sowohl die Daten für die Visualisierungen gespeichert, als auch die Einstellungen für diese. Da zu diesem Zeitpunkt erst einer von zwei Datensätzen geladen ist, wird für den zweiten zunächst ein leerer Default abgespeichert. \\
 
