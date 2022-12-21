@@ -11,13 +11,13 @@ Der erste Anwendungsfall soll die Einordnung von Ländergruppen zum Happiness Sc
  \label{fig:scatterplot_anw}
 \end{figure}
 
-Der Nutzer kann auf dem Plot eine Idee davon bekommen in welchen bereichen der Happiness Score Verteilung die Länder der einzelnen Regionen sich befinden. So sind die meisten Länder aus Westeuropa bei ca. über 6 Punkten und solche aus Sub Sahara Afrika bei unter 5.5 Punkten. \\
+Der Nutzer kann auf dem Plot eine Idee davon bekommen in welchen Bereichen der Happiness Score Verteilung die Länder der einzelnen Regionen sich befinden. So sind die meisten Länder aus Westeuropa bei ca. über 6 Punkten und solche aus Sub Sahara Afrika bei unter 5.5 Punkten. \\
 
-Auch ungefähre Zusammenhänge, also Korrelationen, lassen sich hier visuell leicht erkennen. Alle Punkte befinden sich auf einem aufsteigenden Korridor von der linken untern zur rechten oberen Ecke. Eine höhere Lebenserwartung Korreliert also positiv mit einem höheren Happiness Score. Eine genaue Korrelation lässt sich nicht visuell bestimmen, dies ist aber auch nicht der Anspruch. \\
+Auch ungefähre Zusammenhänge, also Korrelationen, lassen sich hier visuell leicht erkennen. Alle Punkte befinden sich auf einem aufsteigenden Korridor von der linken untern zur rechten oberen Ecke. Eine höhere Lebenserwartung korreliert also positiv mit einem höheren Happiness Score. Eine genaue Korrelation lässt sich nicht visuell bestimmen, dies ist aber auch nicht der Anspruch. \\
 
 \subsection{Polarplot}
 
-Im zweiten Anwendungsfall geht es darum alle Informationen über ein Land zu erhalten. Viele Nutzer wird es interessieren was die Statistiken zu ihrem Land sind. Der Scatterplot ermöglicht es zwar die Ländernamen herauszufinden, aber es wäre viel aufwand ein bestimmtes Land unter all den angezeigten Punkten zu finden. Daher gibt es im Polarplot ein zugehöriges Dropdown Menü mit dem man ein Land aussuchen kann. Das verwendete HTML Element ermöglich es auch dieses zu durchsuchen. Klickt der Nutzer also das Dropdown an und beginnt dann seinen Landesnamen einzutippen wird das Dropdown das entsprechende Land anzeigen. \\
+Im zweiten Anwendungsfall geht es darum alle Informationen über ein Land zu erhalten. Viele Nutzer wird es interessieren wie die Statistiken zu ihrem Land aussehen. Der Scatterplot ermöglicht es zwar die Ländernamen herauszufinden, aber es wäre viel Aufwand ein bestimmtes Land unter all den angezeigten Punkten zu finden. Daher gibt es im Polarplot ein zugehöriges Dropdown Menü mit dem man ein Land aussuchen kann. Das verwendete HTML Element ermöglich es auch dieses zu durchsuchen. Klickt der Nutzer also das Dropdown an und beginnt dann seinen Landesnamen einzutippen wird das Dropdown das entsprechende Land anzeigen. \\
 
 \begin{figure}[h]
  \centering
@@ -26,13 +26,13 @@ Im zweiten Anwendungsfall geht es darum alle Informationen über ein Land zu erh
  \label{fig:polar_example}
 \end{figure}
 
-In Abbildung \ref{fig:polar_example} wurde Deutschland als Land ausgewählt. Nun sind alle Größen über DEutschland für den Nutzer sichtbar. Der Happiness Score wird unter dem Landesnamen angezeigt, während die restlichen Größen sich im Polarplot befinden. Das Zielscheibenartige Layout macht es recht einfach die Position der abgebildeten Punkte schnell wahrnehmen zu können. \\
+In Abbildung \ref{fig:polar_example} wurde Deutschland als Land ausgewählt. Nun sind alle Größen über Deutschland für den Nutzer sichtbar. Der Happiness Score wird unter dem Landesnamen angezeigt, während die restlichen Größen sich im Polarplot befinden. Das Zielscheibenartige Layout macht es recht einfach die Position der abgebildeten Punkte schnell wahrnehmen zu können. \\
 
-Hier sind die Daten auch nach den entsprechenden Skalen angepasst. Variabeln welche mögliche Werte von 0-1 haben werden hier auch auf einer Skala von 0-1 eingetragen. Solche die kein theoretisches Maximum haben bekommen einen Maximalwert der nahe dem größten Wert aus dem Datensatz ist. Dies ist ein Unterschied zur Skalierung im Scatterplot, welche dynamisch stattfindet um möglichst viel des Plots mit Daten zu füllen und Muster so sichtbarer zu machen. 
+Hier sind die Daten auch nach den entsprechenden Skalen angepasst. Größen welche mögliche Werte von 0-1 haben werden hier auch auf einer Skala von 0-1 eingetragen. Solche die kein theoretisches Maximum haben bekommen einen Maximalwert der nahe dem größten Wert aus dem Datensatz ist. Dies ist ein Unterschied zur Skalierung im Scatterplot, welche dynamisch stattfindet um möglichst viel des Plots mit Daten zu füllen und Muster so sichtbarer zu machen. Im Polarpolarplot ist es sinnvoll die Skalen konstant zu halten um eine visuelle Einordnung zu ermöglichen.
 
 \subsection{Zeitreihe}
 
-Die Zeitreihen Visualisierung soll dazu dienen die Werte in historischen Kontext zu stellen und Entwicklungen der einzelnen Länder sichtbar und Vergleichbar zu machen. Der Nutzer wird sich vermutlich dafür interessieren wie sich sein eigenes Land entwickelt hat und wie es im Vergleich zu anderen Ländern dasteht. Diese Ansprüche deckt diese Visualisierung ab. Es ist möglich die Stetigkeit der Entwicklung eines Landes nachzuvollziehen.\\
+Die Zeitreihen Visualisierung soll dazu dienen die Werte in historischen Kontext zu stellen und Entwicklungen der einzelnen Länder sichtbar und vergleichbar zu machen. Der Nutzer wird sich vermutlich dafür interessieren wie sich sein eigenes Land entwickelt hat und wie es im Vergleich zu anderen Ländern dasteht. Diese Ansprüche deckt diese Visualisierung ab. Es ist möglich die Stetigkeit der Entwicklung eines Landes nachzuvollziehen.\\
 
 \begin{figure}[h]
  \centering
